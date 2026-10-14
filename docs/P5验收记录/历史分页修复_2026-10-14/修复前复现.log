@@ -1,0 +1,19 @@
+Start testing: Oct 14 12:57 中国标准时间
+----------------------------------------------------------
+42/42 Testing: p5_group_state
+42/42 Test: p5_group_state
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_group_state_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_group_state" start time: Oct 14 12:57 中国标准时间
+Output:
+----------------------------------------------------------
+FAIL older messages loaded but not brought into view
+<end of output>
+Test time =   1.65 sec
+----------------------------------------------------------
+Test Failed.
+"p5_group_state" end time: Oct 14 12:57 中国标准时间
+"p5_group_state" time elapsed: 00:00:01
+----------------------------------------------------------
+
+End testing: Oct 14 12:57 中国标准时间

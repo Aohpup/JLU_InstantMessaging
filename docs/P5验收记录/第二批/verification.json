@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-12",
+  "ctest_second_batch": [
+    "p5_protocol: passed",
+    "p5_chat: passed (10 process scenarios)"
+  ],
+  "first_batch_regression": "p5_socket: passed (4 process scenarios)",
+  "compilers": [
+    "MinGW 15.2 local-debug: network targets and original console built",
+    "MinGW 13.1 gui-debug: network targets and original console built"
+  ],
+  "changed_existing_source_files": [
+    "src/network/TcpPeerLJY.cpp",
+    "src/network/TcpPeerLJY.h"
+  ],
+  "unchanged_existing_files": 85,
+  "database_sha256": "cde1bbadc4e2cb46ba37323f831029b93cfdc35fd47851683062a1374acf8b60",
+  "cancel_ms": {
+    "fragmented_and_coalesced_frames_active_cancel": 62.0,
+    "cancel_during_handshake": 93.0,
+    "cancel_during_listening": 78.0,
+    "cancel_pending_connect_local_backlog": 47.0
+  },
+  "scope": "Only loopback networking; GUI and database schema/data unchanged; no LAN test or release update."
+}

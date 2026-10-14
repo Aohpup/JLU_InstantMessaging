@@ -1,0 +1,19 @@
+Start testing: Oct 14 11:07 中国标准时间
+----------------------------------------------------------
+35/35 Testing: p5_ui_refinement
+35/35 Test: p5_ui_refinement
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_ui_refinement_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_ui_refinement" start time: Oct 14 11:07 中国标准时间
+Output:
+----------------------------------------------------------
+PASS six-line preview/expand/collapse/wrap/refresh, sidebar order, avatar row selection, friend detail without disconnect, compact actions, 900x600
+<end of output>
+Test time =   1.41 sec
+----------------------------------------------------------
+Test Passed.
+"p5_ui_refinement" end time: Oct 14 11:07 中国标准时间
+"p5_ui_refinement" time elapsed: 00:00:01
+----------------------------------------------------------
+
+End testing: Oct 14 11:07 中国标准时间

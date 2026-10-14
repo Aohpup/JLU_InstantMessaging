@@ -1,0 +1,24 @@
+{
+  "changed_source": [
+    "src/gui/CardSurfaceLJY.h",
+    "src/gui/MainWindowLJY.cpp",
+    "src/gui/MessagesPageLJY.cpp",
+    "src/gui/theme.qss"
+  ],
+  "tests_passed": [
+    "p4_visual_revision",
+    "p4_visual_reload",
+    "p5_chat_gui"
+  ],
+  "builds_passed": [
+    "gui-debug",
+    "gui-release"
+  ],
+  "formal_db_unchanged": true,
+  "formal_db_sha256": "cde1bbadc4e2cb46ba37323f831029b93cfdc35fd47851683062a1374acf8b60",
+  "visual_inspection": [
+    "A-wide.png",
+    "B-small.png"
+  ],
+  "scope": "Sidebar glass/shadow and per-message sender avatar; network and persistence unchanged"
+}

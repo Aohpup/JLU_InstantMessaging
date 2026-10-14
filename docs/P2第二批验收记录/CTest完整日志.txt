@@ -1,0 +1,124 @@
+Start testing: Sep 10 19:08 中国标准时间
+----------------------------------------------------------
+1/5 Testing: p1_steps34
+1/5 Test: p1_steps34
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p1_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p1_steps34" start time: Sep 10 19:08 中国标准时间
+Output:
+----------------------------------------------------------
+PASS invalid dates
+PASS anniversaries
+PASS people and shared managers
+PASS profile validation
+PASS shared IDs in both orders
+PASS independent IDs and queries
+PASS open rejections
+PASS dates across profile and accounts
+PASS nickname ownership
+PASS binding and duplicates
+PASS binding ownership and types
+PASS service polymorphism
+12/12 scenario groups passed.
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"p1_steps34" end time: Sep 10 19:08 中国标准时间
+"p1_steps34" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/5 Testing: p1_steps56
+2/5 Test: p1_steps56
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p1_session_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p1_steps56" start time: Sep 10 19:08 中国标准时间
+Output:
+----------------------------------------------------------
+PASS password
+PASS registration
+PASS authentication
+PASS anonymous guards
+PASS service confirmation
+PASS logout and relogin
+PASS shared credentials
+PASS session isolation
+PASS binding
+PASS profile and nickname
+PASS console input
+PASS console registration cancellation
+PASS console full flow
+PASS console EOF
+PASS console rejections
+15/15 scenario groups passed.
+<end of output>
+Test time =   6.96 sec
+----------------------------------------------------------
+Test Passed.
+"p1_steps56" end time: Sep 10 19:08 中国标准时间
+"p1_steps56" time elapsed: 00:00:06
+----------------------------------------------------------
+
+3/5 Testing: p1_binding_history
+3/5 Test: p1_binding_history
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p1_binding_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p1_binding_history" start time: Sep 10 19:08 中国标准时间
+Output:
+----------------------------------------------------------
+PASS 5 binding-history scenarios.
+<end of output>
+Test time =   4.48 sec
+----------------------------------------------------------
+Test Passed.
+"p1_binding_history" end time: Sep 10 19:08 中国标准时间
+"p1_binding_history" time elapsed: 00:00:04
+----------------------------------------------------------
+
+4/5 Testing: p2_friends
+4/5 Test: p2_friends
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p2_friend_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p2_friends" start time: Sep 10 19:08 中国标准时间
+Output:
+----------------------------------------------------------
+PASS relation model
+PASS add and guards
+PASS independent remarks and removal
+PASS service isolation
+PASS session identity
+PASS friend menu
+6/6 friend scenario groups passed.
+<end of output>
+Test time =   1.83 sec
+----------------------------------------------------------
+Test Passed.
+"p2_friends" end time: Sep 10 19:08 中国标准时间
+"p2_friends" time elapsed: 00:00:01
+----------------------------------------------------------
+
+5/5 Testing: p2_recommendations
+5/5 Test: p2_recommendations
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p2_recommendation_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p2_recommendations" start time: Sep 10 19:08 中国标准时间
+Output:
+----------------------------------------------------------
+PASS same-service intersection
+PASS six mapping directions
+PASS actor and source guards
+PASS filtering and same-name identity
+PASS WeChat-Weibo QQ bridge
+PASS recheck before commit
+PASS session access
+PASS recommendation menus
+8/8 recommendation scenario groups passed.
+<end of output>
+Test time =   1.93 sec
+----------------------------------------------------------
+Test Passed.
+"p2_recommendations" end time: Sep 10 19:08 中国标准时间
+"p2_recommendations" time elapsed: 00:00:01
+----------------------------------------------------------
+
+End testing: Sep 10 19:08 中国标准时间

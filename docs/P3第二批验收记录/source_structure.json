@@ -1,0 +1,36 @@
+{
+  "classes": [
+    "DateLJY",
+    "FriendQueryResultLJY",
+    "FriendRelationLJY",
+    "GroupLJY",
+    "GroupMemberLJY",
+    "GroupRequestLJY",
+    "PasswordCredentialLJY",
+    "PersonLJY",
+    "ServiceAccountLJY",
+    "AccountServiceLJY",
+    "FriendManagerLJY",
+    "GroupManagerLJY",
+    "GroupPolicyLJY",
+    "PlatformLJY",
+    "QQGroupPolicyLJY",
+    "QQServiceLJY",
+    "SessionManagerLJY",
+    "SocialServiceLJY",
+    "WeChatGroupPolicyLJY",
+    "WeChatServiceLJY",
+    "WeiboServiceLJY",
+    "SqliteStorageLJY",
+    "ConsoleAppLJY"
+  ],
+  "enums": [
+    "GroupRequestStateLJY",
+    "GroupRequestTypeLJY",
+    "ServiceTypeLJY",
+    "AccountIdModeLJY",
+    "GroupOperationLJY",
+    "GroupStyleLJY",
+    "ServiceLoginStateLJY"
+  ]
+}

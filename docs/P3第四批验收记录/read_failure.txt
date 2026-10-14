@@ -1,0 +1,2 @@
+数据库位置：D:\C_code\Cpp_test\JLU_InstantMessaging\build\debug\p3_batch4\invalid.db
+程序启动失败：执行数据库语句失败：file is not a database

@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/gui">
+        <file alias="chevron.xpm">icons/chevron.xpm</file>
+        <file alias="app.png">icons/app.png</file>
+        <file alias="theme.qss">theme.qss</file>
+    </qresource>
+</RCC>

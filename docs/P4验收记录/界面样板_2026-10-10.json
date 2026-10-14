@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-10",
+  "result": "PASS",
+  "runs": [
+    {
+      "arguments": [
+        "--demo"
+      ],
+      "started_and_closed": true
+    },
+    {
+      "arguments": [
+        "--empty"
+      ],
+      "started_and_closed": true
+    },
+    {
+      "arguments": [
+        "--database",
+        "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\build\\gui-debug\\p4_batch1\\实际窗口启动.db"
+      ],
+      "started_and_closed": true
+    },
+    {
+      "arguments": [
+        "--database",
+        "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\build\\gui-debug\\p4_batch1\\实际窗口启动.db"
+      ],
+      "started_and_closed": true
+    }
+  ],
+  "database_counts": {
+    "persons": 6,
+    "accounts": 12,
+    "groups": 18
+  },
+  "formal_database_unchanged": true,
+  "ela_commit": "aae58f5d0d98e05eabe10c263aa7da5f2491d702",
+  "ela_configure": "rejected Qt 6.8.3; compilation not attempted",
+  "route": "B: existing Qt Widgets, no Ela dependency",
+  "ctest": "17/17 passed; final layout 4/4 GUI passed",
+  "exe_sha256": "b28d930f53d0244c760d764f69e56f1b5e3a31f2f0ce44bc2b49d97672c0d20b"
+}

@@ -1,0 +1,3 @@
+PASS demo: 18 groups, service isolation, roles, invalid input, new registration and non-member rejection.
+PASS empty: original account numbering and blank group container.
+PASS invalid arguments: no silent fallback.

@@ -1,0 +1,2 @@
+数据库位置：D:\C_code\Cpp_test\JLU_InstantMessaging\build\debug\p3_acceptance\读取失败副本.db
+程序启动失败：数据库绑定必须属于同一人的微信和 QQ 账号。

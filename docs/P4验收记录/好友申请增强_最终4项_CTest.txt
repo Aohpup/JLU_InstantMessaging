@@ -1,0 +1,67 @@
+Start testing: Oct 12 20:18 中国标准时间
+----------------------------------------------------------
+20/23 Testing: p4_subgroups_gui
+20/23 Test: p4_subgroups_gui
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_subgroups_gui_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_subgroups_gui" start time: Oct 12 20:18 中国标准时间
+Output:
+----------------------------------------------------------
+PASS: child creation, parent cascade, mode preservation, selection, real SQLite rollback and all close choices
+<end of output>
+Test time =   1.38 sec
+----------------------------------------------------------
+Test Passed.
+"p4_subgroups_gui" end time: Oct 12 20:18 中国标准时间
+"p4_subgroups_gui" time elapsed: 00:00:01
+----------------------------------------------------------
+
+21/23 Testing: p4_subgroups_reload
+21/23 Test: p4_subgroups_reload
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_subgroups_gui_tests.exe" "-platform" "offscreen" "--reload"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_subgroups_reload" start time: Oct 12 20:18 中国标准时间
+Output:
+----------------------------------------------------------
+PASS: subgroup hierarchy, owner, members, preservation and discard restored in separate process
+<end of output>
+Test time =   0.26 sec
+----------------------------------------------------------
+Test Passed.
+"p4_subgroups_reload" end time: Oct 12 20:18 中国标准时间
+"p4_subgroups_reload" time elapsed: 00:00:00
+----------------------------------------------------------
+
+22/23 Testing: p4_social_gui
+22/23 Test: p4_social_gui
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_social_gui_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_social_gui" start time: Oct 12 20:18 中国标准时间
+Output:
+----------------------------------------------------------
+PASS old database migration, city 3/1/repeat, request send/reject/accept, persistence, sidebar, icon, embedded dialog and stable feedback
+<end of output>
+Test time =   1.36 sec
+----------------------------------------------------------
+Test Passed.
+"p4_social_gui" end time: Oct 12 20:19 中国标准时间
+"p4_social_gui" time elapsed: 00:00:01
+----------------------------------------------------------
+
+23/23 Testing: p4_social_reload
+23/23 Test: p4_social_reload
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_social_gui_tests.exe" "-platform" "offscreen" "--reload"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_social_reload" start time: Oct 12 20:19 中国标准时间
+Output:
+----------------------------------------------------------
+PASS request states and pending acceptance restored in separate process
+<end of output>
+Test time =   0.28 sec
+----------------------------------------------------------
+Test Passed.
+"p4_social_reload" end time: Oct 12 20:19 中国标准时间
+"p4_social_reload" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Oct 12 20:19 中国标准时间

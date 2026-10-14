@@ -1,0 +1,34 @@
+{
+  "status": "passed",
+  "directory": "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\build\\gui-debug\\p5_batch4\\gui_pair_5an6hj3o",
+  "platform": "Qt offscreen, production MainWindow widgets",
+  "processes": [
+    {
+      "role": "A",
+      "pid": 48720,
+      "exit_code": 0,
+      "output": "LISTENING\nPASS GUI A: login, selection, two sent/two received, ACK, page navigation, resize, close\n"
+    },
+    {
+      "role": "B",
+      "pid": 48496,
+      "exit_code": 0,
+      "output": "PASS GUI B: login, selection, two sent/two received, ACK, page navigation, resize, close\n"
+    }
+  ],
+  "port": 53663,
+  "reload": [
+    {
+      "role": "A",
+      "exit_code": 0,
+      "output": "PASS reopened GUI A: four messages restored without connecting\n",
+      "rows": 4
+    },
+    {
+      "role": "B",
+      "exit_code": 0,
+      "output": "PASS reopened GUI B: four messages restored without connecting\n",
+      "rows": 4
+    }
+  ]
+}

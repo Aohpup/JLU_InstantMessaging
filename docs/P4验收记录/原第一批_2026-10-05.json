@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-05",
+  "scope": "P4 第一批顺序 1—3",
+  "result": "PASS",
+  "terminal_ctest": {
+    "passed": 13,
+    "failed": 0
+  },
+  "gui_toolchain_core_ctest": {
+    "passed": 13,
+    "failed": 0
+  },
+  "gui_ctest": {
+    "passed": [
+      "p4_gui",
+      "p4_gui_reload"
+    ],
+    "failed": []
+  },
+  "actual_executable": {
+    "date": "2026-10-05",
+    "result": "PASS",
+    "runs": [
+      {
+        "arguments": [
+          "--demo"
+        ],
+        "started_and_closed": true
+      },
+      {
+        "arguments": [
+          "--empty"
+        ],
+        "started_and_closed": true
+      },
+      {
+        "arguments": [
+          "--database",
+          "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\build\\gui-debug\\p4_batch1\\实际窗口启动.db"
+        ],
+        "started_and_closed": true
+      },
+      {
+        "arguments": [
+          "--database",
+          "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\build\\gui-debug\\p4_batch1\\实际窗口启动.db"
+        ],
+        "started_and_closed": true
+      }
+    ],
+    "database_counts": {
+      "persons": 6,
+      "accounts": 12,
+      "groups": 18
+    },
+    "formal_database_unchanged": true
+  },
+  "old_sources_and_formal_database_unchanged": true,
+  "original_local_debug_entries_unchanged": true,
+  "expected_changed_existing_files": [
+    "CMakeLists.txt",
+    "CMakeUserPresets.json"
+  ],
+  "gui_executable_sha256": "7fad1cbe405e5030eb14de9e762fc4af3730a5fc6b377a74b542af57297c37c5",
+  "qt": "6.8.3",
+  "gui_compiler": "MinGW 13.1.0",
+  "terminal_compiler": "MinGW 15.2.0"
+}

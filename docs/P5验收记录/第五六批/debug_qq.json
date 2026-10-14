@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "directory": "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\build\\gui-debug\\p5_final\\qq\\gui_pair_zwts2mfq",
+  "platform": "Qt offscreen, production MainWindow widgets",
+  "processes": [
+    {
+      "role": "A",
+      "pid": 49048,
+      "exit_code": 0,
+      "output": "LISTENING\nPASS GUI A: login, selection, two sent/two received, ACK, page navigation, resize, close\n"
+    },
+    {
+      "role": "B",
+      "pid": 46440,
+      "exit_code": 0,
+      "output": "PASS GUI B: login, selection, two sent/two received, ACK, page navigation, resize, close\n"
+    }
+  ],
+  "port": 62612,
+  "service": 0,
+  "address": "127.0.0.1",
+  "reload": [
+    {
+      "role": "A",
+      "exit_code": 0,
+      "output": "PASS reopened GUI A: six messages restored without connecting\n",
+      "rows": 6
+    },
+    {
+      "role": "B",
+      "exit_code": 0,
+      "output": "PASS reopened GUI B: six messages restored without connecting\n",
+      "rows": 6
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-10",
+  "changed_files": [
+    "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\src\\gui\\AccountPageLJY.cpp",
+    "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\src\\gui\\AccountPageLJY.h",
+    "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\src\\gui\\MainWindowLJY.cpp",
+    "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\src\\gui\\theme.qss",
+    "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\src\\services\\AccountServiceLJY.cpp",
+    "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\src\\services\\AccountServiceLJY.h",
+    "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\src\\services\\SessionManagerLJY.cpp",
+    "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\src\\services\\SessionManagerLJY.h",
+    "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\tests\\p4_gui_tests.cpp"
+  ],
+  "gui_tests": "4/4 passed",
+  "overall_tests": "16 passed; p1_binding_history not run: OS operation not permitted",
+  "standard_exe_updated": true,
+  "preview_exe": "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\build\\gui-debug\\bin\\jlu_im_gui_account_preview.exe",
+  "preview_sha256": "342c5dbe98222d4f7003879ffa6bdd640fd86c932909e3af2d0b1db10b77afbc",
+  "formal_database_hash": "Development start unavailable; unchanged before/after standard-exe delivery check.",
+  "standard_exe": "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\build\\gui-debug\\bin\\jlu_im_gui.exe",
+  "standard_sha256": "6c4bcacd30ad1c6b9d828235b2a6f5771758f017872564b41dab48afb1918144",
+  "delivery_check": "one --demo start and normal close only; earlier passed functional tests not repeated",
+  "outstanding_test": "p1_binding_history only retried after app close; still not started: operation not permitted. Cause unconfirmed.",
+  "latest_ui_adjustment": {
+    "date": "2026-10-10",
+    "changes": [
+      "all runtime page feedback routed to fixed footer above database path",
+      "error pale red bar; normal black text with transparent background",
+      "registration account number displayed in footer instead of result popup"
+    ],
+    "tests": "4/4 GUI tests passed; 900x600 footer visibility and scroll position verified; core tests not rerun"
+  }
+}

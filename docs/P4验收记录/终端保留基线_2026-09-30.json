@@ -1,0 +1,14 @@
+{
+  "date": "2026-09-30",
+  "status": "方案阶段，终端源码与配置未修改",
+  "protected_files": {
+    "src/main.cpp": "5faea6c2e3329b01052f582a205c226fbf666488c68e0ad60787ac650c03556b",
+    "src/ui/ConsoleAppLJY.h": "1eef1928193eac40a47a17a156d9cdddf61ce0a1257cb2ad3e71a41cb9373eea",
+    "src/ui/ConsoleAppLJY.cpp": "d44f71c6e810f149040fa25e6c783de80225a3571819b45646ca7c2488f35b7d",
+    "CMakePresets.json": "862fa323b952cc7e7c7efcddec6b9cc25606a4052df593a66bef769d2cff62d4",
+    "CMakeUserPresets.json": "a961aad1e7288bd611b980a70edd03cfd8eba075cd58b5a3d1fc535d2f15c09c",
+    ".vscode/tasks.json": "c4847ccd506304a830504f558b0d13a79775010f71df8be80f785c3dcef7498e",
+    ".vscode/launch.json": "2c49e3d667b9e6207fd8ead156ece4c8e675d84c98285c710a55b0e3f82d79f6"
+  },
+  "note": "后续 GUI 开发优先保持这些文件原样；CMake 根文件允许追加条件 GUI 目标，核心类仅在实际需要时做最小修改。"
+}

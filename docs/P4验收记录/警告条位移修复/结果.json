@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "source_changes": [
+    "src\\gui\\UiFeedbackLJY.h"
+  ],
+  "controlled_animation_ms": [
+    0,
+    48,
+    96,
+    320
+  ],
+  "rendered_left_edge_logical_px": [
+    236,
+    231,
+    241,
+    236
+  ],
+  "warning_size_logical_px": [
+    844,
+    42
+  ],
+  "duration_ms": 320,
+  "native_platform": "Windows, display scale 150%, captured client window",
+  "tests": [
+    "p4_visual_revision",
+    "p4_visual_reload"
+  ],
+  "builds": [
+    "gui-debug",
+    "gui-release"
+  ],
+  "formal_db_unchanged": true
+}

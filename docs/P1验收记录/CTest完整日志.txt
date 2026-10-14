@@ -1,0 +1,78 @@
+Start testing: Sep 10 17:38 中国标准时间
+----------------------------------------------------------
+1/3 Testing: p1_steps34
+1/3 Test: p1_steps34
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p1_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p1_steps34" start time: Sep 10 17:38 中国标准时间
+Output:
+----------------------------------------------------------
+PASS invalid dates
+PASS anniversaries
+PASS people and shared managers
+PASS profile validation
+PASS shared IDs in both orders
+PASS independent IDs and queries
+PASS open rejections
+PASS dates across profile and accounts
+PASS nickname ownership
+PASS binding and duplicates
+PASS binding ownership and types
+PASS service polymorphism
+12/12 scenario groups passed.
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"p1_steps34" end time: Sep 10 17:38 中国标准时间
+"p1_steps34" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/3 Testing: p1_steps56
+2/3 Test: p1_steps56
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p1_session_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p1_steps56" start time: Sep 10 17:38 中国标准时间
+Output:
+----------------------------------------------------------
+PASS password
+PASS registration
+PASS authentication
+PASS anonymous guards
+PASS service confirmation
+PASS logout and relogin
+PASS shared credentials
+PASS session isolation
+PASS binding
+PASS profile and nickname
+PASS console input
+PASS console registration cancellation
+PASS console full flow
+PASS console EOF
+PASS console rejections
+15/15 scenario groups passed.
+<end of output>
+Test time =   6.97 sec
+----------------------------------------------------------
+Test Passed.
+"p1_steps56" end time: Sep 10 17:38 中国标准时间
+"p1_steps56" time elapsed: 00:00:06
+----------------------------------------------------------
+
+3/3 Testing: p1_binding_history
+3/3 Test: p1_binding_history
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p1_binding_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p1_binding_history" start time: Sep 10 17:38 中国标准时间
+Output:
+----------------------------------------------------------
+PASS 5 binding-history scenarios.
+<end of output>
+Test time =   4.66 sec
+----------------------------------------------------------
+Test Passed.
+"p1_binding_history" end time: Sep 10 17:38 中国标准时间
+"p1_binding_history" time elapsed: 00:00:04
+----------------------------------------------------------
+
+End testing: Sep 10 17:38 中国标准时间

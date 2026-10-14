@@ -1,0 +1,11 @@
+/* XPM */
+static const char *chevron[] = {
+"9 5 2 1",
+". c None",
+"x c #526F70",
+"xxxxxxxxx",
+".xxxxxxx.",
+"..xxxxx..",
+"...xxx...",
+"....x...."
+};

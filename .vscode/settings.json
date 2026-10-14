@@ -1,0 +1,21 @@
+{
+  "cmake.cmakePath": "C:/mingw64/bin/cmake.exe",
+  "cmake.useCMakePresets": "always",
+  "cmake.configureOnOpen": false,
+  "editor.hover.enabled": "on",
+  "C_Cpp.hover": "default",
+  "C_Cpp.intelliSenseEngine": "default",
+  "terminal.integrated.env.windows": {
+    "PATH": "C:/mingw64/bin;${env:PATH}"
+  },
+  "files.encoding": "utf8",
+  "C_Cpp.default.configurationProvider": "",
+  "C_Cpp.default.compileCommands": [
+    "${workspaceFolder}/build/debug/compile_commands.json"
+  ],
+  "C_Cpp.default.compilerPath": "C:/mingw64/bin/g++.exe",
+  "C_Cpp.default.includePath": [
+    "${workspaceFolder}/src"
+  ],
+  "C_Cpp.default.cppStandard": "c++17"
+}

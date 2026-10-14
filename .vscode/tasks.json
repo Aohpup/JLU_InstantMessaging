@@ -1,0 +1,48 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "CMake Configure Debug",
+      "type": "process",
+      "command": "C:/mingw64/bin/cmake.exe",
+      "args": [
+        "--preset",
+        "local-debug"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "PATH": "C:/mingw64/bin;${env:PATH}"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "CMake Build Debug",
+      "type": "process",
+      "command": "C:/mingw64/bin/cmake.exe",
+      "args": [
+        "--build",
+        "--preset",
+        "local-debug"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "PATH": "C:/mingw64/bin;${env:PATH}"
+        }
+      },
+      "dependsOn": [
+        "CMake Configure Debug"
+      ],
+      "dependsOrder": "sequence",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [
+        "$gcc"
+      ]
+    }
+  ]
+}

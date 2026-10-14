@@ -1,0 +1,11 @@
+{
+  "src/storage/SqliteStorageLJY.h": "400296de01513884d32313d9026a97ef5c2748d89ee457fefd2145a436a7ecd4",
+  "src/storage/SqliteStorageLJY.cpp": "466ff684d8dec52732c07284cf8b81505f47aac16c2711a95fd1f671c58ac406",
+  "src/services/PlatformLJY.h": "22068b6c8685c4078da8215874a0098e253afe0cd2be321bcb2ca2877cbfe82e",
+  "src/domain/PasswordCredentialLJY.h": "a536f53bb2fc698afbfab3b74ba2f119f1e97c9071f09a3974ab82409a5dead0",
+  "cmake/SqliteSchemaLJY.h.in": "007d25b984a43d308c955020b2b3785d2b97340ec6e1bf1e6d0d82fd4484eef0",
+  "schema/create_tables.sql": "404fb358dd16b297c924cf151c6ce653550c378f80f0e2e409bfca0cea5724e8",
+  "CMakeLists.txt": "4f78d034378ff0a73185b20a740569a054bb8ad5205ac8ae9f3411bdc96cb3d3",
+  "tests/p3_storage_save_tests.cpp": "85e61df967c34362772a6bd1b4cdbbfb83527d39a574981380e7ff44c07ee213",
+  "build/debug/bin/p3_storage_save_tests.exe": "8a1cc6193f4d7332255cc34024598c05a771d8cf981c13e58c135f990e762c61"
+}

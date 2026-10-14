@@ -1,0 +1,71 @@
+{
+  "results": [
+    {
+      "name": "help_0",
+      "returncode": 0,
+      "expected_returncode": 0
+    },
+    {
+      "name": "help_1",
+      "returncode": 0,
+      "expected_returncode": 0
+    },
+    {
+      "name": "help_2",
+      "returncode": 0,
+      "expected_returncode": 0
+    },
+    {
+      "name": "first_run",
+      "returncode": 0,
+      "expected_returncode": 0
+    },
+    {
+      "name": "restart",
+      "returncode": 0,
+      "expected_returncode": 0
+    },
+    {
+      "name": "register_exit",
+      "returncode": 0,
+      "expected_returncode": 0
+    },
+    {
+      "name": "registered_restart",
+      "returncode": 0,
+      "expected_returncode": 0
+    },
+    {
+      "name": "existing_empty",
+      "returncode": 0,
+      "expected_returncode": 0
+    },
+    {
+      "name": "demo_isolated",
+      "returncode": 0,
+      "expected_returncode": 0
+    },
+    {
+      "name": "empty_isolated",
+      "returncode": 0,
+      "expected_returncode": 0
+    },
+    {
+      "name": "read_failure",
+      "returncode": 1,
+      "expected_returncode": 1
+    },
+    {
+      "name": "save_failure_discard",
+      "returncode": 0,
+      "expected_returncode": 0
+    },
+    {
+      "name": "save_failure_eof",
+      "returncode": 1,
+      "expected_returncode": 1
+    }
+  ],
+  "formal_database_unchanged": true,
+  "executable_sha256": "a2986a43c292a970b425480edda91efc360dcf8d40bb1ce65da26f917d7cf209"
+}

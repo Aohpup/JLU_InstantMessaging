@@ -1,0 +1,7 @@
+{
+  "status": "failed",
+  "directory": "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\build\\p5_final\\wlan_same_host\\gui_pair_k651xl8t",
+  "platform": "Qt offscreen, production MainWindow widgets",
+  "processes": [],
+  "error": "[WinError 10049] 在其上下文中，该请求的地址无效。"
+}

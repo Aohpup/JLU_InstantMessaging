@@ -1,0 +1,357 @@
+Start testing: Oct 13 15:27 中国标准时间
+----------------------------------------------------------
+1/17 Testing: p5_history
+1/17 Test: p5_history
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p5_history_tests.exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/p5_history_test.db"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p5_history" start time: Oct 13 15:27 中国标准时间
+Output:
+----------------------------------------------------------
+PASS: pagination, UTF8, ACK upsert, owner/peer isolation, platform save/load compatibility, locked write retry, restart unknown
+<end of output>
+Test time =   1.55 sec
+----------------------------------------------------------
+Test Passed.
+"p5_history" end time: Oct 13 15:27 中国标准时间
+"p5_history" time elapsed: 00:00:01
+----------------------------------------------------------
+
+2/17 Testing: p5_protocol
+2/17 Test: p5_protocol
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p5_protocol_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p5_protocol" start time: Oct 13 15:27 中国标准时间
+Output:
+----------------------------------------------------------
+PASS framing: split UTF-8, combined frames, partial tail, invalid length/version/body
+PASS identity: login, QQ service, friend relation and self exclusion
+PASS lifecycle: waiting cancelled, unique reconnect id, stale event queue cleared
+PASS queued cancellation: failed=128 unknown=0
+<end of output>
+Test time =   0.98 sec
+----------------------------------------------------------
+Test Passed.
+"p5_protocol" end time: Oct 13 15:27 中国标准时间
+"p5_protocol" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/17 Testing: p5_chat
+3/17 Test: p5_chat
+Command: "C:/Users/27918/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/tests/p5_chat_acceptance.py" "--exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p5_chat_demo.exe" "--output" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/p5_batch2/chat_results.json"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p5_chat" start time: Oct 13 15:27 中国标准时间
+Output:
+----------------------------------------------------------
+P5 batch 2: 13 real-process scenarios passed.
+<end of output>
+Test time =  20.44 sec
+----------------------------------------------------------
+Test Passed.
+"p5_chat" end time: Oct 13 15:27 中国标准时间
+"p5_chat" time elapsed: 00:00:20
+----------------------------------------------------------
+
+4/17 Testing: p5_socket
+4/17 Test: p5_socket
+Command: "C:/Users/27918/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/tests/p5_socket_acceptance.py" "--exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p5_socket_demo.exe" "--output" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/p5_batch1/socket_results.json"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p5_socket" start time: Oct 13 15:27 中国标准时间
+Output:
+----------------------------------------------------------
+P5 第一批：4 个关键场景通过（真实双进程收发、端口占用、异常断开、连接拒绝）。
+<end of output>
+Test time =   3.00 sec
+----------------------------------------------------------
+Test Passed.
+"p5_socket" end time: Oct 13 15:27 中国标准时间
+"p5_socket" time elapsed: 00:00:02
+----------------------------------------------------------
+
+5/17 Testing: p3_console
+5/17 Test: p3_console
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p3_console_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p3_console" start time: Oct 13 15:27 中国标准时间
+Output:
+----------------------------------------------------------
+PASS explicit save menus and normal exit
+PASS save retry and return to menu
+PASS explicit discard and EOF results
+3/3 persistence menu scenario groups passed.
+<end of output>
+Test time =   0.77 sec
+----------------------------------------------------------
+Test Passed.
+"p3_console" end time: Oct 13 15:27 中国标准时间
+"p3_console" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/17 Testing: p3_storage_load
+6/17 Test: p3_storage_load
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p3_storage_load_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p3_storage_load" start time: Oct 13 15:27 中国标准时间
+Output:
+----------------------------------------------------------
+PASS nine-table round trip and continued business
+PASS retained subgroup and continued counters
+PASS failed load preserves target, repair retry and empty database
+3/3 storage load scenario groups passed.
+<end of output>
+Test time =   1.06 sec
+----------------------------------------------------------
+Test Passed.
+"p3_storage_load" end time: Oct 13 15:27 中国标准时间
+"p3_storage_load" time elapsed: 00:00:01
+----------------------------------------------------------
+
+7/17 Testing: p3_storage_save
+7/17 Test: p3_storage_save
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p3_storage_save_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p3_storage_save" start time: Oct 13 15:27 中国标准时间
+Output:
+----------------------------------------------------------
+PASS complete save, reopen and retained subgroup
+PASS late failure rollback and retry
+PASS invalid file remains unchanged
+3/3 storage save scenario groups passed.
+<end of output>
+Test time =   1.01 sec
+----------------------------------------------------------
+Test Passed.
+"p3_storage_save" end time: Oct 13 15:27 中国标准时间
+"p3_storage_save" time elapsed: 00:00:01
+----------------------------------------------------------
+
+8/17 Testing: p3_sqlite_smoke
+8/17 Test: p3_sqlite_smoke
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p3_sqlite_smoke.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p3_sqlite_smoke" start time: Oct 13 15:27 中国标准时间
+Output:
+----------------------------------------------------------
+SQLite version: 3.53.4
+Database: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/p3_batch1/smoke.db
+Stored name: SQLite婕旂ず鍚屽
+PASS open, ten-table schema, bound insert, foreign key, reopen/select and close.
+<end of output>
+Test time =   0.29 sec
+----------------------------------------------------------
+Test Passed.
+"p3_sqlite_smoke" end time: Oct 13 15:27 中国标准时间
+"p3_sqlite_smoke" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/17 Testing: p1_steps34
+9/17 Test: p1_steps34
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p1_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p1_steps34" start time: Oct 13 15:27 中国标准时间
+Output:
+----------------------------------------------------------
+PASS invalid dates
+PASS anniversaries
+PASS people and shared managers
+PASS profile validation
+PASS shared IDs in both orders
+PASS independent IDs and queries
+PASS open rejections
+PASS dates across profile and accounts
+PASS nickname ownership
+PASS binding and duplicates
+PASS binding ownership and types
+PASS service polymorphism
+12/12 scenario groups passed.
+<end of output>
+Test time =   0.47 sec
+----------------------------------------------------------
+Test Passed.
+"p1_steps34" end time: Oct 13 15:27 中国标准时间
+"p1_steps34" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/17 Testing: p1_steps56
+10/17 Test: p1_steps56
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p1_session_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p1_steps56" start time: Oct 13 15:27 中国标准时间
+Output:
+----------------------------------------------------------
+PASS password
+PASS registration
+PASS authentication
+PASS anonymous guards
+PASS service confirmation
+PASS logout and relogin
+PASS shared credentials
+PASS session isolation
+PASS binding
+PASS profile and nickname
+PASS console input
+PASS console registration cancellation
+PASS console full flow
+PASS console EOF
+PASS console rejections
+15/15 scenario groups passed.
+<end of output>
+Test time =   0.75 sec
+----------------------------------------------------------
+Test Passed.
+"p1_steps56" end time: Oct 13 15:27 中国标准时间
+"p1_steps56" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/17 Testing: p1_binding_history
+11/17 Test: p1_binding_history
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p1_binding_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p1_binding_history" start time: Oct 13 15:27 中国标准时间
+Output:
+----------------------------------------------------------
+PASS 5 binding-history scenarios.
+<end of output>
+Test time =   0.66 sec
+----------------------------------------------------------
+Test Passed.
+"p1_binding_history" end time: Oct 13 15:27 中国标准时间
+"p1_binding_history" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/17 Testing: p2_friends
+12/17 Test: p2_friends
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p2_friend_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p2_friends" start time: Oct 13 15:27 中国标准时间
+Output:
+----------------------------------------------------------
+PASS relation model
+PASS add and guards
+PASS independent remarks and removal
+PASS service isolation
+PASS session identity
+PASS friend menu
+6/6 friend scenario groups passed.
+<end of output>
+Test time =   0.70 sec
+----------------------------------------------------------
+Test Passed.
+"p2_friends" end time: Oct 13 15:27 中国标准时间
+"p2_friends" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/17 Testing: p2_recommendations
+13/17 Test: p2_recommendations
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p2_recommendation_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p2_recommendations" start time: Oct 13 15:27 中国标准时间
+Output:
+----------------------------------------------------------
+PASS same-service intersection
+PASS six mapping directions
+PASS actor and source guards
+PASS filtering and same-name identity
+PASS WeChat-Weibo QQ bridge
+PASS recheck before commit
+PASS session access
+PASS recommendation menus
+8/8 recommendation scenario groups passed.
+<end of output>
+Test time =   0.76 sec
+----------------------------------------------------------
+Test Passed.
+"p2_recommendations" end time: Oct 13 15:27 中国标准时间
+"p2_recommendations" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/17 Testing: p2_groups
+14/17 Test: p2_groups
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p2_group_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p2_groups" start time: Oct 13 15:27 中国标准时间
+Output:
+----------------------------------------------------------
+PASS group models
+PASS policy polymorphism
+PASS container and service isolation
+PASS demo initialization
+PASS session and member access
+PASS group menus
+6/6 group scenario groups passed.
+<end of output>
+Test time =   0.76 sec
+----------------------------------------------------------
+Test Passed.
+"p2_groups" end time: Oct 13 15:27 中国标准时间
+"p2_groups" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/17 Testing: p2_group_operations
+15/17 Test: p2_group_operations
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p2_group_operations_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p2_group_operations" start time: Oct 13 15:27 中国标准时间
+Output:
+----------------------------------------------------------
+PASS request model
+PASS QQ applications and fresh permissions
+PASS WX invitations and invalidation
+PASS member roles
+PASS transfer and leave
+PASS service isolation
+PASS session access
+PASS operation menus
+8/8 group operation scenario groups passed.
+<end of output>
+Test time =   0.79 sec
+----------------------------------------------------------
+Test Passed.
+"p2_group_operations" end time: Oct 13 15:27 中国标准时间
+"p2_group_operations" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/17 Testing: p2_interaction
+16/17 Test: p2_interaction
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p2_interaction_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p2_interaction" start time: Oct 13 15:27 中国标准时间
+Output:
+----------------------------------------------------------
+PASS early friend validation
+PASS service switch
+PASS existing binding priority
+PASS group selection
+PASS kick input and member listing
+PASS specific role reasons
+PASS demote before kick and cancellation
+PASS selected group requests
+8/8 interaction scenario groups passed.
+<end of output>
+Test time =   0.74 sec
+----------------------------------------------------------
+Test Passed.
+"p2_interaction" end time: Oct 13 15:27 中国标准时间
+"p2_interaction" time elapsed: 00:00:00
+----------------------------------------------------------
+
+17/17 Testing: p2_subgroup_mode
+17/17 Test: p2_subgroup_mode
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p2_subgroup_mode_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p2_subgroup_mode" start time: Oct 13 15:27 中国标准时间
+Output:
+----------------------------------------------------------
+PASS subgroup creation
+PASS parent removal consistency
+PASS mode round trips and requests
+PASS subgroup and mode menus
+4/4 subgroup/mode scenario groups passed.
+<end of output>
+Test time =   0.75 sec
+----------------------------------------------------------
+Test Passed.
+"p2_subgroup_mode" end time: Oct 13 15:27 中国标准时间
+"p2_subgroup_mode" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Oct 13 15:27 中国标准时间

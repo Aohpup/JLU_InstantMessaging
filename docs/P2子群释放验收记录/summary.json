@@ -1,0 +1,115 @@
+{
+  "results": [
+    {
+      "name": "build",
+      "command": [
+        "cmake",
+        "--build",
+        "--preset",
+        "local-debug"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "ctest",
+      "command": [
+        "ctest",
+        "--preset",
+        "local-debug",
+        "--verbose"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "p1_acceptance",
+      "command": [
+        "C:\\Users\\27918\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\tests\\p1_acceptance.py",
+        "--output",
+        "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\build\\debug\\p2_acceptance\\p1_acceptance"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "p2_friend_acceptance",
+      "command": [
+        "C:\\Users\\27918\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\tests\\p2_friend_acceptance.py",
+        "--output",
+        "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\build\\debug\\p2_acceptance\\p2_friend_acceptance"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "p2_recommendation_acceptance",
+      "command": [
+        "C:\\Users\\27918\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\tests\\p2_recommendation_acceptance.py",
+        "--output",
+        "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\build\\debug\\p2_acceptance\\p2_recommendation_acceptance"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "p2_group_acceptance",
+      "command": [
+        "C:\\Users\\27918\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\tests\\p2_group_acceptance.py",
+        "--output",
+        "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\build\\debug\\p2_acceptance\\p2_group_acceptance"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "p2_group_operations_acceptance",
+      "command": [
+        "C:\\Users\\27918\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\tests\\p2_group_operations_acceptance.py",
+        "--output",
+        "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\build\\debug\\p2_acceptance\\p2_group_operations_acceptance"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "p2_subgroup_mode_acceptance",
+      "command": [
+        "C:\\Users\\27918\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\tests\\p2_subgroup_mode_acceptance.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "p1_console_native_test",
+      "command": [
+        "C:\\Users\\27918\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\tests\\p1_console_native_test.py"
+      ],
+      "returncode": 0
+    },
+    {
+      "name": "p2_interaction_native_test",
+      "command": [
+        "C:\\Users\\27918\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-X",
+        "utf8",
+        "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\tests\\p2_interaction_native_test.py"
+      ],
+      "returncode": 0
+    }
+  ],
+  "executable_sha256": "5c2b58eec49bc3d1c8661231fb46cce9e8c44f385c45e11b26353d1cb887f702"
+}

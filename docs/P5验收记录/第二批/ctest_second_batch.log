@@ -1,0 +1,38 @@
+Start testing: Oct 12 23:20 中国标准时间
+----------------------------------------------------------
+1/16 Testing: p5_protocol
+1/16 Test: p5_protocol
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p5_protocol_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p5_protocol" start time: Oct 12 23:20 中国标准时间
+Output:
+----------------------------------------------------------
+PASS framing: split UTF-8, combined frames, partial tail, invalid length/version/body
+PASS identity: login, QQ service, friend relation and self exclusion
+PASS lifecycle: waiting cancelled, unique reconnect id, stale event queue cleared
+PASS queued cancellation: failed=128 unknown=0
+<end of output>
+Test time =   0.80 sec
+----------------------------------------------------------
+Test Passed.
+"p5_protocol" end time: Oct 12 23:20 中国标准时间
+"p5_protocol" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/16 Testing: p5_chat
+2/16 Test: p5_chat
+Command: "C:/Users/27918/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/tests/p5_chat_acceptance.py" "--exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/bin/p5_chat_demo.exe" "--output" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug/p5_batch2/chat_results.json"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/debug
+"p5_chat" start time: Oct 12 23:20 中国标准时间
+Output:
+----------------------------------------------------------
+P5 batch 2: 10 real-process scenarios passed.
+<end of output>
+Test time =  13.19 sec
+----------------------------------------------------------
+Test Passed.
+"p5_chat" end time: Oct 12 23:20 中国标准时间
+"p5_chat" time elapsed: 00:00:13
+----------------------------------------------------------
+
+End testing: Oct 12 23:20 中国标准时间

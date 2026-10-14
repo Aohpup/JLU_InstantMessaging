@@ -1,0 +1,21 @@
+-- The CXX compiler identification is GNU 13.1.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: D:/Qt/Tools/mingw1310_64/bin/g++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+在CMAKE中配置 QT_SDK_DIR 选项指定QT路径; 当前路径: D:/Qt/5.15.2/msvc2019_64
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE
+-- Could NOT find WrapVulkanHeaders (missing: Vulkan_INCLUDE_DIR) 
+CMake Error at CMakeLists.txt:24 (message):
+  
+  你当前使用的QT版本不在维护范围内！可能出现编译失败或使用时崩溃问题，推荐QT版本为QT5.15.2
+  QT6.6.2 QT6.6.3！请知悉~
+
+
+-- Configuring incomplete, errors occurred!

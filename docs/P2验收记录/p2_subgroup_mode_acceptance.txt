@@ -1,0 +1,2 @@
+PASS actual subgroup creation, cancelled switch, freeze/query, restoration and parent-child member removal.
+PASS actual child-owner leave rejection, ownership transfer and cascading leave.

@@ -1,0 +1,137 @@
+Start testing: Oct 13 14:15 中国标准时间
+----------------------------------------------------------
+6/31 Testing: p3_storage_load
+6/31 Test: p3_storage_load
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p3_storage_load_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+"p3_storage_load" start time: Oct 13 14:15 中国标准时间
+Output:
+----------------------------------------------------------
+PASS nine-table round trip and continued business
+PASS retained subgroup and continued counters
+PASS failed load preserves target, repair retry and empty database
+3/3 storage load scenario groups passed.
+<end of output>
+Test time =   2.67 sec
+----------------------------------------------------------
+Test Passed.
+"p3_storage_load" end time: Oct 13 14:15 中国标准时间
+"p3_storage_load" time elapsed: 00:00:02
+----------------------------------------------------------
+
+7/31 Testing: p3_storage_save
+7/31 Test: p3_storage_save
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p3_storage_save_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+"p3_storage_save" start time: Oct 13 14:15 中国标准时间
+Output:
+----------------------------------------------------------
+PASS complete save, reopen and retained subgroup
+PASS late failure rollback and retry
+PASS invalid file remains unchanged
+3/3 storage save scenario groups passed.
+<end of output>
+Test time =   2.59 sec
+----------------------------------------------------------
+Test Passed.
+"p3_storage_save" end time: Oct 13 14:15 中国标准时间
+"p3_storage_save" time elapsed: 00:00:02
+----------------------------------------------------------
+
+18/31 Testing: p4_gui
+18/31 Test: p4_gui
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_gui_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_gui" start time: Oct 13 14:15 中国标准时间
+Output:
+----------------------------------------------------------
+PASS P4 widgets: registration, login, profile, three services, binding, SQLite save, close failure, memory mode
+<end of output>
+Test time =   3.75 sec
+----------------------------------------------------------
+Test Passed.
+"p4_gui" end time: Oct 13 14:15 中国标准时间
+"p4_gui" time elapsed: 00:00:03
+----------------------------------------------------------
+
+19/31 Testing: p4_gui_reload
+19/31 Test: p4_gui_reload
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_gui_tests.exe" "-platform" "offscreen" "--reload"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_gui_reload" start time: Oct 13 14:15 中国标准时间
+Output:
+----------------------------------------------------------
+PASS P4 independent-process reload: profile, services, binding, fresh login
+<end of output>
+Test time =   2.70 sec
+----------------------------------------------------------
+Test Passed.
+"p4_gui_reload" end time: Oct 13 14:15 中国标准时间
+"p4_gui_reload" time elapsed: 00:00:02
+----------------------------------------------------------
+
+28/31 Testing: p4_visual_revision
+28/31 Test: p4_visual_revision
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_visual_revision_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_visual_revision" start time: Oct 13 14:15 中国标准时间
+Output:
+----------------------------------------------------------
+PASS old schema upgrade, avatar draft/save/cancel, warning shake, responsive login, compact dialog, narrow layout
+<end of output>
+Test time =   4.04 sec
+----------------------------------------------------------
+Test Passed.
+"p4_visual_revision" end time: Oct 13 14:15 中国标准时间
+"p4_visual_revision" time elapsed: 00:00:04
+----------------------------------------------------------
+
+29/31 Testing: p4_visual_reload
+29/31 Test: p4_visual_reload
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_visual_revision_tests.exe" "-platform" "offscreen" "--reload"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_visual_reload" start time: Oct 13 14:15 中国标准时间
+Output:
+----------------------------------------------------------
+PASS persisted color, cross-service and default profile API preservation
+<end of output>
+Test time =   2.49 sec
+----------------------------------------------------------
+Test Passed.
+"p4_visual_reload" end time: Oct 13 14:15 中国标准时间
+"p4_visual_reload" time elapsed: 00:00:02
+----------------------------------------------------------
+
+30/31 Testing: p5_chat_gui
+30/31 Test: p5_chat_gui
+Command: "C:/Users/27918/AppData/Local/Python/pythoncore-3.14-64/python.exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/tests/p5_chat_gui_acceptance.py" "--exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_chat_gui_tests.exe" "--output-dir" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/p5_batch4"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_chat_gui" start time: Oct 13 14:15 中国标准时间
+Output:
+----------------------------------------------------------
+PASS: two independent Qt processes, isolated A/B databases, real controls and TCP, screenshots saved.
+<end of output>
+Test time =   8.71 sec
+----------------------------------------------------------
+Test Passed.
+"p5_chat_gui" end time: Oct 13 14:15 中国标准时间
+"p5_chat_gui" time elapsed: 00:00:08
+----------------------------------------------------------
+
+31/31 Testing: p5_history_gui
+31/31 Test: p5_history_gui
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_history_gui_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_history_gui" start time: Oct 13 14:15 中国标准时间
+Output:
+----------------------------------------------------------
+PASS GUI history: read failure/retry, 100/200/205 pagination, unknown status, owner isolation, save compatibility, memory mode
+<end of output>
+Test time =   3.45 sec
+----------------------------------------------------------
+Test Passed.
+"p5_history_gui" end time: Oct 13 14:15 中国标准时间
+"p5_history_gui" time elapsed: 00:00:03
+----------------------------------------------------------
+
+End testing: Oct 13 14:15 中国标准时间

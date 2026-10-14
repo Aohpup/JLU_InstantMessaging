@@ -1,0 +1,189 @@
+Start testing: Oct 12 19:28 中国标准时间
+----------------------------------------------------------
+2/21 Testing: p3_storage_load
+2/21 Test: p3_storage_load
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p3_storage_load_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+"p3_storage_load" start time: Oct 12 19:28 中国标准时间
+Output:
+----------------------------------------------------------
+PASS nine-table round trip and continued business
+FAIL retained subgroup and continued counters: Retained subgroup or requests missing.
+PASS failed load preserves target, repair retry and empty database
+2/3 storage load scenario groups passed.
+<end of output>
+Test time =   1.17 sec
+----------------------------------------------------------
+Test Failed.
+"p3_storage_load" end time: Oct 12 19:28 中国标准时间
+"p3_storage_load" time elapsed: 00:00:01
+----------------------------------------------------------
+
+3/21 Testing: p3_storage_save
+3/21 Test: p3_storage_save
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p3_storage_save_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+"p3_storage_save" start time: Oct 12 19:28 中国标准时间
+Output:
+----------------------------------------------------------
+PASS complete save, reopen and retained subgroup
+PASS late failure rollback and retry
+PASS invalid file remains unchanged
+3/3 storage save scenario groups passed.
+<end of output>
+Test time =   0.83 sec
+----------------------------------------------------------
+Test Passed.
+"p3_storage_save" end time: Oct 12 19:28 中国标准时间
+"p3_storage_save" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/21 Testing: p2_subgroup_mode
+13/21 Test: p2_subgroup_mode
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p2_subgroup_mode_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+"p2_subgroup_mode" start time: Oct 12 19:28 中国标准时间
+Output:
+----------------------------------------------------------
+PASS subgroup creation
+PASS parent removal consistency
+PASS mode round trips and requests
+PASS subgroup and mode menus
+4/4 subgroup/mode scenario groups passed.
+<end of output>
+Test time =   0.59 sec
+----------------------------------------------------------
+Test Passed.
+"p2_subgroup_mode" end time: Oct 12 19:28 中国标准时间
+"p2_subgroup_mode" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/21 Testing: p4_gui
+14/21 Test: p4_gui
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_gui_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_gui" start time: Oct 12 19:28 中国标准时间
+Output:
+----------------------------------------------------------
+PASS P4 widgets: registration, login, profile, three services, binding, SQLite save, close failure, memory mode
+<end of output>
+Test time =   1.33 sec
+----------------------------------------------------------
+Test Passed.
+"p4_gui" end time: Oct 12 19:28 中国标准时间
+"p4_gui" time elapsed: 00:00:01
+----------------------------------------------------------
+
+15/21 Testing: p4_gui_reload
+15/21 Test: p4_gui_reload
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_gui_tests.exe" "-platform" "offscreen" "--reload"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_gui_reload" start time: Oct 12 19:28 中国标准时间
+Output:
+----------------------------------------------------------
+PASS P4 independent-process reload: profile, services, binding, fresh login
+<end of output>
+Test time =   0.21 sec
+----------------------------------------------------------
+Test Passed.
+"p4_gui_reload" end time: Oct 12 19:28 中国标准时间
+"p4_gui_reload" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/21 Testing: p4_friends_gui
+16/21 Test: p4_friends_gui
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_friends_gui_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_friends_gui" start time: Oct 12 19:28 中国标准时间
+Output:
+----------------------------------------------------------
+PASS: friend widgets, CRUD, independent remarks, common queries, recommendation, cancellation, service/identity switch
+<end of output>
+Test time =   1.18 sec
+----------------------------------------------------------
+Test Passed.
+"p4_friends_gui" end time: Oct 12 19:28 中国标准时间
+"p4_friends_gui" time elapsed: 00:00:01
+----------------------------------------------------------
+
+17/21 Testing: p4_friends_reload
+17/21 Test: p4_friends_reload
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_friends_gui_tests.exe" "-platform" "offscreen" "--reload"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_friends_reload" start time: Oct 12 19:28 中国标准时间
+Output:
+----------------------------------------------------------
+PASS: GUI friend changes restored in a separate process
+<end of output>
+Test time =   0.23 sec
+----------------------------------------------------------
+Test Passed.
+"p4_friends_reload" end time: Oct 12 19:28 中国标准时间
+"p4_friends_reload" time elapsed: 00:00:00
+----------------------------------------------------------
+
+18/21 Testing: p4_groups_gui
+18/21 Test: p4_groups_gui
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_groups_gui_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_groups_gui" start time: Oct 12 19:28 中国标准时间
+Output:
+----------------------------------------------------------
+PASS: group selection, privacy, applications, invitations, detailed permissions, member changes, cancellation, service isolation and small-window feedback
+<end of output>
+Test time =   1.64 sec
+----------------------------------------------------------
+Test Passed.
+"p4_groups_gui" end time: Oct 12 19:28 中国标准时间
+"p4_groups_gui" time elapsed: 00:00:01
+----------------------------------------------------------
+
+19/21 Testing: p4_groups_reload
+19/21 Test: p4_groups_reload
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_groups_gui_tests.exe" "-platform" "offscreen" "--reload"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_groups_reload" start time: Oct 12 19:28 中国标准时间
+Output:
+----------------------------------------------------------
+PASS: group membership, owner, roles and request history restored in separate process
+<end of output>
+Test time =   0.25 sec
+----------------------------------------------------------
+Test Passed.
+"p4_groups_reload" end time: Oct 12 19:28 中国标准时间
+"p4_groups_reload" time elapsed: 00:00:00
+----------------------------------------------------------
+
+20/21 Testing: p4_subgroups_gui
+20/21 Test: p4_subgroups_gui
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_subgroups_gui_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_subgroups_gui" start time: Oct 12 19:28 中国标准时间
+Output:
+----------------------------------------------------------
+PASS: child creation, parent cascade, mode preservation, selection, real SQLite rollback and all close choices
+<end of output>
+Test time =   1.32 sec
+----------------------------------------------------------
+Test Passed.
+"p4_subgroups_gui" end time: Oct 12 19:28 中国标准时间
+"p4_subgroups_gui" time elapsed: 00:00:01
+----------------------------------------------------------
+
+21/21 Testing: p4_subgroups_reload
+21/21 Test: p4_subgroups_reload
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_subgroups_gui_tests.exe" "-platform" "offscreen" "--reload"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_subgroups_reload" start time: Oct 12 19:28 中国标准时间
+Output:
+----------------------------------------------------------
+PASS: subgroup hierarchy, owner, members, preservation and discard restored in separate process
+<end of output>
+Test time =   0.22 sec
+----------------------------------------------------------
+Test Passed.
+"p4_subgroups_reload" end time: Oct 12 19:28 中国标准时间
+"p4_subgroups_reload" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Oct 12 19:28 中国标准时间

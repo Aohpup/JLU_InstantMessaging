@@ -1,0 +1,806 @@
+Start testing: Oct 14 12:29 中国标准时间
+----------------------------------------------------------
+1/42 Testing: p5_history
+1/42 Test: p5_history
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_history_tests.exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/p5_history_test.db"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+"p5_history" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS: pagination, UTF8, ACK upsert, owner/peer isolation, platform save/load compatibility, locked write retry, restart unknown
+<end of output>
+Test time =   0.90 sec
+----------------------------------------------------------
+Test Passed.
+"p5_history" end time: Oct 14 12:29 中国标准时间
+"p5_history" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/42 Testing: p5_protocol
+2/42 Test: p5_protocol
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_protocol_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+"p5_protocol" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS framing: split UTF-8, combined frames, partial tail, invalid length/version/body
+PASS identity: login, QQ service, friend relation and self exclusion
+PASS lifecycle: waiting cancelled, unique reconnect id, stale event queue cleared
+PASS queued cancellation: failed=128 unknown=0
+<end of output>
+Test time =   0.45 sec
+----------------------------------------------------------
+Test Passed.
+"p5_protocol" end time: Oct 14 12:29 中国标准时间
+"p5_protocol" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/42 Testing: p5_chat
+3/42 Test: p5_chat
+Command: "C:/Users/27918/AppData/Local/Python/pythoncore-3.14-64/python.exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/tests/p5_chat_acceptance.py" "--exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_chat_demo.exe" "--output" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/p5_batch2/chat_results.json"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+"p5_chat" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+P5 batch 2: 13 real-process scenarios passed.
+<end of output>
+Test time =  18.41 sec
+----------------------------------------------------------
+Test Passed.
+"p5_chat" end time: Oct 14 12:29 中国标准时间
+"p5_chat" time elapsed: 00:00:18
+----------------------------------------------------------
+
+4/42 Testing: p5_socket
+4/42 Test: p5_socket
+Command: "C:/Users/27918/AppData/Local/Python/pythoncore-3.14-64/python.exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/tests/p5_socket_acceptance.py" "--exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_socket_demo.exe" "--output" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/p5_batch1/socket_results.json"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+"p5_socket" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+P5 第一批：4 个关键场景通过（真实双进程收发、端口占用、异常断开、连接拒绝）。
+<end of output>
+Test time =   2.97 sec
+----------------------------------------------------------
+Test Passed.
+"p5_socket" end time: Oct 14 12:29 中国标准时间
+"p5_socket" time elapsed: 00:00:02
+----------------------------------------------------------
+
+5/42 Testing: p3_console
+5/42 Test: p3_console
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p3_console_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+"p3_console" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS explicit save menus and normal exit
+PASS save retry and return to menu
+PASS explicit discard and EOF results
+3/3 persistence menu scenario groups passed.
+<end of output>
+Test time =   0.31 sec
+----------------------------------------------------------
+Test Passed.
+"p3_console" end time: Oct 14 12:29 中国标准时间
+"p3_console" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/42 Testing: p3_storage_load
+6/42 Test: p3_storage_load
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p3_storage_load_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+"p3_storage_load" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS nine-table round trip and continued business
+PASS retained subgroup and continued counters
+PASS failed load preserves target, repair retry and empty database
+3/3 storage load scenario groups passed.
+<end of output>
+Test time =   0.55 sec
+----------------------------------------------------------
+Test Passed.
+"p3_storage_load" end time: Oct 14 12:29 中国标准时间
+"p3_storage_load" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/42 Testing: p3_storage_save
+7/42 Test: p3_storage_save
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p3_storage_save_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+"p3_storage_save" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS complete save, reopen and retained subgroup
+PASS late failure rollback and retry
+PASS invalid file remains unchanged
+3/3 storage save scenario groups passed.
+<end of output>
+Test time =   0.37 sec
+----------------------------------------------------------
+Test Passed.
+"p3_storage_save" end time: Oct 14 12:29 中国标准时间
+"p3_storage_save" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/42 Testing: p3_sqlite_smoke
+8/42 Test: p3_sqlite_smoke
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p3_sqlite_smoke.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+"p3_sqlite_smoke" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+SQLite version: 3.53.4
+Database: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/p3_batch1/smoke.db
+Stored name: SQLite婕旂ず鍚屽
+PASS open, ten-table schema, bound insert, foreign key, reopen/select and close.
+<end of output>
+Test time =   0.35 sec
+----------------------------------------------------------
+Test Passed.
+"p3_sqlite_smoke" end time: Oct 14 12:29 中国标准时间
+"p3_sqlite_smoke" time elapsed: 00:00:00
+----------------------------------------------------------
+
+9/42 Testing: p1_steps34
+9/42 Test: p1_steps34
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p1_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+"p1_steps34" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS invalid dates
+PASS anniversaries
+PASS people and shared managers
+PASS profile validation
+PASS shared IDs in both orders
+PASS independent IDs and queries
+PASS open rejections
+PASS dates across profile and accounts
+PASS nickname ownership
+PASS binding and duplicates
+PASS binding ownership and types
+PASS service polymorphism
+12/12 scenario groups passed.
+<end of output>
+Test time =   0.27 sec
+----------------------------------------------------------
+Test Passed.
+"p1_steps34" end time: Oct 14 12:29 中国标准时间
+"p1_steps34" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/42 Testing: p1_steps56
+10/42 Test: p1_steps56
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p1_session_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+"p1_steps56" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS password
+PASS registration
+PASS authentication
+PASS anonymous guards
+PASS service confirmation
+PASS logout and relogin
+PASS shared credentials
+PASS session isolation
+PASS binding
+PASS profile and nickname
+PASS console input
+PASS console registration cancellation
+PASS console full flow
+PASS console EOF
+PASS console rejections
+15/15 scenario groups passed.
+<end of output>
+Test time =   0.31 sec
+----------------------------------------------------------
+Test Passed.
+"p1_steps56" end time: Oct 14 12:29 中国标准时间
+"p1_steps56" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/42 Testing: p1_binding_history
+11/42 Test: p1_binding_history
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p1_binding_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+"p1_binding_history" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS 5 binding-history scenarios.
+<end of output>
+Test time =   0.30 sec
+----------------------------------------------------------
+Test Passed.
+"p1_binding_history" end time: Oct 14 12:29 中国标准时间
+"p1_binding_history" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/42 Testing: p2_friends
+12/42 Test: p2_friends
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p2_friend_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+"p2_friends" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS relation model
+PASS add and guards
+PASS independent remarks and removal
+PASS service isolation
+PASS session identity
+PASS friend menu
+6/6 friend scenario groups passed.
+<end of output>
+Test time =   0.29 sec
+----------------------------------------------------------
+Test Passed.
+"p2_friends" end time: Oct 14 12:29 中国标准时间
+"p2_friends" time elapsed: 00:00:00
+----------------------------------------------------------
+
+13/42 Testing: p2_recommendations
+13/42 Test: p2_recommendations
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p2_recommendation_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+"p2_recommendations" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS same-service intersection
+PASS six mapping directions
+PASS actor and source guards
+PASS filtering and same-name identity
+PASS WeChat-Weibo QQ bridge
+PASS recheck before commit
+PASS session access
+PASS recommendation menus
+8/8 recommendation scenario groups passed.
+<end of output>
+Test time =   0.32 sec
+----------------------------------------------------------
+Test Passed.
+"p2_recommendations" end time: Oct 14 12:29 中国标准时间
+"p2_recommendations" time elapsed: 00:00:00
+----------------------------------------------------------
+
+14/42 Testing: p2_groups
+14/42 Test: p2_groups
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p2_group_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+"p2_groups" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS group models
+PASS policy polymorphism
+PASS container and service isolation
+PASS demo initialization
+PASS session and member access
+PASS group menus
+6/6 group scenario groups passed.
+<end of output>
+Test time =   0.30 sec
+----------------------------------------------------------
+Test Passed.
+"p2_groups" end time: Oct 14 12:29 中国标准时间
+"p2_groups" time elapsed: 00:00:00
+----------------------------------------------------------
+
+15/42 Testing: p2_group_operations
+15/42 Test: p2_group_operations
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p2_group_operations_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+"p2_group_operations" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS request model
+PASS QQ applications and fresh permissions
+PASS WX invitations and invalidation
+PASS member roles
+PASS transfer and leave
+PASS service isolation
+PASS session access
+PASS operation menus
+8/8 group operation scenario groups passed.
+<end of output>
+Test time =   0.38 sec
+----------------------------------------------------------
+Test Passed.
+"p2_group_operations" end time: Oct 14 12:29 中国标准时间
+"p2_group_operations" time elapsed: 00:00:00
+----------------------------------------------------------
+
+16/42 Testing: p2_interaction
+16/42 Test: p2_interaction
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p2_interaction_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+"p2_interaction" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS early friend validation
+PASS service switch
+PASS existing binding priority
+PASS group selection
+PASS kick input and member listing
+PASS specific role reasons
+PASS demote before kick and cancellation
+PASS selected group requests
+8/8 interaction scenario groups passed.
+<end of output>
+Test time =   0.33 sec
+----------------------------------------------------------
+Test Passed.
+"p2_interaction" end time: Oct 14 12:29 中国标准时间
+"p2_interaction" time elapsed: 00:00:00
+----------------------------------------------------------
+
+17/42 Testing: p2_subgroup_mode
+17/42 Test: p2_subgroup_mode
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p2_subgroup_mode_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+"p2_subgroup_mode" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS subgroup creation
+PASS parent removal consistency
+PASS mode round trips and requests
+PASS subgroup and mode menus
+4/4 subgroup/mode scenario groups passed.
+<end of output>
+Test time =   0.32 sec
+----------------------------------------------------------
+Test Passed.
+"p2_subgroup_mode" end time: Oct 14 12:29 中国标准时间
+"p2_subgroup_mode" time elapsed: 00:00:00
+----------------------------------------------------------
+
+18/42 Testing: p4_gui
+18/42 Test: p4_gui
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_gui_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_gui" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS P4 widgets: registration, login, profile, three services, binding, SQLite save, close failure, memory mode
+<end of output>
+Test time =   1.95 sec
+----------------------------------------------------------
+Test Passed.
+"p4_gui" end time: Oct 14 12:29 中国标准时间
+"p4_gui" time elapsed: 00:00:01
+----------------------------------------------------------
+
+19/42 Testing: p4_gui_reload
+19/42 Test: p4_gui_reload
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_gui_tests.exe" "-platform" "offscreen" "--reload"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_gui_reload" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS P4 independent-process reload: profile, services, binding, fresh login
+<end of output>
+Test time =   0.29 sec
+----------------------------------------------------------
+Test Passed.
+"p4_gui_reload" end time: Oct 14 12:29 中国标准时间
+"p4_gui_reload" time elapsed: 00:00:00
+----------------------------------------------------------
+
+20/42 Testing: p4_friends_gui
+20/42 Test: p4_friends_gui
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_friends_gui_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_friends_gui" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS: friend widgets, CRUD, independent remarks, common queries, recommendation, cancellation, service/identity switch
+<end of output>
+Test time =   1.56 sec
+----------------------------------------------------------
+Test Passed.
+"p4_friends_gui" end time: Oct 14 12:29 中国标准时间
+"p4_friends_gui" time elapsed: 00:00:01
+----------------------------------------------------------
+
+21/42 Testing: p4_friends_reload
+21/42 Test: p4_friends_reload
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_friends_gui_tests.exe" "-platform" "offscreen" "--reload"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_friends_reload" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS: GUI friend changes restored in a separate process
+<end of output>
+Test time =   0.27 sec
+----------------------------------------------------------
+Test Passed.
+"p4_friends_reload" end time: Oct 14 12:29 中国标准时间
+"p4_friends_reload" time elapsed: 00:00:00
+----------------------------------------------------------
+
+22/42 Testing: p4_groups_gui
+22/42 Test: p4_groups_gui
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_groups_gui_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_groups_gui" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS: group selection, privacy, applications, invitations, detailed permissions, member changes, cancellation, service isolation and small-window feedback
+<end of output>
+Test time =   2.84 sec
+----------------------------------------------------------
+Test Passed.
+"p4_groups_gui" end time: Oct 14 12:29 中国标准时间
+"p4_groups_gui" time elapsed: 00:00:02
+----------------------------------------------------------
+
+23/42 Testing: p4_groups_reload
+23/42 Test: p4_groups_reload
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_groups_gui_tests.exe" "-platform" "offscreen" "--reload"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_groups_reload" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS: group membership, owner, roles and request history restored in separate process
+<end of output>
+Test time =   0.36 sec
+----------------------------------------------------------
+Test Passed.
+"p4_groups_reload" end time: Oct 14 12:29 中国标准时间
+"p4_groups_reload" time elapsed: 00:00:00
+----------------------------------------------------------
+
+24/42 Testing: p4_subgroups_gui
+24/42 Test: p4_subgroups_gui
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_subgroups_gui_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_subgroups_gui" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS: child creation, parent cascade, mode preservation, selection, real SQLite rollback and all close choices
+<end of output>
+Test time =   1.94 sec
+----------------------------------------------------------
+Test Passed.
+"p4_subgroups_gui" end time: Oct 14 12:29 中国标准时间
+"p4_subgroups_gui" time elapsed: 00:00:01
+----------------------------------------------------------
+
+25/42 Testing: p4_subgroups_reload
+25/42 Test: p4_subgroups_reload
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_subgroups_gui_tests.exe" "-platform" "offscreen" "--reload"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_subgroups_reload" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS: subgroup hierarchy, owner, members, preservation and discard restored in separate process
+<end of output>
+Test time =   0.53 sec
+----------------------------------------------------------
+Test Passed.
+"p4_subgroups_reload" end time: Oct 14 12:29 中国标准时间
+"p4_subgroups_reload" time elapsed: 00:00:00
+----------------------------------------------------------
+
+26/42 Testing: p4_social_gui
+26/42 Test: p4_social_gui
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_social_gui_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_social_gui" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS old database migration, city 3/1/repeat, request send/reject/accept, persistence, sidebar, icon, embedded dialog and stable feedback
+<end of output>
+Test time =   1.95 sec
+----------------------------------------------------------
+Test Passed.
+"p4_social_gui" end time: Oct 14 12:29 中国标准时间
+"p4_social_gui" time elapsed: 00:00:01
+----------------------------------------------------------
+
+27/42 Testing: p4_social_reload
+27/42 Test: p4_social_reload
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_social_gui_tests.exe" "-platform" "offscreen" "--reload"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_social_reload" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+PASS request states and pending acceptance restored in separate process
+<end of output>
+Test time =   0.34 sec
+----------------------------------------------------------
+Test Passed.
+"p4_social_reload" end time: Oct 14 12:29 中国标准时间
+"p4_social_reload" time elapsed: 00:00:00
+----------------------------------------------------------
+
+28/42 Testing: p4_visual_revision
+28/42 Test: p4_visual_revision
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p4_visual_revision_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_visual_revision" start time: Oct 14 12:29 中国标准时间
+Output:
+----------------------------------------------------------
+FAIL four navigation icons in requested order
+<end of output>
+Test time =   1.12 sec
+----------------------------------------------------------
+Test Failed.
+"p4_visual_revision" end time: Oct 14 12:30 中国标准时间
+"p4_visual_revision" time elapsed: 00:00:01
+----------------------------------------------------------
+
+Failed test dependencies: p4_visual_revision
+29/42 Testing: p4_visual_reload
+29/42 Test: p4_visual_reload
+Command: ""
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p4_visual_reload" start time: 
+Output:
+----------------------------------------------------------
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"p4_visual_reload" end time: Oct 14 12:30 中国标准时间
+"p4_visual_reload" time elapsed: 00:00:00
+----------------------------------------------------------
+
+30/42 Testing: p5_chat_gui
+30/42 Test: p5_chat_gui
+Command: "C:/Users/27918/AppData/Local/Python/pythoncore-3.14-64/python.exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/tests/p5_chat_gui_acceptance.py" "--exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_chat_gui_tests.exe" "--output-dir" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/p5_final/qq"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_chat_gui" start time: Oct 14 12:30 中国标准时间
+Output:
+----------------------------------------------------------
+PASS: two independent Qt processes, isolated A/B databases, real controls and TCP, screenshots saved.
+<end of output>
+Test time =   4.47 sec
+----------------------------------------------------------
+Test Passed.
+"p5_chat_gui" end time: Oct 14 12:30 中国标准时间
+"p5_chat_gui" time elapsed: 00:00:04
+----------------------------------------------------------
+
+31/42 Testing: p5_history_gui
+31/42 Test: p5_history_gui
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_history_gui_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_history_gui" start time: Oct 14 12:30 中国标准时间
+Output:
+----------------------------------------------------------
+PASS GUI history: read failure/retry, 100/200/205 pagination, unknown status, owner isolation, save compatibility, memory mode
+<end of output>
+Test time =   3.41 sec
+----------------------------------------------------------
+Test Passed.
+"p5_history_gui" end time: Oct 14 12:30 中国标准时间
+"p5_history_gui" time elapsed: 00:00:03
+----------------------------------------------------------
+
+32/42 Testing: p5_chat_gui_service_1
+32/42 Test: p5_chat_gui_service_1
+Command: "C:/Users/27918/AppData/Local/Python/pythoncore-3.14-64/python.exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/tests/p5_chat_gui_acceptance.py" "--exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_chat_gui_tests.exe" "--service" "1" "--output-dir" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/p5_final/service_1"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_chat_gui_service_1" start time: Oct 14 12:30 中国标准时间
+Output:
+----------------------------------------------------------
+PASS: two independent Qt processes, isolated A/B databases, real controls and TCP, screenshots saved.
+<end of output>
+Test time =   3.90 sec
+----------------------------------------------------------
+Test Passed.
+"p5_chat_gui_service_1" end time: Oct 14 12:30 中国标准时间
+"p5_chat_gui_service_1" time elapsed: 00:00:03
+----------------------------------------------------------
+
+33/42 Testing: p5_chat_gui_service_2
+33/42 Test: p5_chat_gui_service_2
+Command: "C:/Users/27918/AppData/Local/Python/pythoncore-3.14-64/python.exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/tests/p5_chat_gui_acceptance.py" "--exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_chat_gui_tests.exe" "--service" "2" "--output-dir" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/p5_final/service_2"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_chat_gui_service_2" start time: Oct 14 12:30 中国标准时间
+Output:
+----------------------------------------------------------
+PASS: two independent Qt processes, isolated A/B databases, real controls and TCP, screenshots saved.
+<end of output>
+Test time =   4.11 sec
+----------------------------------------------------------
+Test Passed.
+"p5_chat_gui_service_2" end time: Oct 14 12:30 中国标准时间
+"p5_chat_gui_service_2" time elapsed: 00:00:04
+----------------------------------------------------------
+
+34/42 Testing: p5_lifecycle_gui
+34/42 Test: p5_lifecycle_gui
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_lifecycle_gui_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_lifecycle_gui" start time: Oct 14 12:30 中国标准时间
+Output:
+----------------------------------------------------------
+PASS GUI lifecycle: occupied errors, peer/service/account change, friend deletion, waiting close
+PASS close cards: pending cancel/retry/discard; platform failure cancel/retry
+<end of output>
+Test time =   4.34 sec
+----------------------------------------------------------
+Test Passed.
+"p5_lifecycle_gui" end time: Oct 14 12:30 中国标准时间
+"p5_lifecycle_gui" time elapsed: 00:00:04
+----------------------------------------------------------
+
+35/42 Testing: p5_ui_refinement
+35/42 Test: p5_ui_refinement
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_ui_refinement_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_ui_refinement" start time: Oct 14 12:30 中国标准时间
+Output:
+----------------------------------------------------------
+PASS six-line preview/expand/collapse/wrap/refresh, sidebar order, avatar row selection, friend detail without disconnect, compact actions, 900x600
+<end of output>
+Test time =   1.51 sec
+----------------------------------------------------------
+Test Passed.
+"p5_ui_refinement" end time: Oct 14 12:30 中国标准时间
+"p5_ui_refinement" time elapsed: 00:00:01
+----------------------------------------------------------
+
+36/42 Testing: p5_connection_ui
+36/42 Test: p5_connection_ui
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_connection_ui_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_connection_ui" start time: Oct 14 12:30 中国标准时间
+Output:
+----------------------------------------------------------
+PASS auto roles, connector first/retry/cancel, LAN path, Enter/Shift/Ctrl, draft, settings validation/persistence/cancel, online settings, friend change, 900x600
+<end of output>
+Test time =  13.98 sec
+----------------------------------------------------------
+Test Passed.
+"p5_connection_ui" end time: Oct 14 12:30 中国标准时间
+"p5_connection_ui" time elapsed: 00:00:13
+----------------------------------------------------------
+
+37/42 Testing: p5_group_network
+37/42 Test: p5_group_network
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_group_network_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_group_network" start time: Oct 14 12:30 中国标准时间
+Output:
+----------------------------------------------------------
+PASS frames, first ordinary member, three-way auto chat, service/member/duplicate checks, removal, takeover, LAN discovery/convergence, history paging/dedup/isolation/lock
+<end of output>
+Test time =   6.45 sec
+----------------------------------------------------------
+Test Passed.
+"p5_group_network" end time: Oct 14 12:30 中国标准时间
+"p5_group_network" time elapsed: 00:00:06
+----------------------------------------------------------
+
+38/42 Testing: p5_group_gui_0
+38/42 Test: p5_group_gui_0
+Command: "C:/Users/27918/AppData/Local/Python/pythoncore-3.14-64/python.exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/tests/p5_group_gui_acceptance.py" "--exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_group_gui_tests.exe" "--service" "0" "--output-dir" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/p5_group/service_0"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_group_gui_0" start time: Oct 14 12:30 中国标准时间
+Output:
+----------------------------------------------------------
+PASS three independent Qt processes, service 0 group 1001 evidence D:\C_code\Cpp_test\JLU_InstantMessaging\build\gui-debug\p5_group\service_0\three_ujcbc0_n
+A.log PASS GUI A automatic enter, three peers, takeover, history, shortcuts and 900x600
+
+B.log PASS GUI B automatic enter, three peers, takeover, history, shortcuts and 900x600
+
+C.log PASS ordinary member host C, close for takeover
+
+reloadA.log PASS reload A
+
+reloadB.log PASS reload B
+
+reloadC.log PASS reload C
+
+<end of output>
+Test time =   4.78 sec
+----------------------------------------------------------
+Test Passed.
+"p5_group_gui_0" end time: Oct 14 12:30 中国标准时间
+"p5_group_gui_0" time elapsed: 00:00:04
+----------------------------------------------------------
+
+39/42 Testing: p5_group_gui_1
+39/42 Test: p5_group_gui_1
+Command: "C:/Users/27918/AppData/Local/Python/pythoncore-3.14-64/python.exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/tests/p5_group_gui_acceptance.py" "--exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_group_gui_tests.exe" "--service" "1" "--output-dir" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/p5_group/service_1"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_group_gui_1" start time: Oct 14 12:30 中国标准时间
+Output:
+----------------------------------------------------------
+PASS three independent Qt processes, service 1 group 1001 evidence D:\C_code\Cpp_test\JLU_InstantMessaging\build\gui-debug\p5_group\service_1\three_wc8rvdz4
+A.log PASS GUI A automatic enter, three peers, takeover, history, shortcuts and 900x600
+
+B.log PASS GUI B automatic enter, three peers, takeover, history, shortcuts and 900x600
+
+C.log PASS ordinary member host C, close for takeover
+
+reloadA.log PASS reload A
+
+reloadB.log PASS reload B
+
+reloadC.log PASS reload C
+
+<end of output>
+Test time =   4.21 sec
+----------------------------------------------------------
+Test Passed.
+"p5_group_gui_1" end time: Oct 14 12:30 中国标准时间
+"p5_group_gui_1" time elapsed: 00:00:04
+----------------------------------------------------------
+
+40/42 Testing: p5_group_gui_2
+40/42 Test: p5_group_gui_2
+Command: "C:/Users/27918/AppData/Local/Python/pythoncore-3.14-64/python.exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/tests/p5_group_gui_acceptance.py" "--exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_group_gui_tests.exe" "--service" "2" "--output-dir" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/p5_group/service_2"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_group_gui_2" start time: Oct 14 12:30 中国标准时间
+Output:
+----------------------------------------------------------
+PASS three independent Qt processes, service 2 group 1001 evidence D:\C_code\Cpp_test\JLU_InstantMessaging\build\gui-debug\p5_group\service_2\three_dhfph1me
+A.log PASS GUI A automatic enter, three peers, takeover, history, shortcuts and 900x600
+
+B.log PASS GUI B automatic enter, three peers, takeover, history, shortcuts and 900x600
+
+C.log PASS ordinary member host C, close for takeover
+
+reloadA.log PASS reload A
+
+reloadB.log PASS reload B
+
+reloadC.log PASS reload C
+
+<end of output>
+Test time =   4.33 sec
+----------------------------------------------------------
+Test Passed.
+"p5_group_gui_2" end time: Oct 14 12:30 中国标准时间
+"p5_group_gui_2" time elapsed: 00:00:04
+----------------------------------------------------------
+
+41/42 Testing: p5_group_gui_subgroup
+41/42 Test: p5_group_gui_subgroup
+Command: "C:/Users/27918/AppData/Local/Python/pythoncore-3.14-64/python.exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/tests/p5_group_gui_acceptance.py" "--exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_group_gui_tests.exe" "--group" "2001" "--output-dir" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/p5_group/subgroup"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_group_gui_subgroup" start time: Oct 14 12:30 中国标准时间
+Output:
+----------------------------------------------------------
+PASS three independent Qt processes, service 0 group 2001 evidence D:\C_code\Cpp_test\JLU_InstantMessaging\build\gui-debug\p5_group\subgroup\three_p0r28jya
+A.log PASS GUI A automatic enter, three peers, takeover, history, shortcuts and 900x600
+
+B.log PASS GUI B automatic enter, three peers, takeover, history, shortcuts and 900x600
+
+C.log PASS ordinary member host C, close for takeover
+
+reloadA.log PASS reload A
+
+reloadB.log PASS reload B
+
+reloadC.log PASS reload C
+
+<end of output>
+Test time =   4.25 sec
+----------------------------------------------------------
+Test Passed.
+"p5_group_gui_subgroup" end time: Oct 14 12:31 中国标准时间
+"p5_group_gui_subgroup" time elapsed: 00:00:04
+----------------------------------------------------------
+
+42/42 Testing: p5_group_state
+42/42 Test: p5_group_state
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_group_state_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_group_state" start time: Oct 14 12:31 中国标准时间
+Output:
+----------------------------------------------------------
+FAIL expand missing
+<end of output>
+Test time =   2.21 sec
+----------------------------------------------------------
+Test Failed.
+"p5_group_state" end time: Oct 14 12:31 中国标准时间
+"p5_group_state" time elapsed: 00:00:02
+----------------------------------------------------------
+
+End testing: Oct 14 12:31 中国标准时间

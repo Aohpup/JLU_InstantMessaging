@@ -1,0 +1,57 @@
+{
+  "executable_sha256": "d8e01a93b662f20642ca54779a7f4a23fc3dcd69c3d138db4ef445e9dd864735",
+  "results": [
+    {
+      "scenario": "01_qq_wechat_independent_login",
+      "result": "PASS"
+    },
+    {
+      "scenario": "02_wechat_first_return_and_bind",
+      "result": "PASS"
+    },
+    {
+      "scenario": "03_rejections_and_current_session_binding",
+      "result": "PASS"
+    },
+    {
+      "scenario": "04_restart_is_empty",
+      "result": "PASS"
+    },
+    {
+      "scenario": "source_structure",
+      "result": "PASS",
+      "classes": [
+        "DateLJY",
+        "FriendQueryResultLJY",
+        "FriendRelationLJY",
+        "GroupLJY",
+        "GroupMemberLJY",
+        "GroupRequestLJY",
+        "PasswordCredentialLJY",
+        "PersonLJY",
+        "ServiceAccountLJY",
+        "AccountServiceLJY",
+        "FriendManagerLJY",
+        "GroupManagerLJY",
+        "GroupPolicyLJY",
+        "PlatformLJY",
+        "QQGroupPolicyLJY",
+        "QQServiceLJY",
+        "SessionManagerLJY",
+        "SocialServiceLJY",
+        "WeChatGroupPolicyLJY",
+        "WeChatServiceLJY",
+        "WeiboServiceLJY",
+        "ConsoleAppLJY"
+      ],
+      "enums": [
+        "GroupRequestStateLJY",
+        "GroupRequestTypeLJY",
+        "ServiceTypeLJY",
+        "AccountIdModeLJY",
+        "GroupStyleLJY",
+        "ServiceLoginStateLJY"
+      ]
+    }
+  ]
+}

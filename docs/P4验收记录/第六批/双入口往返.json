@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-12",
+  "result": "PASS",
+  "processes": [
+    {
+      "step": "01_GUI写入",
+      "returncode": 0
+    },
+    {
+      "step": "02_终端读写",
+      "returncode": 0
+    },
+    {
+      "step": "03_GUI重新读取",
+      "returncode": 0
+    }
+  ],
+  "coverage": [
+    "资料昵称头像",
+    "新密码登录",
+    "申请审批与好友备注",
+    "群模式",
+    "QQ微信绑定",
+    "十表再保存一致"
+  ],
+  "table_count": 10,
+  "formal_database_unchanged": true
+}

@@ -1,0 +1,4 @@
+用法：jlu_im.exe [--empty | --demo | --database 路径 | --help]
+无参数：使用项目数据库；--database：使用指定数据库。新库首次写入演示数据。
+--empty：空平台内存模式；--demo：演示内存模式；两者均不读写数据库。
+默认数据库：D:/C_code/Cpp_test/JLU_InstantMessaging/data/jlu_im.db

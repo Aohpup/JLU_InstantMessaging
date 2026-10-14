@@ -1,0 +1,11 @@
+{
+  "file": "dist\\JLU_InstantMessaging_P4_Windows_x64.zip",
+  "bytes": 17441590,
+  "sha256": "948244e11862c618e049f141beeafc947f1b67a97aba2f905550ebf777fca0da",
+  "files": 40,
+  "zip_integrity": "PASS",
+  "matches_tested_directory": true,
+  "contains_database": false,
+  "protected_files_unchanged": 60,
+  "document_links_and_fences": "PASS"
+}
