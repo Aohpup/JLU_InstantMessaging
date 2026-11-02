@@ -1,159 +1,142 @@
-/* 图形端统一浅色外观；保留 Qt 控件行为，不影响终端。 */
-QWidget { font-family: "Microsoft YaHei"; font-size: 13px; font-weight: 400; color: #243c37; }
-QMainWindow, QStackedWidget, QScrollArea { background: #f0f6f2; }
-QFrame#sidebar { background: #dae8df; border-right: 1px solid #dbe4df; }
-QLabel#brand { font-size: 23px; font-weight: bold; color: #1e6652; }
-QLabel#workspaceTitle { font-size: 16px; font-weight: bold; }
-QLabel#pageTitle { font-size: 24px; font-weight: bold; padding: 4px 0; }
-QLabel[muted="true"] { color: #6a7d74; font-size: 12px; }
-QLabel#sidebarIdentity { border-top: 1px solid #d4dfd8; padding-top: 18px; padding-bottom: 8px; }
-QLabel#welcomeEyebrow { color: #287a60; font-weight: bold; font-size: 13px; }
-QLabel#welcomeHeadline { font-size: 29px; font-weight: bold; color: #203f33; }
-QLabel#welcomeDescription { font-size: 14px; color: #6b7e74; }
-QLabel#serviceBadge { background: #e4eee7; border-radius: 10px; padding: 15px 10px; color: #36705a; }
-/* 乳白微渐变模拟磨砂质感，投影由 CardSurfaceLJY 添加。 */
+/* 浅绿工作空间：统一字体、状态、尺寸节奏，业务行为由原页面负责。 */
+QWidget { font-family: "Microsoft YaHei"; font-size: 13px; font-weight: 400; color: #263f36; }
+QMainWindow, QStackedWidget, QScrollArea { background: #f1f6f3; }
+QWidget#loginSurface, QWidget#accountPage, QWidget#friendsPage, QWidget#groupsPage { background: #f1f6f3; }
+QLabel { background: transparent; }
+QLabel[muted="true"], QLabel#accountIdentity { color: #64796e; font-size: 12px; }
+QLabel#brand { font-size: 23px; font-weight: bold; color: #1c6450; }
+QLabel#workspaceTitle { font-size: 13px; font-weight: 400; color: #496356; }
+QLabel#pageTitle { font-size: 24px; font-weight: bold; padding: 4px 0; color: #1e3d30; }
+QLabel[cardHeading="true"] { font-size: 16px; font-weight: bold; padding: 0 0 10px 0; border: none; border-bottom: 1px solid #e5eee8; }
+QLabel#chatPeerTitle, QLabel#groupChatTitle { border: none; padding: 0; font-size: 17px; }
+
+/* 主导航、服务切换和页内标签分别承担三个层次。 */
+QFrame#sidebar { background: #dceae2; border-right: 1px solid #d0e1d7; }
+QPushButton[navigation="true"] { text-align: left; font-size: 16px; font-weight: 400; padding: 12px 14px; border: 1px solid transparent; border-radius: 9px; background: transparent; }
+QPushButton[navigation="true"]:hover { background: #d1e3d9; }
+QPushButton[navigation="true"]:checked { color: #15573e; background: #c3dfce; border-left: 3px solid #258062; padding-left: 12px; }
+QPushButton[navigation="true"]:disabled { background: transparent; color: #899b90; }
+QTabWidget::pane { border: none; background: transparent; }
+QTabWidget QStackedWidget { background: transparent; }
+QTabBar::tab { min-width: 60px; padding: 9px 16px; margin: 0 6px 8px 0; border: 1px solid #d3e0d8; border-radius: 8px; background: #eaf1ec; color: #566f60; }
+QTabBar::tab:selected { background: #ffffff; color: #176747; border-color: #70a58a; }
+QTabBar::tab:hover:!selected { background: #e0ece4; border-color: #a2bfad; }
+QTabWidget#loginTabs QTabBar::tab { width: 76px; padding: 8px 0; }
+/* 文字与角标分别留足空间；底部不用外边距，保持角标垂直居中。 */
+QTabWidget#messageTabs QTabBar::tab { width: 100px; padding: 8px 12px; margin: 0 6px 0 0; }
+QTabWidget#friendTabs QTabBar::tab { min-width: 106px; padding: 8px 12px; }
+QTabWidget#groupTabs QTabBar::tab { width: 92px; min-width: 0; padding: 8px 0; margin-right: 4px; font-size: 12px; }
+
+/* 轻玻璃卡片：背景保持可读，阴影由 CardSurfaceLJY 统一绘制。 */
 QFrame[surfaceCard="true"] {
-    background: qlineargradient(x1:0, y1:0, x2:0.25, y2:1,
-        stop:0 rgba(255,255,255,248), stop:0.55 rgba(252,255,253,240), stop:1 rgba(240,249,244,235));
-    border: 1px solid #d8e6dd;
-    border-top-color: #ffffff;
-    border-radius: 12px;
+    background: qlineargradient(x1:0, y1:0, x2:0.15, y2:1,
+        stop:0 rgba(255,255,255,252), stop:0.65 rgba(253,255,254,247), stop:1 rgba(244,250,247,243));
+    border: 1px solid #dce7e0; border-top-color: #ffffff; border-radius: 14px;
 }
-QPushButton { padding: 8px 14px; border: 1px solid #c5d2cb; border-radius: 7px; background: white; }
-QPushButton:hover { background: #eef5f0; border-color: #8cae9d; }
-QPushButton:pressed { background: #dcebe1; }
-QPushButton:focus { border-color: #27795b; }
-QPushButton:checked { background: #dcece2; border-color: #78a38b; color: #18553d; }
-QPushButton:disabled { color: #93a099; background: #edf1ee; border-color: #dde4df; }
-QPushButton[primary="true"] { background: #287557; color: white; border-color: #287557; font-weight: 400; padding: 10px; }
-QPushButton[primary="true"]:hover { background: #216548; }
-QPushButton[primary="true"]:pressed { background: #194e37; }
-QPushButton[navigation="true"] { font-family: "Microsoft YaHei"; font-size: 16px; font-weight: 400; text-align: left; padding: 12px 14px; border-color: transparent; background: transparent; }
-QPushButton[navigation="true"]:hover { background: #dfe9e2; }
-QPushButton[navigation="true"]:checked { background: #c8dfd1; border-left: 3px solid #27795b; padding-left: 11px; color: #18553d; font-weight: 400; }
-QPushButton[navigation="true"]:disabled { color: #95a198; background: transparent; }
-QLineEdit, QComboBox { padding: 7px 10px; border: 1px solid #cbd6cf; border-radius: 6px; background: #fbfcfb; selection-background-color: #27795b; }
-QLineEdit:focus, QComboBox:focus { border-color: #27795b; background: white; }
-QComboBox { padding-right: 30px; }
-QComboBox::drop-down { subcontrol-origin: padding; subcontrol-position: top right; width: 27px; border: 0; background: transparent; }
-QComboBox::down-arrow { image: url(:/gui/chevron.xpm); width: 9px; height: 5px; }
-QComboBox:disabled { color: #93a099; background: #edf1ee; }
-QComboBox QAbstractItemView { border: 1px solid #c5d2cb; background: white; selection-background-color: #dcece2; selection-color: #243c37; }
-QTabWidget::pane { background: white; border: 1px solid #dce4de; border-radius: 8px; }
-QTabBar::tab { padding: 9px 22px; margin-right: 5px; margin-bottom: 6px; background: #f0f4f1; border: 1px solid #b8c9bf; border-radius: 6px; color: #546d5f; }
-QTabBar::tab:selected { background: #dcece2; border-color: #27795b; color: #18553d; }
-QTabBar::tab:hover:!selected { background: #e7efe9; border-color: #7da68c; }
-QTabWidget#loginTabs::pane { border: 0; background: transparent; }
-QTableWidget, QListWidget, QPlainTextEdit { background: white; border: 1px solid #dce4de; border-radius: 6px; gridline-color: #e8eee9; }
-QHeaderView::section { background: #edf3ef; padding: 7px; border: 0; }
-QListWidget::item { padding: 10px; border-bottom: 1px solid #edf1ee; }
-QListWidget::item:selected { background: #dcece2; color: #18553d; }
-QScrollBar:vertical { background: #f0f3f1; width: 8px; margin: 0; }
-QScrollBar::handle:vertical { background: #c2cec5; border-radius: 4px; min-height: 30px; }
-QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
-QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical { background: transparent; }
-
-QWidget#loginSurface { background: #f0f6f2; }
-QTabWidget#loginTabs QStackedWidget { background: transparent; }
-
-/* 我的账号：三块卡片和行内编辑，不改变其他页面布局。 */
-QWidget#accountPage { background: #f0f6f2; }
-QLabel[cardHeading="true"] { font-size: 17px; font-weight: bold; padding: 2px 0 9px 10px; border-left: 3px solid #287557; border-bottom: 1px solid #e4ebe6; }
-QLabel#accountAvatar { background: #d2e8d9; color: #226247; border-radius: 38px; font-size: 32px; font-weight: bold; }
-QPushButton[coral="true"] { color: white; background: #df606b; border-color: #d95663; padding: 9px 18px; }
-QPushButton[coral="true"]:hover { background: #d5515e; }
-QPushButton[coral="true"]:pressed { background: #bd4250; }
-QPushButton[compact="true"] { padding: 5px 7px; font-size: 12px; }
-QPushButton#bindButton:enabled { background: #e0f1e6; border-color: #a3c7b0; color: #226247; }
-QTableWidget#servicesTable { border: 0; border-radius: 0; }
-
-/* 好友页面：沿用账号页卡片与头像配色，列表和说明各自滚动。 */
-QWidget#friendsPage { background: #f0f6f2; }
-QTabWidget#friendTabs::pane { border: 0; background: transparent; }
-QTabWidget#friendTabs QStackedWidget { background: transparent; }
-QLabel#friendAvatar { background: #d2e8d9; color: #226247; border-radius: 28px; font-size: 25px; font-weight: bold; }
-QLabel#friendNickname { font-size: 18px; font-weight: bold; }
-QListWidget#friendsList, QListWidget#friendQueryResults, QPlainTextEdit#friendQueryReasons { border: 0; border-radius: 0; }
-QPushButton#removeFriendButton:enabled { color: #b44350; border-color: #dbaab0; }
-QPushButton#removeFriendButton:hover:enabled { background: #fff0f1; }
-QWidget#friendsPage QPushButton[coral="true"]:disabled,
-QWidget#friendsPage QPushButton[primary="true"]:disabled { color: #93a099; background: #edf1ee; border-color: #dde4df; }
-
-/* 群页面沿用卡片外观；权限原因以可见文字呈现。 */
-QWidget#groupsPage { background: #f0f6f2; }
-QTabWidget#groupTabs::pane { border: 0; background: transparent; }
-QTabWidget#groupTabs QStackedWidget { background: transparent; }
-QListWidget#groupsList, QTableWidget#groupMembers, QTableWidget#groupRequests { border: 0; border-radius: 0; }
-QLabel#groupSummary { font-size: 15px; font-weight: bold; }
-QTableWidget#groupMembers::item:selected, QTableWidget#groupRequests::item:selected { background: #dcece2; color: #18553d; }
-QWidget#groupsPage QPushButton[coral="true"]:disabled,
-QWidget#groupsPage QPushButton[primary="true"]:disabled { color: #93a099; background: #edf1ee; border-color: #dde4df; }
-
-QTabWidget#groupTabs QTabBar::tab { padding: 8px 12px; }
-QListWidget#subgroupsList, QListWidget#subgroupMembers { border: 0; border-radius: 0; }
-QListWidget#subgroupMembers::item { padding: 6px; }
-
-/* 侧栏身份卡统一头像配色，点击整块进入账号页。 */
-QPushButton#sidebarProfileButton {
-    background: qlineargradient(x1:0, y1:0, x2:0.25, y2:1,
-        stop:0 rgba(255,255,255,250), stop:0.55 rgba(254,255,254,246), stop:1 rgba(247,251,249,240));
-    border: 1px solid #d8e6dd; border-top-color: #ffffff; border-radius: 12px; padding: 0;
-}
-QPushButton#sidebarProfileButton:hover { border-color: #8cae9d; border-top-color: #ffffff; }
-QPushButton#sidebarProfileButton:disabled { border-color: #d8e6dd; border-top-color: #ffffff; }
-QLabel#sidebarAvatar { border-radius: 28px; font-size: 25px; font-weight: bold; }
-QLabel#sidebarNickname { font-size: 17px; font-weight: bold; }
-QLabel#sidebarNumber { font-size: 11px; color: #6b8174; }
-QWidget#inlineDialog { background: rgba(23,50,38,95); }
-QFrame#dialogCard { background: #ffffff; border: 1px solid #aecab7; border-radius: 14px; }
-QLabel#dialogTitle { font-size: 20px; font-weight: bold; }
-QLabel#dialogMessage { background: white; color: #53685f; font-size: 14px; padding: 0; }
-
-/* 列表和表格露出所属卡片底色，选中行与输入框仍保持清晰的独立状态。 */
-QFrame[surfaceCard="true"] QListWidget,
-QFrame[surfaceCard="true"] QTableWidget,
+QFrame[surfaceCard="true"] QListWidget, QFrame[surfaceCard="true"] QTableWidget,
 QFrame[surfaceCard="true"] QPlainTextEdit { background: transparent; }
 
-/* 消息页延续浅绿卡片；聊天正文保持纯文本，不继承富文本样式。 */
-QFrame#chatCard { border-radius: 12px; }
-QWidget#chatTimeline { background: transparent; }
-QWidget#chatConnectionPanel { background: #edf5f0; border-radius: 8px; }
-QFrame#chatBubble { background: transparent; border: none; }
+/* 按钮的高度与同组宽度由 ActionStyleLJY 设置，颜色只表达操作层级。 */
+QPushButton { padding: 8px 12px; border: 1px solid #c7d8cd; border-radius: 8px; background: #ffffff; color: #315340; }
+QPushButton[sizedAction="true"] { padding: 0 10px; }
+QPushButton:hover { background: #edf5ef; border-color: #83ae96; }
+QPushButton:pressed { background: #dbece0; }
+QPushButton:focus { border-color: #258060; }
+QPushButton:checked { color: #1d6345; background: #e0f0e5; border-color: #83b095; }
+QPushButton[primary="true"] { color: white; background: #267557; border-color: #267557; font-weight: 400; }
+QPushButton[primary="true"]:hover { background: #1f664b; border-color: #1f664b; }
+QPushButton[primary="true"]:pressed { background: #19563e; }
+QPushButton[coral="true"] { color: white; background: #d85d6b; border-color: #d85d6b; }
+QPushButton[coral="true"]:hover { background: #c8505e; border-color: #c8505e; }
+QPushButton[coral="true"]:pressed { background: #b74452; }
+QPushButton[danger="true"] { color: #a64251; background: #fff6f7; border-color: #ebc9cf; }
+QPushButton[danger="true"]:hover { background: #fce8ec; border-color: #d99aa6; }
+QPushButton:disabled, QPushButton[primary="true"]:disabled, QPushButton[coral="true"]:disabled,
+QPushButton[danger="true"]:disabled { color: #8c9b92; background: #edf2ee; border-color: #dde6df; }
+QPushButton[compact="true"], QPushButton[friendAction="true"] { font-size: 12px; }
+QPushButton#bindButton:enabled { background: #e3f2e9; color: #256749; border-color: #b6d5c2; }
 
-QLabel#chatBody { background: transparent; border: none; color: #203d33; font-size: 14px; padding: 0; }
-QLabel#chatDelivery { background: transparent; border: none; font-size: 11px; padding: 0; }
-QPlainTextEdit#chatEditor { border: 1px solid #cbdcd2; border-radius: 9px; background: #fbfdfb; padding: 8px; }
-QSpinBox#chatPort { border: 1px solid #cbdcd2; border-radius: 6px; background: #fbfdfb; padding: 6px; min-width: 64px; }
-QListWidget#chatFriends { border: none; background: transparent; }
-QListWidget#chatFriends::item { padding: 0; border-radius: 8px; }
-QListWidget#chatFriends::item:selected { background: #d5eadd; color: #1c5845; }
+/* 表单统一行高；焦点与悬停只变颜色，避免边框宽度变化引起抖动。 */
+QLineEdit, QComboBox, QSpinBox { padding: 0 10px; border: 1px solid #ceddd3; border-radius: 8px; background: #f9fcfa; selection-background-color: #267557; selection-color: white; }
+QLineEdit:hover, QComboBox:hover, QSpinBox:hover { border-color: #9bbba8; }
+QLineEdit:focus, QComboBox:focus, QSpinBox:focus { border-color: #368968; background: white; }
+QLineEdit:disabled, QComboBox:disabled, QSpinBox:disabled { color: #87998e; background: #edf2ee; border-color: #dde6df; }
+QComboBox { padding-right: 28px; }
+QComboBox::drop-down { subcontrol-origin: padding; subcontrol-position: top right; width: 26px; border: 0; background: transparent; }
+QComboBox::down-arrow { image: url(:/gui/chevron.xpm); width: 9px; height: 5px; }
+QComboBox QAbstractItemView { background: white; border: 1px solid #c7d8cd; selection-background-color: #deeee4; selection-color: #254a34; padding: 4px; }
+QSpinBox#chatPort, QSpinBox#groupChatPort { min-width: 56px; }
+QPlainTextEdit { padding: 8px; border: 1px solid #d5e2d9; border-radius: 8px; selection-background-color: #267557; }
+QPlainTextEdit:focus { border-color: #368968; }
+QCheckBox { spacing: 8px; }
+QCheckBox::indicator { width: 16px; height: 16px; border: 1px solid #aac5b4; border-radius: 4px; background: white; }
+QCheckBox::indicator:checked { background: #267557; border-color: #267557; }
 
+/* 列表和表格用柔和选中行与清晰表头，去掉单元格网格线。 */
+QTableWidget, QListWidget { background: white; alternate-background-color: #f4f8f5; border: 1px solid #dce7e0; border-radius: 8px; gridline-color: #e8eee9; outline: none; }
+QHeaderView::section { background: #edf4ef; color: #536e5e; padding: 9px 6px; border: none; font-size: 12px; }
+QListWidget::item { padding: 12px 10px; border: none; border-bottom: 1px solid #edf3ef; }
+QListWidget::item:hover { background: #eef5f0; }
+QListWidget::item:selected, QTableWidget::item:selected { background: #dcefe2; color: #1d573c; }
+QTableWidget#servicesTable, QListWidget#friendsList, QListWidget#friendQueryResults,
+QPlainTextEdit#friendQueryReasons, QListWidget#friendRequestsList, QListWidget#groupsList,
+QTableWidget#groupMembers, QTableWidget#groupRequests, QListWidget#subgroupsList,
+QListWidget#subgroupMembers, QListWidget#chatFriends, QListWidget#chatGroups { border: none; }
+QListWidget#subgroupMembers::item { padding: 7px; }
+/* 子群名单使用列表指示器，单独指定各状态，避免原生主题绘制成黑块。 */
+QListWidget#subgroupMembers::indicator { width: 16px; height: 16px; border: 1px solid #aac5b4; border-radius: 4px; background: #ffffff; image: none; }
+QListWidget#subgroupMembers::indicator:unchecked:hover { background: #eef6f0; border-color: #267557; }
+QListWidget#subgroupMembers::indicator:checked { background: #267557; border-color: #267557; image: url(:/gui/check.xpm); }
+QListWidget#subgroupMembers::indicator:checked:disabled { background: #9bb9a8; border-color: #9bb9a8; image: url(:/gui/check.xpm); }
+QListWidget#subgroupMembers::indicator:unchecked:disabled { background: #edf3ef; border-color: #cfddd4; }
+
+QListWidget#chatFriends::item { padding: 0; border: none; border-radius: 8px; }
+QLabel#groupSummary { font-size: 16px; font-weight: bold; }
+QLabel#friendNickname { font-size: 20px; font-weight: bold; }
+QScrollBar:vertical { background: transparent; width: 8px; margin: 2px 0; }
+QScrollBar::handle:vertical { background: #bfcec4; border-radius: 4px; min-height: 32px; }
+QScrollBar::handle:vertical:hover { background: #90ad9c; }
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical { background: transparent; }
+QScrollBar:horizontal { height: 8px; background: transparent; }
+QScrollBar::handle:horizontal { background: #bfcec4; border-radius: 4px; min-width: 32px; }
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal { width: 0; }
+
+/* 登录与身份：头像六色保持原值，白色身份卡与侧栏区分。 */
+QLabel#welcomeEyebrow { color: #267557; font-size: 13px; font-weight: bold; }
+QLabel#welcomeHeadline { font-size: 29px; font-weight: bold; color: #1e4030; }
+QLabel#welcomeDescription { font-size: 14px; color: #607b69; }
+QLabel#serviceBadge { background: #e0ece4; border: 1px solid #d4e5da; border-radius: 12px; padding: 15px 10px; color: #2b6c4c; }
+QLabel#accountAvatar { border-radius: 38px; font-size: 32px; font-weight: bold; }
+QLabel#friendAvatar, QLabel#sidebarAvatar { border-radius: 28px; font-size: 25px; font-weight: bold; }
+QPushButton#sidebarProfileButton { background: qlineargradient(x1:0,y1:0,x2:0,y2:1,stop:0 #ffffff,stop:1 #f9fcfa); border: 1px solid #d6e5db; border-top-color: white; border-radius: 14px; padding: 0; }
+QPushButton#sidebarProfileButton:hover { border-color: #96baa4; background: #ffffff; }
+QPushButton#sidebarProfileButton:disabled { background: #f8fbf9; border-color: #d6e5db; }
+QLabel#sidebarNickname { font-size: 17px; font-weight: bold; }
+QLabel#sidebarNumber { font-size: 11px; color: #6c8175; }
+QLabel#databasePath { font-size: 11px; color: #74897c; }
+
+/* 内置确认保持等宽按钮；固定错误条由 UiFeedbackLJY 保留原尺寸和震动。 */
+QWidget#inlineDialog { background: rgba(20,42,31,90); }
+QFrame#dialogCard { background: #ffffff; border: 1px solid #d2e4d8; border-radius: 16px; }
+QLabel#dialogTitle { font-size: 20px; font-weight: bold; }
+QLabel#dialogMessage { background: transparent; color: #536b5c; font-size: 14px; padding: 0; }
+QToolTip { color: #ffffff; background: #294a37; border: none; border-radius: 5px; padding: 6px 9px; }
+
+/* 私聊、群聊使用相同的会话背景、头像、正文和输入区。 */
+QWidget#chatTimeline, QWidget#groupChatTimeline, QFrame#chatBubble, QFrame#groupChatBubble { background: transparent; border: none; }
+QScrollArea#chatScroll, QScrollArea#groupChatScroll { background: #eff6f1; border: none; border-radius: 10px; }
+QWidget#chatConnectionPanel { background: #f2f7f4; border-radius: 10px; }
+QLabel#chatBody, QLabel#groupChatBody { background: transparent; border: none; color: #203d33; font-size: 14px; padding: 0; }
+QLabel#chatDelivery, QLabel#groupSender, QLabel#groupStamp { background: transparent; border: none; font-size: 11px; padding: 0; }
+QPlainTextEdit#chatEditor, QPlainTextEdit#groupChatEditor { border: 1px solid #c7dcd0; border-radius: 10px; background: #ffffff; padding: 10px; }
+QPlainTextEdit#chatEditor:focus, QPlainTextEdit#groupChatEditor:focus { border-color: #368968; }
 QLabel#chatAvatar { border-radius: 20px; font-size: 18px; font-weight: bold; }
-
-/* 每条消息的发送人头像与资料页共用预设颜色，保持圆形和清晰首字。 */
 QLabel#chatSenderAvatar { border: none; border-radius: 18px; font-size: 16px; font-weight: bold; padding: 0; }
-
-/* 好友操作使用同一行的小按钮，聊天入口突出，删除保持轻量警示。 */
-QPushButton[friendAction="true"] { padding: 0 8px; border-radius: 9px; font-size: 12px; }
-QPushButton#friendRemarkButton { background: #edf5f0; border-color: #cbded2; color: #315b48; }
-QPushButton#friendRemarkButton:hover { background: #e0eee5; border-color: #9cbdac; }
-QPushButton#removeFriendButton:enabled { background: #fff5f5; border-color: #efced2; color: #af4e59; }
-QPushButton#removeFriendButton:hover:enabled { background: #fce7e9; }
 QLabel#chatFriendAvatar { border: none; border-radius: 16px; font-size: 15px; font-weight: bold; }
 QLabel#chatFriendText { background: transparent; padding: 0; }
-QPushButton#chatFriendMore { padding: 0; border: none; border-radius: 8px; background: transparent; color: #537565; font-size: 20px; }
-QPushButton#chatFriendMore:hover { background: #c3dece; color: #18553d; }
+QPushButton#chatFriendMore { padding: 0; border: none; border-radius: 8px; background: transparent; color: #537565; }
+QPushButton#chatFriendMore:hover { background: #c9e3d2; }
 QPushButton#chatFriendMore:focus { border: 1px solid #78a38b; }
 QPushButton#chatExpand { padding: 0 4px; border: none; border-radius: 4px; background: transparent; color: #216849; font-size: 12px; }
-QPushButton#chatExpand:hover { background: #bfdfcd; }
-
-/* 群聊复用私聊的卡片、输入框和纯文本样式。 */
-QTabWidget#messageTabs::pane { border: 0; background: transparent; }
-QTabWidget#messageTabs QStackedWidget { background: transparent; }
-QWidget#groupChatTimeline, QFrame#groupChatBubble { background: transparent; border: none; }
-QScrollArea#groupChatScroll { background: #eff6f1; border: none; }
-QLabel#groupChatBody { background: transparent; border: none; color: #203d33; font-size: 14px; padding: 0; }
-QLabel#groupSender, QLabel#groupStamp { background: transparent; border: none; font-size: 11px; padding: 0; }
-QPlainTextEdit#groupChatEditor { border: 1px solid #cbdcd2; border-radius: 9px; background: #fbfdfb; padding: 8px; }
-QSpinBox#groupChatPort { border: 1px solid #cbdcd2; border-radius: 6px; background: #fbfdfb; padding: 6px; min-width: 64px; }
-QListWidget#chatGroups { border: none; background: transparent; }
+QPushButton#chatExpand:hover { background: #cee8d7; }

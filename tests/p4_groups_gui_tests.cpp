@@ -201,7 +201,7 @@ int main(int argc, char** argv)
             }
         app.processEvents();check(feedback->mapTo(&window,QPoint())==position,"group scroll leaves feedback fixed");
         shot("群_小窗口提示.png");
-        click(window,"saveButton");window.close();
+        /* 业务操作成功后自动保存。 */window.close();
         std::cout<<"PASS: group selection, privacy, applications, invitations, detailed permissions, member changes, cancellation, service isolation and small-window feedback\n";
         return 0;
     }

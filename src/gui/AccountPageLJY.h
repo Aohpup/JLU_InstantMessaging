@@ -15,10 +15,12 @@ class AccountPageLJY : public QWidget
     Q_OBJECT
 public:
     explicit AccountPageLJY(SessionManagerLJY& session, QWidget* parent = nullptr);
-    // 登录、切换服务或提交后刷新真实数据，并收起编辑区。
+    // 刷新真实数据；同一账号尚未提交的表单保留。
     void refresh();
-    // 离开账号页或注销时丢弃未提交输入并清空密码。
+    // 主动取消、切换身份或注销时丢弃未提交输入并清空密码。
     void cancelEditing();
+    // 编辑中的输入尚未提交，不等同于数据库保存失败。
+    bool hasDraft() const { return editingProfile_ || editingNickname_ || editingPassword_; }
 
 signals:
     // 将操作结果发送到主窗口固定提示区，不随页面滚动。
@@ -37,7 +39,7 @@ private:
     QPushButton *passwordButton_, *passwordCancel_, *bindButton_, *unbindButton_;
     QWidget *passwordEditor_, *unbindConfirmation_, *avatarColors_;
     QPushButton* colorButtons_[6];
-    int selectedColor_ = 0;
+    int selectedColor_ = 0, shownAccount_ = 0;
     // 只预览草稿配色；保存资料时一并提交，取消还原。
     void previewAvatarColor(int color);
     bool editingProfile_ = false, editingNickname_ = false, editingPassword_ = false;

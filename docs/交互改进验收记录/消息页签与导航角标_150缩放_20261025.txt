@@ -1,0 +1,9 @@
+Test project D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+    Start 43: p5_ui_design
+1/2 Test #43: p5_ui_design .....................   Passed    6.87 sec
+    Start 48: p5_reading_ui
+2/2 Test #48: p5_reading_ui ....................   Passed    9.01 sec
+
+100% tests passed, 0 tests failed out of 2
+
+Total Test time (real) =  15.89 sec

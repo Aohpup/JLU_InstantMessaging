@@ -17,7 +17,8 @@ class FriendsPageLJY : public QWidget
 public:
     explicit FriendsPageLJY(SessionManagerLJY& session, QWidget* parent = nullptr);
     // 修改或切换服务后刷新；切换身份时清除旧选择及查询结果。
-    void refresh();
+    // 后台同步时保留当前好友的备注草稿，正常提交仍收起编辑区。
+    void refresh(bool preserveDraft = false);
     // 从消息列表跳转到“我的好友”页签并选中指定好友。
     void openFriend(const QString& number);
 
@@ -26,7 +27,7 @@ signals:
     void messageRequested(const QString& number);
     // 将操作结果发送到主窗口固定提示区，不随页面滚动。
     void feedback(const QString& message, bool failed = false);
-    // 通知主窗口有内存修改，仍使用原来的统一保存动作。
+    // 通知主窗口业务修改成功，统一自动保存。
     void changed(const QString& message);
 
 private:
@@ -61,5 +62,6 @@ private:
     void addRecommendation();
     // 查询条件改变后清空旧结果，避免把旧号码用于新条件。
     void clearQuery();
+    void updateRecommendationStates();
     bool confirm(const QString& text);
 };

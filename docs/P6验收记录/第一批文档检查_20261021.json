@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-21",
+  "protected_files_checked": 122,
+  "protected_files_changed": [],
+  "zip_entries_changed": [
+    "JLU_InstantMessaging/使用说明.md"
+  ],
+  "zip_integrity": "passed",
+  "portable_manual_matches_source": true,
+  "backup": "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\backups\\P6文档整理前_20261021_152228",
+  "local_link_targets_checked": 133,
+  "missing_local_targets": [],
+  "link_check_scope": "检查本地链接目标存在性；未校验 Markdown 标题锚点。"
+}

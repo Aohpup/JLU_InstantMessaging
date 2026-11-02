@@ -14,6 +14,11 @@ class GroupChatHistoryLJY
     std::vector<GroupChatMessageLJY> load(int service, const QString &owner, int group, long long before = 0,
                                           int limit = 100);
 
+    // 只标记当前已落库消息；重连补齐的新消息仍保持未读。
+    void markRead(int service, const QString& owner, int group);
+    int unread(int service, const QString& owner, int group);
+    // 按聊天显示顺序找到最早的未读消息编号。
+    QString firstUnread(int service, const QString& owner, int group);
   private:
     sqlite3 *db_ = nullptr;
     void check(int result);

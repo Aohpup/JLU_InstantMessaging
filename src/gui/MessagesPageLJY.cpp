@@ -1,3 +1,4 @@
+#include "gui/ListPresentationLJY.h"
 #include "gui/MessagesPageLJY.h"
 #include "gui/AvatarLJY.h"
 #include "gui/CardSurfaceLJY.h"
@@ -5,14 +6,10 @@
 #include "gui/InlineDialogLJY.h"
 #include "services/ChatIdentityLJY.h"
 #include <QDateTime>
-#include <QComboBox>
-#include <QClipboard>
 #include <QApplication>
 #include <QDir>
 #include <QSettings>
 #include <QStandardPaths>
-#include <QHostAddress>
-#include <QNetworkInterface>
 #include <QFrame>
 #include <QGridLayout>
 #include <QHBoxLayout>
@@ -38,20 +35,23 @@ MessagesPageLJY::MessagesPageLJY(SessionManagerLJY& session, const QString& data
 {
     setObjectName("messagesPage");
     auto* root = new QVBoxLayout(this);
-    root->setContentsMargins(10, 4, 10, 12); root->setSpacing(10);
-    auto* heading = new QLabel("消息"); heading->setObjectName("pageTitle");
-    root->addWidget(heading);
+    root->setContentsMargins(10, 8, 10, 12); root->setSpacing(10);
+
     identity_ = new QLabel; identity_->setObjectName("chatIdentity");
     identity_->setTextFormat(Qt::PlainText); identity_->setWordWrap(true);
-    root->addWidget(identity_);
+    root->addWidget(identity_); identity_->hide();
     auto* columns = new QHBoxLayout; columns->setSpacing(16);
     auto* listCard = new QFrame; applyCardSurfaceLJY(listCard);
-    listCard->setMinimumWidth(192); listCard->setMaximumWidth(256);
+    listCard->setMinimumWidth(170); listCard->setMaximumWidth(235);
     auto* listBox = new QVBoxLayout(listCard); listBox->setContentsMargins(10, 14, 10, 12);
     listTitle_ = new QLabel("好友"); listTitle_->setProperty("cardHeading", true);
     listBox->addWidget(listTitle_);
     friends_ = new QListWidget; friends_->setObjectName("chatFriends");
+    // 列表变窄时重新布局整行，避免资料菜单停留在旧宽度之外。
+    friends_->setResizeMode(QListView::Adjust);
+    friends_->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     friends_->setMinimumWidth(0); friends_->setTextElideMode(Qt::ElideRight);
+    addListFilterLJY(listBox, friends_, "搜索备注、昵称或号码");
     listBox->addWidget(friends_, 1);
     earlier_ = new QPushButton("加载更早消息"); earlier_->setObjectName("chatLoadEarlier");
     earlier_->setProperty("compact", true); listBox->addWidget(earlier_);
@@ -83,53 +83,36 @@ MessagesPageLJY::MessagesPageLJY(SessionManagerLJY& session, const QString& data
     connectionBar_ = new QWidget; connectionBar_->setObjectName("chatConnectionBar");
     auto* connectionBox = new QVBoxLayout(connectionBar_); connectionBox->setContentsMargins(0, 0, 0, 0); connectionBox->setSpacing(4);
     auto* quick = new QHBoxLayout;
-    mode_ = new QComboBox; mode_->setObjectName("chatMode"); mode_->addItems({"本机演示", "两台电脑"});
-    quick->addWidget(mode_); quick->addStretch();
+    quick->addWidget(new QLabel("本机聊天")); quick->addStretch();
     start_ = new QPushButton("开始聊天"); start_->setObjectName("chatStart"); start_->setProperty("primary", true); start_->setMinimumHeight(36);
     quick->addWidget(start_); connectionBox->addLayout(quick);
     connectionHint_ = new QLabel; connectionHint_->setWordWrap(true); connectionHint_->setProperty("muted", true);
     connectionBox->addWidget(connectionHint_); box->addWidget(connectionBar_);
 
     panel_ = new QWidget; panel_->setObjectName("chatConnectionPanel");
-    auto* grid = new QGridLayout(panel_); grid->setContentsMargins(0, 2, 0, 2); grid->setSpacing(4);
-    address_ = new QLineEdit; address_->setObjectName("chatAddress"); address_->setMinimumWidth(60);
-    address_->setPlaceholderText("填写等待方的 IPv4 地址");
+    auto* grid = new QGridLayout(panel_); grid->setContentsMargins(0, 2, 0, 2); grid->setSpacing(8);
     port_ = new QSpinBox; port_->setObjectName("chatPort"); port_->setRange(1, 65535); port_->setButtonSymbols(QAbstractSpinBox::NoButtons);
-    grid->addWidget(new QLabel("等待方 IP"), 0, 0); grid->addWidget(address_, 0, 1);
+    grid->addWidget(new QLabel("连接地址"), 0, 0); grid->addWidget(new QLabel("127.0.0.1（本机）"), 0, 1);
     grid->addWidget(new QLabel("端口"), 0, 2); grid->addWidget(port_, 0, 3); grid->setColumnStretch(1, 1);
-    localIps_ = new QComboBox; localIps_->setObjectName("chatLocalIps"); localIps_->setMinimumWidth(60);
-    for (const auto& adapter : QNetworkInterface::allInterfaces())
-        if ((adapter.flags() & QNetworkInterface::IsUp) && !(adapter.flags() & QNetworkInterface::IsLoopBack))
-            for (const auto& entry : adapter.addressEntries())
-                if (entry.ip().protocol() == QAbstractSocket::IPv4Protocol)
-                    localIps_->addItem(adapter.humanReadableName() + " · " + entry.ip().toString(), entry.ip().toString());
-    if (localIps_->count() == 0) localIps_->addItem("没有可用的局域网 IPv4", "");
-    auto* copy = new QPushButton("复制 IP"); copy->setObjectName("chatCopyIp");
-    connect(copy, &QPushButton::clicked, this, [this] {
-        const auto ip = localIps_->currentData().toString();
-        if (ip.isEmpty()) { emit feedback("当前没有可复制的局域网 IPv4。", true); return; }
-        QApplication::clipboard()->setText(ip); emit feedback("已复制本机 IPv4：" + ip);
-    });
-    grid->addWidget(new QLabel("本机 IPv4"), 1, 0); grid->addWidget(localIps_, 1, 1, 1, 2); grid->addWidget(copy, 1, 3);
     role_ = new QLabel; role_->setWordWrap(true); role_->setProperty("muted", true); role_->setObjectName("chatRole");
     grid->addWidget(role_, 2, 0, 1, 4);
-    auto* actions = new QHBoxLayout; actions->setSpacing(6);
+    auto* actions = new QGridLayout; actions->setSpacing(8);
     auto* reset = new QPushButton("恢复默认"); reset->setObjectName("chatResetSettings");
     auto* cancel = new QPushButton("取消"); cancel->setObjectName("chatCancelSettings");
     auto* save = new QPushButton("保存设置"); save->setObjectName("chatSaveSettings"); save->setProperty("primary", true);
     stop_ = new QPushButton("断开连接"); stop_->setObjectName("chatDisconnect");
-    actions->addWidget(reset); actions->addWidget(stop_); actions->addStretch(); actions->addWidget(cancel); actions->addWidget(save);
+    actions->addWidget(reset, 0, 0, Qt::AlignLeft); actions->addWidget(stop_, 0, 1, Qt::AlignRight);
+    actions->addWidget(cancel, 1, 0, Qt::AlignLeft); actions->addWidget(save, 1, 1, Qt::AlignRight);
+    stop_->setProperty("danger", true);
     grid->addLayout(actions, 3, 0, 1, 4); grid->setRowStretch(4, 1); box->addWidget(panel_, 1); panel_->hide();
     settingsPath_ = databasePath_.isEmpty()
         ? QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + "/connection.ini" : databasePath_ + ".connection.ini";
     QSettings config(settingsPath_, QSettings::IniFormat);
     localPort_ = std::clamp(config.value("local/port", 27015).toInt(), 1, 65535);
-    lanPort_ = std::clamp(config.value("lan/port", 27015).toInt(), 1, 65535);
-    lanAddress_ = config.value("lan/address").toString();
-    mode_->setCurrentIndex(config.value("mode", 0).toInt() == 1 ? 1 : 0);
+    // 旧版双机设置不再使用，本机端口继续保留。
+    config.remove("mode"); config.remove("lan");
     loadConnectionFields();
-    connect(mode_, &QComboBox::currentIndexChanged, this, [this] { loadConnectionFields(); updateControls(); });
-    connect(reset, &QPushButton::clicked, this, [this] { address_->setText(mode_->currentIndex() == 0 ? "127.0.0.1" : ""); port_->setValue(27015); });
+    connect(reset, &QPushButton::clicked, this, [this] { port_->setValue(27015); });
     connect(cancel, &QPushButton::clicked, this, [this] { loadConnectionFields(); settings_->setChecked(false); });
     connect(save, &QPushButton::clicked, this, &MessagesPageLJY::saveConnectionSettings);
     scroll_ = new QScrollArea; scroll_->setObjectName("chatScroll");
@@ -149,6 +132,12 @@ MessagesPageLJY::MessagesPageLJY(SessionManagerLJY& session, const QString& data
     });
     connect(bar, &QScrollBar::valueChanged, this, [this, bar] {
         followLatest_ = bar->value() >= bar->maximum() - 24;
+        if (latest_) updateReading();
+    });
+    latest_ = new QPushButton; latest_->setObjectName("chatLatest");
+    styleUnreadBannerLJY(latest_); box->addWidget(latest_); 
+    connect(latest_, &QPushButton::clicked, this, [this] {
+        jumpToUnread();
     });
     composer_ = new QWidget;
     auto* composerBox = new QVBoxLayout(composer_); composerBox->setContentsMargins(0, 0, 0, 0); composerBox->setSpacing(8);
@@ -156,15 +145,14 @@ MessagesPageLJY::MessagesPageLJY(SessionManagerLJY& session, const QString& data
     editor_->setPlaceholderText("输入消息，Enter 发送，Shift/Ctrl+Enter 换行"); editor_->installEventFilter(this);
     composerBox->addWidget(editor_);
     auto* footer = new QHBoxLayout;
-    auto* hint = new QLabel("Enter 发送 · Shift/Ctrl+Enter 换行"); hint->setProperty("muted", true);
-    footer->addWidget(hint); footer->addStretch();
+    footer->addStretch();
     send_ = new QPushButton("发送"); send_->setObjectName("chatSend"); send_->setProperty("primary", true);
     footer->addWidget(send_); composerBox->addLayout(footer); box->addWidget(composer_);
     columns->addWidget(chatCard, 3); root->addLayout(columns, 1);
     connect(settings_, &QPushButton::toggled, this, [this](bool shown) { panel_->setVisible(shown); if (shown) loadConnectionFields(); updateControls(); });
     connect(friends_, &QListWidget::currentRowChanged, this, [this] { selectFriend(); });
     connect(start_, &QPushButton::clicked, this, [this] {
-        if (autoWaiting_) { stopConnection(); emit feedback("已取消连接，草稿保留。"); }
+        if (autoWaiting_ && selected_ == connectedPeer_) { stopConnection(); emit feedback("已取消连接，草稿保留。"); }
         else beginConnection();
     });
     retryTimer_ = new QTimer(this); retryTimer_->setSingleShot(true); retryTimer_->setInterval(2500);
@@ -185,8 +173,9 @@ void MessagesPageLJY::refresh()
     const std::string next = loggedIn ? session_.currentAccount().externalId() : "";
     if (next != owner_ || nextService != service_)
     {
-        stopConnection(); owner_ = next; service_ = nextService; selected_.clear(); attempted_ = false;
-        conversations_.clear(); drafts_.clear(); editor_->clear(); oldest_.clear(); historyEnded_.clear(); expanded_.clear();
+        stopConnection(); owner_ = next; service_ = nextService; selected_.clear(); connectedPeer_.clear(); connectionState_ = "尚未连接"; attempted_ = false;
+        previews_.clear(); findChild<QLineEdit*>("chatFriendsSearch")->clear();
+        unread_.clear(); conversations_.clear(); drafts_.clear(); editor_->clear(); oldest_.clear(); historyEnded_.clear(); expanded_.clear();
     }
     supported_ = loggedIn;
     const QString name = QStringList{"QQ", "微信", "微博"}.at(static_cast<int>(service_));
@@ -203,12 +192,17 @@ void MessagesPageLJY::refresh()
         for (const auto& account : session_.friends())
         {
             const auto number = QString::fromStdString(account.externalId());
+            if (!databasePath_.isEmpty()) {
+                QSettings read(databasePath_+".unread.ini",QSettings::IniFormat);
+                unread_[number]=read.value(QString::number(static_cast<int>(service_))+"/"+QString::fromStdString(owner_)+"/"+number,0).toInt();
+            }
             const auto remark = QString::fromStdString(session_.friendRemark(account.externalId()));
             const auto nickname = QString::fromStdString(account.nickname());
             const auto display = remark.isEmpty() ? nickname : remark;
             const auto person = session_.friendPerson(account.externalId());
-            auto* item = new QListWidgetItem(friends_);
-            item->setData(Qt::UserRole, number); item->setToolTip(display + " · " + number); item->setSizeHint(QSize(170, 64));
+            auto* item = new ConversationItemLJY(friends_);
+            item->setData(Qt::UserRole+10, remark+" "+nickname+" "+number);
+            item->setData(Qt::UserRole, number); item->setToolTip(display + " · " + number); item->setSizeHint(QSize(120, 84));
             auto* row = new QWidget; row->setObjectName("chatFriendRow");
             auto* layout = new QHBoxLayout(row); layout->setContentsMargins(6, 6, 4, 6); layout->setSpacing(6);
             QTextBoundaryFinder first(QTextBoundaryFinder::Grapheme, nickname);
@@ -225,7 +219,14 @@ void MessagesPageLJY::refresh()
                 label->setAttribute(Qt::WA_TransparentForMouseEvents);
                 label->setProperty("muted", value == number); label->installEventFilter(this); text->addWidget(label);
             }
-            layout->addLayout(text, 1);
+            auto* preview=new QLabel; preview->setObjectName("chatPreview");
+            preview->setProperty("account",number); preview->setProperty("muted",true);
+            preview->setTextFormat(Qt::PlainText); preview->setSizePolicy(QSizePolicy::Ignored,QSizePolicy::Preferred);
+            preview->setAttribute(Qt::WA_TransparentForMouseEvents); preview->installEventFilter(this);
+            text->addWidget(preview); layout->addLayout(text, 1);
+            auto* unread=new QLabel; unread->setObjectName("chatUnread"); unread->setProperty("account",number);
+            styleUnreadBadgeLJY(unread);
+            unread->hide(); layout->addWidget(unread);
             auto* more = new QPushButton; more->setObjectName("chatFriendMore");
             // 直接绘制三个圆点，避免字体缺少省略号字形时显示方框。
             QPixmap dots(36, 36); dots.setDevicePixelRatio(2); dots.fill(Qt::transparent);
@@ -238,10 +239,32 @@ void MessagesPageLJY::refresh()
             connect(more, &QPushButton::clicked, this, [this, number] { emit friendRequested(number); });
             layout->addWidget(more); friends_->setItemWidget(item, row);
             if (account.externalId() == selected_) friends_->setCurrentItem(item);
+            if (!previews_.contains(number) && !databasePath_.isEmpty()) {
+                try {
+                    const auto rows=history().load(owner_,account.externalId(),0,1,service_);
+                    if (!rows.empty()) updatePreview(number,rows.back().message);
+                } catch (const std::exception&) { preview->setText("摘要暂不可用"); }
+            }
+            const auto recent=previews_.value(number);
+            item->setData(Qt::UserRole+11,recent.first);
+            const auto summary=recent.first ? messageDateLJY(recent.first)+" "+QDateTime::fromMSecsSinceEpoch(recent.first).toString("HH:mm")+" · "+recent.second : "暂无消息";
+            preview->setText(summary); preview->setProperty("fullText",summary); preview->setToolTip(summary);
         }
+    for (const auto& number:unread_.keys()) {
+        bool present=false;
+        for (int i=0;i<friends_->count();++i) present |= friends_->item(i)->data(Qt::UserRole).toString()==number;
+        if (!present) unread_.remove(number);
+    }
+    if (!connectedPeer_.empty() && (active_ || autoWaiting_)) {
+        bool exists = false;
+        for (int i=0; i<friends_->count(); ++i)
+            exists |= friends_->item(i)->data(Qt::UserRole).toString().toStdString() == connectedPeer_;
+        if (!exists) stopConnection();
+    }
     if (!friends_->currentItem() && !selected_.empty())
     {
-        stopConnection(); conversations_.erase(selected_); drafts_.remove(QString::fromStdString(selected_));
+        if (selected_ == connectedPeer_) stopConnection();
+        conversations_.erase(selected_); drafts_.remove(QString::fromStdString(selected_));
         oldest_.erase(selected_); historyEnded_.erase(selected_);
         selected_.clear(); editor_->clear();
     }
@@ -251,17 +274,21 @@ void MessagesPageLJY::refresh()
         const auto person = session_.friendPerson(selected_);
         const auto nickname = QString::fromStdString(account.nickname());
         peerNickname_ = nickname; peerPerson_ = person.personId(); peerColor_ = person.avatarColor();
-        title_->setText(nickname + " · " + QString::fromStdString(selected_)); title_->setToolTip(title_->text());
+        const auto remark = QString::fromStdString(session_.friendRemark(selected_));
+        title_->setText((remark.isEmpty() ? nickname : remark) + " · " + QString::fromStdString(selected_));
+        title_->setToolTip(nickname + " · " + QString::fromStdString(selected_));
         QTextBoundaryFinder boundary(QTextBoundaryFinder::Grapheme, nickname);
         avatar_->setText(nickname.isEmpty() ? "友" : nickname.left(boundary.toNextBoundary()));
         applyAvatarColorLJY(avatar_, person.personId(), person.avatarColor());
     }
     else { title_->setText("选择一位好友"); avatar_->setText("友"); applyAvatarColorLJY(avatar_, 0); }
+    friends_->sortItems(); filterListLJY(friends_);
     loadHistory(); renderConversation(); updateControls();
 }
 
 void MessagesPageLJY::openConversation(const QString& number)
 {
+    findChild<QLineEdit*>("chatFriendsSearch")->clear();
     refresh();
     if (!supported_) { emit feedback("请先登录后选择当前服务的好友。", true); return; }
     for (int i = 0; i < friends_->count(); ++i)
@@ -275,11 +302,10 @@ void MessagesPageLJY::selectFriend()
     const auto next = friends_->currentItem() ? friends_->currentItem()->data(Qt::UserRole).toString().toStdString() : "";
     if (next == selected_) return;
     drafts_[QString::fromStdString(selected_)] = editor_->toPlainText();
-    const bool wasActive = active_;
-    stopConnection(); selected_ = next; attempted_ = false;
+    selected_ = next; followLatest_=unread_.value(QString::fromStdString(next)) == 0;
     editor_->setPlainText(drafts_.value(QString::fromStdString(selected_)));
     refresh();
-    if (wasActive) emit feedback("已切换好友并断开原连接，请为当前好友重新连接。");
+
 }
 
 bool MessagesPageLJY::shouldListen() const
@@ -292,45 +318,32 @@ bool MessagesPageLJY::shouldListen() const
 
 void MessagesPageLJY::loadConnectionFields()
 {
-    const bool local = mode_->currentIndex() == 0;
-    address_->setText(local ? "127.0.0.1" : lanAddress_);
-    port_->setValue(local ? localPort_ : lanPort_);
+    port_->setValue(localPort_);
 }
 
 void MessagesPageLJY::saveConnectionSettings()
 {
-    const bool local = mode_->currentIndex() == 0;
-    const auto ip = address_->text().trimmed();
-    QHostAddress parsed(ip);
-    if (!local && !ip.isEmpty() && (parsed.protocol() != QAbstractSocket::IPv4Protocol || parsed.isNull() || parsed.isMulticast() || ip == "255.255.255.255"))
-    { emit feedback("请填写有效的等待方 IPv4 地址，例如 192.168.1.10。", true); return; }
     QSettings config(settingsPath_, QSettings::IniFormat);
-    config.setValue("mode", mode_->currentIndex());
-    config.setValue(local ? "local/port" : "lan/port", port_->value());
-    if (!local) config.setValue("lan/address", ip);
+    config.setValue("local/port", port_->value());
     config.sync();
     if (config.status() != QSettings::NoError) { emit feedback("连接设置保存失败，请检查配置文件的写入权限。", true); return; }
-    if (local) localPort_ = port_->value(); else { lanPort_ = port_->value(); lanAddress_ = ip; }
+    localPort_ = port_->value();
     settings_->setChecked(false);
     emit feedback(active_ || autoWaiting_ ? "设置已保存，下次连接生效；当前连接不变。" : "连接设置已保存。");
 }
 
 void MessagesPageLJY::beginConnection()
 {
-    if (active_ || autoWaiting_) return;
+    if ((active_ || autoWaiting_) && selected_ == connectedPeer_) return;
     try { makeChatIdentityLJY(session_, selected_); }
     catch (const std::exception& error) { emit feedback(QString::fromUtf8(error.what()), true); return; }
     listening_ = shouldListen();
-    const bool local = mode_->currentIndex() == 0;
-    // 等待方监听本机网卡，主动方才需要填写等待方的地址。
-    attemptAddress_ = local ? "127.0.0.1" : (listening_ ? "0.0.0.0" : lanAddress_);
-    attemptPort_ = local ? localPort_ : lanPort_;
-    QHostAddress ip(attemptAddress_);
-    if (!listening_ && (ip.protocol() != QAbstractSocket::IPv4Protocol || ip.isNull() || ip.isMulticast() || attemptAddress_ == "255.255.255.255"))
-    { settings_->setChecked(true); emit feedback("请在更多设置中填写并保存等待方的 IPv4 地址。", true); return; }
+    attemptAddress_ = "127.0.0.1";
+    attemptPort_ = localPort_;
+    // 用户明确连接新好友时，才停止原好友的收发。
+    stopConnection(); connectedPeer_ = selected_;
     attempted_ = true; autoWaiting_ = true; waitStarted_ = QDateTime::currentMSecsSinceEpoch();
     settings_->setChecked(false); startConnection();
-    if (autoWaiting_) emit feedback("正在等待对方开始聊天；双方点击“开始聊天”即可。");
 }
 
 void MessagesPageLJY::startConnection()
@@ -338,10 +351,10 @@ void MessagesPageLJY::startConnection()
     connectionFailed_ = false; handshaking_ = false;
     try
     {
-        const auto identity = makeChatIdentityLJY(session_, selected_);
+        const auto identity = makeChatIdentityLJY(session_, connectedPeer_);
         connection_ = peer_.startChat(listening_, attemptAddress_.toStdString(), attemptPort_, identity);
         active_ = true; ready_ = false;
-        state_->setText(listening_ ? "等待连接 · 请对方点击开始聊天" : "正在连接对方…");
+        connectionState_ = listening_ ? "等待连接 · 请对方点击开始聊天" : "正在连接对方…";
     }
     catch (const std::exception& error)
     { autoWaiting_ = false; active_ = false; connectionFailed_ = true; emit feedback("连接失败：" + QString::fromUtf8(error.what()), true); }
@@ -352,6 +365,8 @@ void MessagesPageLJY::sendText()
 {
     try
     {
+        if (selected_ != connectedPeer_ || !ready_)
+        { emit feedback("请先连接当前好友，输入的草稿会保留。", true); return; }
         // 使用现有会话再核对当前对象，编辑或切服务后不会向旧好友误发。
         makeChatIdentityLJY(session_, selected_);
         peer_.sendMessage(editor_->toPlainText().toUtf8().toStdString());
@@ -369,7 +384,7 @@ void MessagesPageLJY::stopConnection()
     peer_.stopChat();
     pollEvents();
     connection_.clear(); active_ = false; ready_ = false;
-    state_->setText(hadConnection ? "已断开 · 可手动重新连接" : "尚未连接"); updateControls();
+    connectionState_ = hadConnection ? "已断开 · 可手动重新连接" : "尚未连接"; updateControls();
 }
 
 void MessagesPageLJY::pollEvents()
@@ -380,29 +395,40 @@ void MessagesPageLJY::pollEvents()
         switch (event.type)
         {
         case ChatEventTypeLJY::Listening:
-            state_->setText("等待连接 · 端口 " + QString::number(event.port)); break;
-        case ChatEventTypeLJY::Connecting: state_->setText("正在连接对方…"); break;
-        case ChatEventTypeLJY::Handshaking: handshaking_ = true; state_->setText("已连通，正在核对好友身份…"); break;
+            connectionState_ = "等待连接 · 端口 " + QString::number(event.port); break;
+        case ChatEventTypeLJY::Connecting: connectionState_ = "正在连接对方…"; break;
+        case ChatEventTypeLJY::Handshaking: handshaking_ = true; connectionState_ = "已连通，正在核对好友身份…"; break;
         case ChatEventTypeLJY::Ready:
-            autoWaiting_ = false; retryTimer_->stop(); ready_ = true; state_->setText("已连接 · 可双向聊天");
-            settings_->setChecked(false); emit feedback("好友身份核对完成，可以发送消息。"); break;
+            autoWaiting_ = false; retryTimer_->stop(); ready_ = true; connectionState_ = "已连接 · 可双向聊天";
+            if (selected_ == connectedPeer_) settings_->setChecked(false);
+            break;
         case ChatEventTypeLJY::Incoming:
-            conversations_[selected_].push_back(event.message); appendBubble(event.message);
-            if (storeMessage(event.message) && !isVisible())
-                emit feedback("收到好友 " + QString::fromStdString(event.message.senderAccount) + " 的新消息。");
+            if (selected_ != connectedPeer_ || !isVisible() || !followLatest_ || settings_->isChecked()) {
+                if (selected_ == connectedPeer_) followLatest_ = false;
+                ++unread_[QString::fromStdString(connectedPeer_)];
+                if (!databasePath_.isEmpty()) {
+                    QSettings read(databasePath_+".unread.ini",QSettings::IniFormat);
+                    read.setValue(QString::number(static_cast<int>(service_))+"/"+QString::fromStdString(owner_)+"/"+QString::fromStdString(connectedPeer_),unread_.value(QString::fromStdString(connectedPeer_)));
+                }
+            }
+            conversations_[connectedPeer_].push_back(event.message);
+            if (selected_ == connectedPeer_) appendBubble(event.message);
+            storeMessage(event.message);
+            updatePreview(QString::fromStdString(connectedPeer_), event.message);
             break;
         case ChatEventTypeLJY::Delivery:
         {
-            auto& messages = conversations_[selected_];
+            auto& messages = conversations_[connectedPeer_];
             auto found = std::find_if(messages.begin(), messages.end(), [&](const auto& m) { return m.id == event.message.id; });
-            if (found == messages.end()) { messages.push_back(event.message); appendBubble(event.message); }
+            if (found == messages.end()) { messages.push_back(event.message); if (selected_ == connectedPeer_) appendBubble(event.message); }
             else
             {
                 *found = event.message;
-                auto* label = deliveryLabels_.value(QString::fromStdString(found->id), nullptr);
+                auto* label = selected_ == connectedPeer_ ? deliveryLabels_.value(QString::fromStdString(found->id), nullptr) : nullptr;
                 if (label) { updateDeliveryLabel(label, *found); fitBubbles(); }
             }
             storeMessage(event.message);
+            updatePreview(QString::fromStdString(connectedPeer_), event.message);
             break;
         }
         case ChatEventTypeLJY::Error:
@@ -411,16 +437,16 @@ void MessagesPageLJY::pollEvents()
             // 只重试尚未连通时的拒绝或超时；握手、端口和收发错误直接报告。
             const bool unavailable = detail.contains("10061") || detail.contains("10060") || detail.contains("连接超时");
             if (autoWaiting_ && !listening_ && !handshaking_ && unavailable)
-            { state_->setText("正在等待对方开始聊天…（每 2.5 秒重试）"); break; }
+            { connectionState_ = "正在等待对方开始聊天…（每 2.5 秒重试）"; break; }
             autoWaiting_ = false; connectionFailed_ = true; ready_ = false;
-            state_->setText("连接失败 · 可重新连接"); emit feedback(detail, true); break;
+            connectionState_ = "连接失败 · 可重新连接"; emit feedback(detail, true); break;
         }
         case ChatEventTypeLJY::Closed:
             active_ = false; ready_ = false;
             if (autoWaiting_ && !listening_)
                 retryTimer_->start();
             else if (!connectionFailed_)
-            { state_->setText("已断开 · 点击重新连接"); emit feedback(QString::fromStdString(event.detail)); }
+            { connectionState_ = "已断开 · 点击重新连接"; emit feedback(QString::fromStdString(event.detail)); }
             break;
         }
     }
@@ -428,7 +454,7 @@ void MessagesPageLJY::pollEvents()
     {
         autoWaiting_ = false; retryTimer_->stop(); peer_.stopChat(); peer_.takeEvents();
         connection_.clear(); active_ = false; ready_ = false; connectionFailed_ = true;
-        state_->setText("等待超时 · 可重新连接");
+        connectionState_ = "等待超时 · 可重新连接";
         emit feedback("等待已超过 60 秒，请确认对方已点击开始聊天，并检查 IP、端口和网络。", true);
     }
     updateControls();
@@ -438,28 +464,34 @@ void MessagesPageLJY::updateControls()
 {
     const bool selected = supported_ && !selected_.empty();
     settings_->setEnabled(selected); start_->setEnabled(selected);
-    start_->setText(autoWaiting_ ? "取消等待" : (attempted_ ? "重新连接" : "开始聊天"));
+    const bool current = selected_ == connectedPeer_;
+    const bool ready = current && ready_;
+    start_->setText(current && autoWaiting_ ? "取消等待" : (current && attempted_ ? "重新连接" : "开始聊天"));
+    state_->setText(current ? connectionState_ :
+        (active_ || autoWaiting_ ? "与 " + QString::fromStdString(connectedPeer_) + " 的连接仍保留；点击开始聊天切换到当前好友。" : "尚未连接"));
     stop_->setEnabled(active_ || autoWaiting_);
-    mode_->setEnabled(!active_ && !autoWaiting_);
-    const bool local = mode_->currentIndex() == 0;
-    address_->setEnabled(!local && !shouldListen()); port_->setEnabled(true);
+    port_->setEnabled(true);
     role_->setText(!selected ? "选择好友后自动分配连接角色。" :
-        (shouldListen() ? "自动等待连接；两机模式请把本机 IPv4 发给对方。" : "自动连接对方；两机模式请填写等待方 IPv4。"));
-    connectionHint_->setText(local ? "在本机打开两个窗口，双方选择彼此并点击开始聊天。" : "连接同一局域网；首次使用请在更多设置中核对 IP 和端口。");
-    connectionBar_->setVisible(!ready_ || settings_->isChecked());
-    start_->setVisible(!ready_);
+        (shouldListen() ? "本窗口自动等待另一方连接。" : "本窗口自动连接另一方。"));
+    connectionHint_->setText("在本机打开两个窗口，双方选择彼此并点击开始聊天，端口保持一致。");
+    connectionBar_->setVisible(!ready || settings_->isChecked());
+    start_->setVisible(!ready);
     // 小窗口编辑设置时使用聊天内容区，避免把输入框和表单压成细条。
     scroll_->setVisible(!settings_->isChecked()); composer_->setVisible(!settings_->isChecked());
-    editor_->setEnabled(selected); send_->setEnabled(selected && ready_);
-    send_->setToolTip(ready_ ? "Enter 发送" : "先开始聊天，输入的草稿会保留");
-    state_->setProperty("connected", ready_);
+    editor_->setEnabled(selected); send_->setEnabled(selected && ready);
+    send_->setToolTip(ready ? "Enter 发送" : "先开始聊天，输入的草稿会保留");
+    state_->setProperty("connected", ready);
     if (!selected) settings_->setChecked(false);
-    updateHistoryControls();
+    updateHistoryControls(); updateReading();
 }
 
 void MessagesPageLJY::renderConversation()
 {
-    followLatest_ = true;
+    const int revision=++scrollRevision_;
+    const bool follow=followLatest_;
+    const int position=scroll_->verticalScrollBar()->value();
+    const QSignalBlocker block(scroll_->verticalScrollBar());
+    const bool wasLoading=loadingHistory_; loadingHistory_=true; lastDate_=QDate();
     deliveryLabels_.clear();
     while (auto* item = bubbles_->takeAt(0))
     {
@@ -471,6 +503,13 @@ void MessagesPageLJY::renderConversation()
     empty_->setText(selected_.empty() ? "从左侧选择当前服务的一位好友。" : "还没有消息。点击“开始聊天”，开启第一段对话。");
     empty_->setVisible(found == conversations_.end() || found->second.empty());
     if (found != conversations_.end()) for (const auto& message : found->second) appendBubble(message);
+    loadingHistory_=wasLoading; followLatest_=follow;
+    QTimer::singleShot(0,this,[this,follow,position,revision,peer=selected_] {
+        if (peer!=selected_ || revision!=scrollRevision_) return;
+        const QSignalBlocker block(scroll_->verticalScrollBar());
+        scroll_->verticalScrollBar()->setValue(follow ? scroll_->verticalScrollBar()->maximum() : position);
+        followLatest_=follow; updateReading();
+    });
 }
 
 void MessagesPageLJY::appendBubble(const ChatMessageLJY& message)
@@ -478,6 +517,8 @@ void MessagesPageLJY::appendBubble(const ChatMessageLJY& message)
     const bool outgoing = message.senderAccount == owner_;
     if (outgoing && !loadingHistory_) followLatest_ = true;
     empty_->hide();
+    const auto date=QDateTime::fromMSecsSinceEpoch(message.time).date();
+    if (date!=lastDate_) { bubbles_->addWidget(dateSeparatorLJY(message.time)); lastDate_=date; }
     auto* row = new QWidget; auto* line = new QHBoxLayout(row); line->setContentsMargins(0, 0, 0, 0);
     line->setSpacing(8);
     // 头像使用本地账号的昵称首字和已保存颜色，不增加网络协议字段。
@@ -517,7 +558,7 @@ void MessagesPageLJY::appendBubble(const ChatMessageLJY& message)
     else line->addStretch();
     bubbles_->addWidget(row); deliveryLabels_[QString::fromStdString(message.id)] = delivery;
     fitBubbles();
-    if (followLatest_) QTimer::singleShot(0, this, [this] { scroll_->verticalScrollBar()->setValue(scroll_->verticalScrollBar()->maximum()); });
+    if (followLatest_ && !loadingHistory_) QTimer::singleShot(0, this, [this] { if (followLatest_) scroll_->verticalScrollBar()->setValue(scroll_->verticalScrollBar()->maximum()); });
 }
 
 void MessagesPageLJY::updateDeliveryLabel(QLabel* label, const ChatMessageLJY& message)
@@ -563,7 +604,7 @@ void MessagesPageLJY::fitBubbles()
 
 bool MessagesPageLJY::eventFilter(QObject* object, QEvent* event)
 {
-    if (object->objectName() == "chatFriendText" && event->type() == QEvent::Resize)
+    if ((object->objectName() == "chatFriendText" || object->objectName() == "chatPreview") && event->type() == QEvent::Resize)
         if (auto* label = qobject_cast<QLabel*>(object))
             label->setText(label->fontMetrics().elidedText(label->property("fullText").toString(), Qt::ElideRight, label->width()));
     if (object == editor_ && event->type() == QEvent::KeyPress)
@@ -663,6 +704,7 @@ void MessagesPageLJY::loadHistory(bool earlier)
             }
         if (earlier)
         {
+            followLatest_ = false;
             loadingHistory_ = true; renderConversation(); loadingHistory_ = false;
             followLatest_ = false;
             QTimer::singleShot(0, this, [this] { scroll_->verticalScrollBar()->setValue(0); });
@@ -686,4 +728,87 @@ bool MessagesPageLJY::prepareToClose()
         if (answer == InlineDialogLJY::Discard) { pending_.clear(); updateHistoryControls(); break; }
     }
     return true;
+}
+
+int MessagesPageLJY::unreadCount()
+{
+    const auto current=QString::fromStdString(selected_);
+    if (isVisible() && followLatest_ && !settings_->isChecked() && unread_.value(current)>0) {
+        unread_[current]=0;
+        if (!databasePath_.isEmpty()) {
+            QSettings read(databasePath_+".unread.ini",QSettings::IniFormat);
+            read.setValue(QString::number(static_cast<int>(service_))+"/"+QString::fromStdString(owner_)+"/"+current,0);
+        }
+    }
+    int total=0; for (int count:unread_) total+=count;
+    for (auto* label:friends_->findChildren<QLabel*>("chatUnread")) {
+        const int count=unread_.value(label->property("account").toString());
+        label->setText(count>99 ? "99+" : QString::number(count)); label->setVisible(count>0);
+    }
+    updateReading();
+    return total;
+}
+
+void MessagesPageLJY::updateReading()
+{
+    if (!latest_) return;
+    const int count=unread_.value(QString::fromStdString(selected_));
+    latest_->setVisible(count > 0 && !selected_.empty() && !settings_->isChecked());
+    latest_->setText(QString("%1 条未读消息 · 点击查看最早未读").arg(count));
+}
+
+void MessagesPageLJY::jumpToUnread()
+{
+    const int count = unread_.value(QString::fromStdString(selected_));
+    if (!count) return;
+    try {
+        auto& messages = conversations_[selected_];
+        auto incomingCount = [&] { return std::count_if(messages.begin(), messages.end(),
+            [this](const auto& m) { return m.senderAccount != owner_; }); };
+        // 未读可能超过当前页；只向前补到能够定位为止。
+        while (incomingCount() < count && !databasePath_.isEmpty() && !historyEnded_.count(selected_)) {
+            const auto rows = history().load(owner_, selected_, oldest_[selected_], 100, service_);
+            std::vector<ChatMessageLJY> prefix;
+            for (const auto& row : rows)
+                if (std::none_of(messages.begin(), messages.end(), [&](const auto& m) { return m.id == row.message.id; }))
+                    prefix.push_back(row.message);
+            messages.insert(messages.begin(), prefix.begin(), prefix.end());
+            if (!rows.empty()) oldest_[selected_] = rows.front().rowId;
+            if (rows.size() < 100 || prefix.empty()) historyEnded_.insert(selected_);
+        }
+        QString target; int remaining = count;
+        for (auto it = messages.rbegin(); it != messages.rend(); ++it)
+            if (it->senderAccount != owner_) {
+                target = QString::fromStdString(it->id);
+                if (--remaining == 0) break;
+            }
+        if (target.isEmpty()) return;
+        followLatest_ = false; renderConversation(); updateHistoryControls();
+        const int revision = ++scrollRevision_;
+        QTimer::singleShot(0, this, [this, target, revision] {
+            if (revision != scrollRevision_) return;
+            scrollToMessageLJY(scroll_, timeline_, "chatBody", target);
+            followLatest_ = scroll_->verticalScrollBar()->value() >= scroll_->verticalScrollBar()->maximum()-24;
+            unreadCount();
+        });
+    } catch (const std::exception& e) { emit feedback("定位未读失败：" + QString::fromUtf8(e.what()), true); }
+}
+void MessagesPageLJY::updatePreview(const QString& number,const ChatMessageLJY& message)
+{
+    if (previews_.value(number).first>message.time) return;
+    const auto summary=messageSummaryLJY(QString::fromStdString(message.body));
+    previews_[number]={message.time,summary};
+    const QSignalBlocker block(friends_);
+    for (int i=0;i<friends_->count();++i) {
+        auto* item=friends_->item(i);
+        if (item->data(Qt::UserRole).toString()!=number) continue;
+        item->setData(Qt::UserRole+11,message.time);
+        if (auto* row=friends_->itemWidget(item)) {
+            auto* label=row->findChild<QLabel*>("chatPreview");
+            const auto text=messageDateLJY(message.time)+" "+QDateTime::fromMSecsSinceEpoch(message.time).toString("HH:mm")+" · "+summary;
+            label->setProperty("fullText",text); label->setToolTip(text);
+            label->setText(label->fontMetrics().elidedText(text,Qt::ElideRight,label->width()));
+        }
+    }
+    friends_->sortItems();
 }

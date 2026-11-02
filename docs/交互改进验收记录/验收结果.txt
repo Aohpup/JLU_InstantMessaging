@@ -1,0 +1,10 @@
+2026-10-15：仅隔离数据库测试，正式数据库未修改。
+p5_usability：通过（名单差异、自动保存/重试、草稿、普通群、推荐、备注、后台群消息、未读持久化、申请角标）。
+p5_connection_ui：通过（含隐藏页面私聊未读及打开清零、断开连接）。
+p5_group_gui_0/1/2/subgroup：通过。p5_group_state、p5_group_network：通过。
+p5_group_offline_0/1/2：通过（205 条离线、分页、切群、重启与去重）。
+p4_gui/gui_reload、p4_friends_gui/friends_reload、p4_groups_gui/groups_reload：通过。
+p4_subgroups_gui、p4_social_gui、p5_history_gui、p5_ui_refinement、p5_ui_design：通过。
+发布脚本成功，清除开发工具 PATH 后服务端 --help 返回 0，GUI --empty 启动存活；仅结束本次空白检查进程。
+jlu_im_gui.exe SHA256 535a69959911bad955313759b115f3c37ae7d7c4cfee898b5057cb1d7b614626
+jlu_group_server.exe SHA256 49007cfa65849f1d4f222cd6fb7f25ec0baff22a9acc2ad7ddb224b232b8d8da

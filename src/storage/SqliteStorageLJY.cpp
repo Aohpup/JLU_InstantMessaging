@@ -15,6 +15,7 @@ SqliteStorageLJY::SqliteStorageLJY(const std::string& databasePath)
     try
     {
         check(sqlite3_open(databasePath.c_str(), &db_), "打开数据库失败");
+        check(sqlite3_busy_timeout(db_, 1500), "设置数据库等待时间失败");
         execute("PRAGMA foreign_keys=ON;");
         execute("BEGIN;");
         execute(sqliteSchemaLJY);
@@ -24,6 +25,12 @@ SqliteStorageLJY::SqliteStorageLJY(const std::string& databasePath)
         while (readRow()) if (readText(1) == "avatar_color") hasAvatarColor = true;
         finishStatement();
         if (!hasAvatarColor) execute("ALTER TABLE persons ADD COLUMN avatar_color INTEGER NOT NULL DEFAULT -1 CHECK (avatar_color BETWEEN -1 AND 5);");
+        bool hasRevision = false;
+        prepare("PRAGMA table_info(id_state);");
+        while (readRow()) if (readText(1) == "revision") hasRevision = true;
+        finishStatement();
+        if (!hasRevision) execute("ALTER TABLE id_state ADD COLUMN revision INTEGER NOT NULL DEFAULT 0;");
+        revision_ = readRevision();
         execute("COMMIT;");
     }
     catch (...)
@@ -82,6 +89,9 @@ void SqliteStorageLJY::save(const PlatformLJY& platform)
     execute("BEGIN IMMEDIATE;");
     try
     {
+        // 在写事务锁内比较，避免旧窗口把已处理的申请和新关系覆盖回去。
+        if (readRevision() != revision_)
+            throw std::runtime_error("业务数据已被其他窗口更新，请同步最新数据后重新操作。");
         // 外键保持开启：先删除依赖记录，群先子后父，最后清理人员。
         execute("DELETE FROM friend_requests; DELETE FROM group_requests; DELETE FROM group_members;"
                 "DELETE FROM chat_groups WHERE parent_group_id IS NOT NULL; DELETE FROM chat_groups;"
@@ -165,7 +175,10 @@ void SqliteStorageLJY::save(const PlatformLJY& platform)
         bind(3, platform.lastSharedNumber_); bind(4, platform.lastWeChatNumber_);
         bind(5, platform.lastGroupId_); bind(6, platform.lastGroupRequestId_); writeRow();
         finishStatement();
+        prepare("UPDATE id_state SET revision=? WHERE singleton=1;");
+        bind(1, revision_ + 1); writeRow(); finishStatement();
         execute("COMMIT;");
+        ++revision_;
     }
     catch (...)
     {
@@ -199,7 +212,23 @@ std::string SqliteStorageLJY::readText(int column) const
     if (!value) throw std::runtime_error("读取数据库文本失败。");
     return std::string(reinterpret_cast<const char*>(value), sqlite3_column_bytes(statement_, column));
 }
-void SqliteStorageLJY::load(PlatformLJY& platform)
+int SqliteStorageLJY::readRevision()
+{
+    prepare("SELECT revision FROM id_state WHERE singleton=1;");
+    if (!readRow()) throw std::runtime_error("数据库缺少业务版本。");
+    const int revision = readInt(0);
+    finishStatement();
+    return revision;
+}
+
+bool SqliteStorageLJY::refreshIfChanged(PlatformLJY& platform)
+{
+    if (readRevision() == revision_) return false;
+    load(platform, true);
+    return true;
+}
+
+void SqliteStorageLJY::load(PlatformLJY& platform, bool preserveLoginHistory)
 {
     PlatformLJY restored;
     execute("BEGIN;");
@@ -280,9 +309,12 @@ void SqliteStorageLJY::load(PlatformLJY& platform)
         restored.lastGroupId_ = readInt(4); restored.lastGroupRequestId_ = readInt(5);
         finishStatement();
         validateLoaded(restored);
+        const int revision = readRevision();
+        if (preserveLoginHistory) restored.passwordLoginHistory_ = platform.passwordLoginHistory_;
         execute("COMMIT;");
-        // 临时平台没有登录历史；全部成功后才替换，原平台的查询指针随之失效。
+        // 全部成功后才替换；当前会话用编号定位，列表须重查，不能保留旧查询指针。
         platform = std::move(restored);
+        revision_ = revision;
     }
     catch (...)
     {

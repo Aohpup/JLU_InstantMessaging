@@ -55,7 +55,7 @@ int main(int argc,char** argv){QApplication app(argc,argv);app.setStyle("Fusion"
     check(w.findChild<QListWidget*>("friendsList")->currentItem()->data(Qt::UserRole)=="10003","wrong friend detail");
     check(list->currentItem()->data(Qt::UserRole)=="10002"&&w.findChild<QPushButton*>("chatDisconnect")->isEnabled(),"detail navigation stopped or changed chat");
     const char* actions[]={"friendMessageButton","friendRemarkButton","removeFriendButton"};int y=-1;
-    for(auto name:actions){auto* button=w.findChild<QPushButton*>(name);check(button->width()==88&&button->height()==34,"compact action size");int now=button->mapTo(&w,QPoint()).y();check(y<0||now==y,"actions not on one row");y=now;}
+    for(auto name:actions){auto* button=w.findChild<QPushButton*>(name);check(button->width()==88&&button->height()==36,"compact action size");int now=button->mapTo(&w,QPoint()).y();check(y<0||now==y,"actions not on one row");y=now;}
     w.resize(1100,900);QTest::qWait(40);w.grab().save(evidence+"/friend-actions.png");w.close();
     check(history.load("10001","10002")[0].message.body==longText,"fold changed stored message");
     std::cout<<"PASS six-line preview/expand/collapse/wrap/refresh, sidebar order, avatar row selection, friend detail without disconnect, compact actions, 900x600\n";

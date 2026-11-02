@@ -119,7 +119,7 @@ int main(int argc, char* argv[])
             click(window, "switchService1");
             check(session.currentAccount().externalId() == "wx_20001", "bound service available");
         }
-        click(window, "saveButton");
+        /* 业务操作成功后自动保存。 */
         window.close();
         check(!window.isVisible(), "saved close");
         std::cout << (write ? "PASS GUI write\n" : "PASS GUI reload after actual terminal edits\n");

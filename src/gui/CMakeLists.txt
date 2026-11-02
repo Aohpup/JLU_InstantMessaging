@@ -5,10 +5,10 @@ add_library(jlu_gui_widgets STATIC
     ../network/GroupChatProtocolLJY.cpp
     ../network/GroupChatHostLJY.h ../network/GroupChatHostLJY.cpp
     ../network/GroupChatClientLJY.h ../network/GroupChatClientLJY.cpp
-    ../storage/GroupChatHistoryLJY.cpp
+    ../storage/GroupChatHistoryLJY.cpp ../storage/GroupRoomStoreLJY.cpp
     GroupMessagesPageLJY.h GroupMessagesPageLJY.cpp
     gui_assets.qrc
-    UiFeedbackLJY.h CardSurfaceLJY.h AvatarLJY.h SidebarIconLJY.h InlineDialogLJY.h InlineDialogLJY.cpp
+    ListPresentationLJY.h ActionStyleLJY.h UiFeedbackLJY.h CardSurfaceLJY.h AvatarLJY.h SidebarIconLJY.h InlineDialogLJY.h InlineDialogLJY.cpp
     LoginPageLJY.h LoginPageLJY.cpp
     AccountPageLJY.h AccountPageLJY.cpp
     MainWindowLJY.h MainWindowLJY.cpp
@@ -22,7 +22,12 @@ if(MINGW)
     target_compile_options(jlu_gui_widgets PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
+add_executable(jlu_group_server ../network/main_group_server.cpp)
+target_link_libraries(jlu_group_server PRIVATE jlu_gui_widgets)
+install(TARGETS jlu_group_server RUNTIME DESTINATION .)
+
 add_executable(jlu_im_gui WIN32 main_gui.cpp app_icon.rc)
+add_dependencies(jlu_im_gui jlu_group_server)
 target_link_libraries(jlu_im_gui PRIVATE jlu_gui_widgets)
 if(JLU_PORTABLE_DATA)
     target_compile_definitions(jlu_im_gui PRIVATE JLU_PORTABLE_DATA)
@@ -213,4 +218,50 @@ if(BUILD_TESTING)
     add_test(NAME p5_group_state COMMAND p5_group_state_tests -platform offscreen)
     set_tests_properties(p5_group_state PROPERTIES TIMEOUT 40
         ENVIRONMENT "QT_QPA_PLATFORM_PLUGIN_PATH=${JLU_QT_BIN}/../plugins/platforms")
+endif()
+
+if(BUILD_TESTING)
+    add_executable(p5_ui_design_tests "${PROJECT_SOURCE_DIR}/tests/p5_ui_design_tests.cpp")
+    target_link_libraries(p5_ui_design_tests PRIVATE jlu_gui_widgets Qt6::Test)
+    add_test(NAME p5_ui_design COMMAND p5_ui_design_tests -platform offscreen)
+    set_tests_properties(p5_ui_design PROPERTIES TIMEOUT 45
+        ENVIRONMENT "QT_QPA_PLATFORM_PLUGIN_PATH=${JLU_QT_BIN}/../plugins/platforms")
+endif()
+
+if(BUILD_TESTING)
+    add_executable(p5_group_offline_tests "${PROJECT_SOURCE_DIR}/tests/p5_group_offline_tests.cpp")
+    target_link_libraries(p5_group_offline_tests PRIVATE jlu_gui_widgets Qt6::Test)
+    add_dependencies(p5_group_offline_tests jlu_group_server)
+    foreach(service IN ITEMS 0 1 2)
+        add_test(NAME p5_group_offline_${service} COMMAND p5_group_offline_tests ${service})
+        set_tests_properties(p5_group_offline_${service} PROPERTIES TIMEOUT 90
+            ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QT_QPA_PLATFORM_PLUGIN_PATH=${JLU_QT_BIN}/../plugins/platforms")
+    endforeach()
+endif()
+
+if(BUILD_TESTING)
+    add_executable(p5_usability_tests "${PROJECT_SOURCE_DIR}/tests/p5_usability_tests.cpp")
+    target_link_libraries(p5_usability_tests PRIVATE jlu_gui_widgets Qt6::Test)
+    add_test(NAME p5_usability COMMAND p5_usability_tests -platform offscreen)
+    set_tests_properties(p5_usability PROPERTIES TIMEOUT 60
+        ENVIRONMENT "QT_QPA_PLATFORM_PLUGIN_PATH=${JLU_QT_BIN}/../plugins/platforms")
+endif()
+
+# 实际页面和本机收发验证列表与历史阅读，不连接用户数据。
+if(BUILD_TESTING)
+    add_executable(p5_reading_ui_tests "${PROJECT_SOURCE_DIR}/tests/p5_reading_ui_tests.cpp")
+    target_link_libraries(p5_reading_ui_tests PRIVATE jlu_gui_widgets Qt6::Test)
+    add_test(NAME p5_reading_ui COMMAND p5_reading_ui_tests -platform offscreen)
+    set_tests_properties(p5_reading_ui PROPERTIES TIMEOUT 60
+        ENVIRONMENT "QT_QPA_PLATFORM_PLUGIN_PATH=${JLU_QT_BIN}/../plugins/platforms")
+endif()
+
+# 两个独立 GUI 进程共用隔离库，验证好友申请、列表和保存版本同步。
+if(BUILD_TESTING)
+    add_executable(p6_shared_business_gui_tests "${PROJECT_SOURCE_DIR}/tests/p6_shared_business_gui_tests.cpp")
+    target_link_libraries(p6_shared_business_gui_tests PRIVATE jlu_gui_widgets Qt6::Test)
+    add_dependencies(p6_shared_business_gui_tests jlu_group_server)
+    add_test(NAME p6_shared_business_gui COMMAND p6_shared_business_gui_tests)
+    set_tests_properties(p6_shared_business_gui PROPERTIES TIMEOUT 55
+        ENVIRONMENT "QT_QPA_PLATFORM=offscreen;QT_QPA_PLATFORM_PLUGIN_PATH=${JLU_QT_BIN}/../plugins/platforms")
 endif()

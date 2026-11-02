@@ -1,0 +1,8 @@
+{
+  "jlu_im_gui.exe": "ac475123cab8c625689c2d287ff976429257222be329c9b10afe7e758fc3938f",
+  "jlu_group_server.exe": "872692955b46dd64c6c61f104eb078fd3ac3c93c4882a1ae0ed4343322457a7f",
+  "zip_no_user_data": true,
+  "release_server_clean_path_restart_history": "passed",
+  "release_gui_clean_path_isolated_database": "passed",
+  "tests": "9 group tests + 3 GUI regression tests passed"
+}

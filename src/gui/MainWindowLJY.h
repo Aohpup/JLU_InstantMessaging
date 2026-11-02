@@ -22,7 +22,8 @@ class MainWindowLJY : public QMainWindow
 public:
     // 会话和保存动作引用的对象必须比窗口活得更久；空动作表示内存模式。
     MainWindowLJY(SessionManagerLJY& session, std::function<void()> saveAction,
-                  const QString& databasePath, QWidget* parent = nullptr);
+                  const QString& databasePath, QWidget* parent = nullptr,
+                  std::function<bool()> synchronizeAction = {});
 
 protected:
     // 正常关闭先保存；失败可重试、取消关闭或明确放弃。
@@ -31,6 +32,9 @@ protected:
 private:
     SessionManagerLJY& session_;
     std::function<void()> saveAction_;
+    // 检查其他窗口的业务提交；空动作表示不参与共享库同步。
+    std::function<bool()> synchronizeAction_;
+    void synchronizeExternalChanges();
     LoginPageLJY* login_;
     AccountPageLJY* account_;
     QStackedWidget* pages_;
@@ -41,16 +45,24 @@ private:
     GroupMessagesPageLJY* groupMessages_;
     QTabWidget* messageTabs_;
     QPushButton *messagesNav_, *accountNav_, *friendsNav_, *groupsNav_;
+    // 消息总未读独立显示，避免与导航文字混色。
+    QLabel* messagesUnread_;
     QPushButton* serviceButtons_[3];
     QPushButton* logoutButton_;
     QLabel* status_;
+    QLabel* persistence_;
+    // 保存状态独立于临时反馈，不被连接通知覆盖。
+    void updatePersistence();
     // 侧栏显示当前昵称与号码，未登录时显示引导文字。
     QLabel *identity_, *identityAvatar_, *identityNumber_;
     QPushButton* identityCard_;
     // 根据当前身份刷新服务按钮和账号页，当前服务不允许重复切换。
-    void refresh();
+    void refresh(bool preserveDrafts = false);
     void switchService(ServiceTypeLJY type);
     // 修改发生在内存；保存成功后才提示已经写入数据库。
     void markChanged(const QString& message);
+    bool dirty_ = false;
+    QPushButton* retrySave_;
+    void updateBadges();
     bool save();
 };

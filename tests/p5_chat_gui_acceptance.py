@@ -17,13 +17,12 @@ def main():
     parser.add_argument('--exe', required=True)
     parser.add_argument('--output-dir', required=True)
     parser.add_argument('--service', type=int, default=0)
-    parser.add_argument('--address', default='127.0.0.1')
     args = parser.parse_args()
     root = Path(args.output_dir).resolve()
     root.mkdir(parents=True, exist_ok=True)
     folder = Path(tempfile.mkdtemp(prefix='gui_pair_', dir=root))
     executable = str(Path(args.exe).resolve())
-    env = dict(os.environ, QT_QPA_PLATFORM='offscreen', JLU_TEST_SERVICE=str(args.service), JLU_TEST_ADDRESS=args.address)
+    env = dict(os.environ, QT_QPA_PLATFORM='offscreen', JLU_TEST_SERVICE=str(args.service))
     processes = []
     report = {'status': 'failed', 'directory': str(folder), 'platform': 'Qt offscreen, production MainWindow widgets', 'processes': []}
     try:
@@ -34,11 +33,11 @@ def main():
         for name in ['A', 'B']:
             shutil.copyfile(folder/'base.db', folder/f'{name}.db')
         with socket.socket() as reserved:
-            reserved.bind((args.address, 0))
+            reserved.bind(('127.0.0.1', 0))
             port = reserved.getsockname()[1]
         report['port'] = port
         report['service'] = args.service
-        report['address'] = args.address
+        report['address'] = '127.0.0.1'
 
         def start(role):
             process = subprocess.Popen([executable, '--listen' if role == 'A' else '--connect',

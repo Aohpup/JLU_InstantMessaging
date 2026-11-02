@@ -1,0 +1,8 @@
+{
+  "release_matches_dist_and_zip": true,
+  "sha256": "e59010baf65a9159ef6927e066a5b58710e60e9d9cf5dd1e3e0c7972c3707a8c",
+  "no_user_database_or_config_in_zip": true,
+  "clean_path_release_startup": "passed, hidden Windows window and isolated database",
+  "debug_gui_regression": "25 passed; final list/layout adjustments passed 2 and 5 related retests",
+  "formal_database_sha256": "cde1bbadc4e2cb46ba37323f831029b93cfdc35fd47851683062a1374acf8b60"
+}

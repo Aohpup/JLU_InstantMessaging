@@ -1,3 +1,5 @@
+#include "gui/ListPresentationLJY.h"
+#include <QSignalBlocker>
 #include "gui/CardSurfaceLJY.h"
 #include "gui/FriendsPageLJY.h"
 #include "gui/AvatarLJY.h"
@@ -21,8 +23,8 @@ FriendsPageLJY::FriendsPageLJY(SessionManagerLJY& session, QWidget* parent)
     setObjectName("friendsPage");
     setAttribute(Qt::WA_StyledBackground);
     auto* layout = new QVBoxLayout(this);
-    layout->setContentsMargins(4, 4, 4, 4);
-    layout->setSpacing(20);
+    layout->setContentsMargins(12, 4, 12, 16);
+    layout->setSpacing(16);
     auto* title = new QLabel("我的好友");
     title->setObjectName("pageTitle");
     layout->addWidget(title);
@@ -49,8 +51,8 @@ FriendsPageLJY::FriendsPageLJY(SessionManagerLJY& session, QWidget* parent)
     };
     auto* listPage = new QWidget;
     auto* listLayout = new QVBoxLayout(listPage);
-    listLayout->setContentsMargins(20, 20, 20, 24);
-    listLayout->setSpacing(20);
+    listLayout->setContentsMargins(0, 12, 0, 4);
+    listLayout->setSpacing(16);
     auto* addCard = card(listLayout, "添加好友");
     auto* addRow = new QHBoxLayout;
     number_ = new QLineEdit;
@@ -64,12 +66,13 @@ FriendsPageLJY::FriendsPageLJY(SessionManagerLJY& session, QWidget* parent)
     addCard->addLayout(addRow);
 
     auto* columns = new QHBoxLayout;
-    columns->setSpacing(20);
+    columns->setSpacing(16);
     auto* listCard = card(columns, "好友列表", 2);
     friends_ = new QListWidget;
     friends_->setObjectName("friendsList");
     friends_->setMinimumWidth(160);
     friends_->setMinimumHeight(160);
+    addListFilterLJY(listCard, friends_, "搜索备注、昵称或号码");
     listCard->addWidget(friends_, 1);
     auto* detailLayout = card(columns, "好友资料", 3);
     auto* friendHeader = new QHBoxLayout;
@@ -127,6 +130,7 @@ FriendsPageLJY::FriendsPageLJY(SessionManagerLJY& session, QWidget* parent)
 
     removeButton_ = new QPushButton("删除好友");
     removeButton_->setObjectName("removeFriendButton");
+    removeButton_->setProperty("danger", true);
     messageButton_ = new QPushButton("发消息");
     messageButton_->setObjectName("friendMessageButton");
     messageButton_->setProperty("primary", true);
@@ -138,7 +142,7 @@ FriendsPageLJY::FriendsPageLJY(SessionManagerLJY& session, QWidget* parent)
     for (auto* button : {messageButton_, remarkButton_, removeButton_})
     {
         button->setProperty("friendAction", true);
-        button->setFixedSize(88, 34);
+        button->setFixedSize(88, 36);
         button->setCursor(Qt::PointingHandCursor);
         friendActions->addWidget(button);
     }
@@ -149,8 +153,8 @@ FriendsPageLJY::FriendsPageLJY(SessionManagerLJY& session, QWidget* parent)
 
     auto* queryPage = new QWidget;
     auto* queryLayout = new QVBoxLayout(queryPage);
-    queryLayout->setContentsMargins(20, 20, 20, 24);
-    queryLayout->setSpacing(20);
+    queryLayout->setContentsMargins(0, 12, 0, 4);
+    queryLayout->setSpacing(16);
     auto* queryCard = card(queryLayout, "查询条件");
     auto* queryRow = new QHBoxLayout;
     auto* form = new QFormLayout;
@@ -177,7 +181,7 @@ FriendsPageLJY::FriendsPageLJY(SessionManagerLJY& session, QWidget* parent)
     queryRow->addWidget(queryButton, 0, Qt::AlignBottom);
     queryCard->addLayout(queryRow);
     auto* queryColumns = new QHBoxLayout;
-    queryColumns->setSpacing(20);
+    queryColumns->setSpacing(16);
     auto* resultCard = card(queryColumns, "查询结果", 3);
     results_ = new QListWidget;
     results_->setObjectName("friendQueryResults");
@@ -199,7 +203,7 @@ FriendsPageLJY::FriendsPageLJY(SessionManagerLJY& session, QWidget* parent)
     tabs->addTab(queryPage, "共同好友与推荐");
     auto* requestPage=new QWidget;
     auto* requestLayout=new QVBoxLayout(requestPage);
-    requestLayout->setContentsMargins(20,20,20,24);
+    requestLayout->setContentsMargins(0,12,0,4);
     auto* requestCard=card(requestLayout,"好友申请");
     auto* requestInfo=new QLabel("搜索或推荐添加会先发送申请；只有收到申请的账号同意后，双方才成为好友。");
     requestInfo->setWordWrap(true); requestCard->addWidget(requestInfo);
@@ -224,21 +228,25 @@ FriendsPageLJY::FriendsPageLJY(SessionManagerLJY& session, QWidget* parent)
     connect(source_, &QComboBox::currentIndexChanged, this, [this] { clearQuery(); });
     connect(commonNumber_, &QLineEdit::textChanged, this, [this] { clearQuery(); });
     connect(results_, &QListWidget::currentRowChanged, this, [this] {
-        recommendButton_->setEnabled(recommendationReady_ && results_->currentItem());
+        updateRecommendationStates();
     });
     refresh();
 }
 
-void FriendsPageLJY::refresh()
+void FriendsPageLJY::refresh(bool preserveDraft)
 {
+    const bool editing = preserveDraft && !remarkEditor_->isHidden();
+    const QString draft = remark_->text();
     const QString selected = friends_->currentItem() ? friends_->currentItem()->data(Qt::UserRole).toString() : QString();
     const int nextId = session_.isLoggedIn() ? session_.currentAccount().accountId() : 0;
     const bool sameAccount = accountId_ == nextId;
     accountId_ = nextId;
     showRequests();
     friends_->clear();
+    const auto source = source_->currentData();
+    QSignalBlocker sourceBlock(source_);
     source_->clear();
-    clearQuery();
+    if (!sameAccount) clearQuery();
     if (!sameAccount) { number_->clear(); commonNumber_->clear(); }
     if (!nextId) { identity_->clear(); showFriend(); return; }
     const auto current = session_.currentAccount();
@@ -252,17 +260,28 @@ void FriendsPageLJY::refresh()
         const QString remark = QString::fromStdString(session_.friendRemark(peer.externalId()));
         auto* item = new QListWidgetItem((remark.isEmpty() ? QString::fromStdString(peer.nickname()) : remark) + "\n" + number, friends_);
         item->setData(Qt::UserRole, number);
+        item->setData(Qt::UserRole+10, remark+" "+QString::fromStdString(peer.nickname())+" "+number);
         if (sameAccount && number == selected) friends_->setCurrentItem(item);
     }
     for (const auto& account : session_.accounts())
         if (account.serviceType() != current.serviceType())
             source_->addItem(names[static_cast<int>(account.serviceType())], static_cast<int>(account.serviceType()));
+    if (sameAccount && source_->findData(source)>=0) source_->setCurrentIndex(source_->findData(source));
+    updateRecommendationStates();
     if (!friends_->currentItem() && friends_->count()) friends_->setCurrentRow(0);
+    filterListLJY(friends_);
     showFriend();
+    if (editing && sameAccount && friends_->currentItem() &&
+        friends_->currentItem()->data(Qt::UserRole).toString() == selected)
+    {
+        beginRemarkEdit();
+        remark_->setText(draft);
+    }
 }
 
 void FriendsPageLJY::openFriend(const QString& number)
 {
+    findChild<QLineEdit*>("friendsListSearch")->clear();
     refresh();
     findChild<QTabWidget*>("friendTabs")->setCurrentIndex(0);
     for (int i = 0; i < friends_->count(); ++i)
@@ -438,7 +457,7 @@ void FriendsPageLJY::addRecommendation()
     try
     {
         session_.sendFriendRequest(number.toStdString());
-        emit changed("推荐好友申请已发送，等待对方同意，尚未保存到数据库。继续推荐时请重新查询。");
+        emit changed("推荐好友申请已发送，等待对方同意。");
     }
     catch (const std::exception& error) { emit feedback( "操作失败：" + QString::fromUtf8(error.what()), true); }
 }
@@ -447,6 +466,10 @@ void FriendsPageLJY::showRequests()
 {
     requests_->clear();
     if (!accountId_) return;
+    int pending = 0;
+    for (const auto& r : session_.friendRequests())
+        if (r.state()==0 && r.recipientId()==accountId_) ++pending;
+    findChild<QTabWidget*>("friendTabs")->setTabText(2, pending ? QString("好友申请 (%1)").arg(pending) : "好友申请");
     const QStringList states{"待处理","已同意","已拒绝"};
     for (const auto& request : session_.friendRequests())
     {
@@ -468,4 +491,27 @@ void FriendsPageLJY::handleRequest(bool accept)
         emit changed(accept ? "已同意申请，双方已成为好友，尚未保存到数据库。" : "已拒绝好友申请，尚未保存到数据库。");
     }
     catch (const std::exception& error) { emit feedback("处理失败："+QString::fromUtf8(error.what()),true); }
+}
+
+void FriendsPageLJY::updateRecommendationStates()
+{
+    if (!session_.isLoggedIn()) return;
+    for (int i=0;i<results_->count();++i) {
+        auto* item=results_->item(i);
+        const auto number=item->data(Qt::UserRole).toString();
+        if (!item->data(Qt::UserRole+1).isValid()) item->setData(Qt::UserRole+1,item->text());
+        QString state;
+        for (const auto& f:session_.friends())
+            if (QString::fromStdString(f.externalId())==number) state="已是好友";
+        if (state.isEmpty()) for (const auto& r:session_.friendRequests())
+            if (r.state()==0 && QString::fromStdString(session_.contactAccount(
+                r.senderId()==accountId_ ? r.recipientId() : r.senderId()).externalId())==number)
+                state=r.senderId()==accountId_ ? "已申请" : "待处理申请";
+        item->setData(Qt::UserRole+2,!state.isEmpty());
+        item->setData(Qt::UserRole+3,state);
+        item->setText(item->data(Qt::UserRole+1).toString()+(state.isEmpty()?QString():" · "+state));
+    }
+    auto* item=results_->currentItem();
+    recommendButton_->setEnabled(recommendationReady_ && item && !item->data(Qt::UserRole+2).toBool());
+    recommendButton_->setText(item && item->data(Qt::UserRole+2).toBool() ? item->data(Qt::UserRole+3).toString() : "发送好友申请");
 }

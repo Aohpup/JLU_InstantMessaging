@@ -1,0 +1,586 @@
+{
+  "date": "2026-10-21",
+  "backup": "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\backups\\P6第三批整理前_20261021_155816",
+  "course_sha256": "18bfcf747d276ef8dc4dfb5b6aca62a4f117441ac5ceefed5a455d8de3899e6e",
+  "type_scan_scope": "src 下 .h/.cpp 的 class/struct 定义；不计枚举、前向声明、第三方库和测试。正则盘点并人工核对例外，不是完整 C++ 语法分析。",
+  "types": [
+    {
+      "file": "src/domain/ChatMessageLJY.h",
+      "line": 8,
+      "kind": "class",
+      "name": "ChatIdentityLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/domain/ChatMessageLJY.h",
+      "line": 28,
+      "kind": "struct",
+      "name": "ChatMessageLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/domain/DateLJY.h",
+      "line": 6,
+      "kind": "class",
+      "name": "DateLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/domain/FriendQueryResultLJY.h",
+      "line": 8,
+      "kind": "class",
+      "name": "FriendQueryResultLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/domain/FriendRelationLJY.h",
+      "line": 8,
+      "kind": "class",
+      "name": "FriendRelationLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/domain/FriendRequestLJY.h",
+      "line": 4,
+      "kind": "class",
+      "name": "FriendRequestLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/domain/GroupChatMessageLJY.h",
+      "line": 5,
+      "kind": "struct",
+      "name": "GroupChatMessageLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/domain/GroupLJY.h",
+      "line": 10,
+      "kind": "class",
+      "name": "GroupLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/domain/GroupMemberLJY.h",
+      "line": 4,
+      "kind": "class",
+      "name": "GroupMemberLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/domain/GroupRequestLJY.h",
+      "line": 8,
+      "kind": "class",
+      "name": "GroupRequestLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/domain/PasswordCredentialLJY.h",
+      "line": 6,
+      "kind": "class",
+      "name": "PasswordCredentialLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/domain/PersonLJY.h",
+      "line": 6,
+      "kind": "class",
+      "name": "PersonLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/domain/ServiceAccountLJY.h",
+      "line": 8,
+      "kind": "class",
+      "name": "ServiceAccountLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/gui/AccountPageLJY.h",
+      "line": 13,
+      "kind": "class",
+      "name": "AccountPageLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/gui/ChatBubbleLJY.h",
+      "line": 7,
+      "kind": "class",
+      "name": "ChatBubbleLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/gui/FriendsPageLJY.h",
+      "line": 14,
+      "kind": "class",
+      "name": "FriendsPageLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/gui/GroupMessagesPageLJY.h",
+      "line": 19,
+      "kind": "class",
+      "name": "GroupMessagesPageLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/gui/GroupMessagesPageLJY.h",
+      "line": 62,
+      "kind": "struct",
+      "name": "PendingGroupHistoryLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/gui/GroupsPageLJY.h",
+      "line": 14,
+      "kind": "class",
+      "name": "GroupsPageLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/gui/InlineDialogLJY.h",
+      "line": 6,
+      "kind": "class",
+      "name": "InlineDialogLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/gui/ListPresentationLJY.h",
+      "line": 38,
+      "kind": "class",
+      "name": "ConversationItemLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/gui/ListPresentationLJY.h",
+      "line": 96,
+      "kind": "class",
+      "name": "GroupRowDelegateLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/gui/LoginPageLJY.h",
+      "line": 12,
+      "kind": "class",
+      "name": "LoginPageLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/gui/MainWindowLJY.h",
+      "line": 19,
+      "kind": "class",
+      "name": "MainWindowLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/gui/MessagesPageLJY.h",
+      "line": 25,
+      "kind": "class",
+      "name": "MessagesPageLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/gui/MessagesPageLJY.h",
+      "line": 59,
+      "kind": "struct",
+      "name": "PendingHistoryLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/gui/UiFeedbackLJY.h",
+      "line": 9,
+      "kind": "class",
+      "name": "FeedbackShakeEffectLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/network/ChatProtocolLJY.h",
+      "line": 8,
+      "kind": "struct",
+      "name": "ChatFrameLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/network/ChatProtocolLJY.h",
+      "line": 16,
+      "kind": "class",
+      "name": "ChatProtocolLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/network/GroupChatClientLJY.h",
+      "line": 7,
+      "kind": "class",
+      "name": "GroupChatClientLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/network/GroupChatHostLJY.h",
+      "line": 13,
+      "kind": "class",
+      "name": "GroupChatHostLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/network/GroupChatHostLJY.h",
+      "line": 41,
+      "kind": "struct",
+      "name": "PeerLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/network/GroupChatProtocolLJY.h",
+      "line": 7,
+      "kind": "class",
+      "name": "GroupChatProtocolLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/network/TcpPeerChatLJY.cpp",
+      "line": 34,
+      "kind": "struct",
+      "name": "ChatWriteLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/network/TcpPeerChatLJY.cpp",
+      "line": 40,
+      "kind": "struct",
+      "name": "ChatPendingLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/network/TcpPeerLJY.h",
+      "line": 20,
+      "kind": "struct",
+      "name": "ChatEventLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/network/TcpPeerLJY.h",
+      "line": 30,
+      "kind": "class",
+      "name": "TcpPeerLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/services/AccountServiceLJY.h",
+      "line": 8,
+      "kind": "class",
+      "name": "AccountServiceLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/services/FriendManagerLJY.h",
+      "line": 7,
+      "kind": "class",
+      "name": "FriendManagerLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/services/GroupManagerLJY.h",
+      "line": 9,
+      "kind": "class",
+      "name": "GroupManagerLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/services/GroupPolicyLJY.h",
+      "line": 6,
+      "kind": "class",
+      "name": "GroupPolicyLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/services/PlatformLJY.h",
+      "line": 26,
+      "kind": "class",
+      "name": "PlatformLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/services/QQGroupPolicyLJY.h",
+      "line": 6,
+      "kind": "class",
+      "name": "QQGroupPolicyLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/services/QQServiceLJY.h",
+      "line": 6,
+      "kind": "class",
+      "name": "QQServiceLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/services/SessionManagerLJY.h",
+      "line": 11,
+      "kind": "class",
+      "name": "SessionManagerLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/services/SocialServiceLJY.h",
+      "line": 10,
+      "kind": "class",
+      "name": "SocialServiceLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/services/WeChatGroupPolicyLJY.h",
+      "line": 6,
+      "kind": "class",
+      "name": "WeChatGroupPolicyLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/services/WeChatServiceLJY.h",
+      "line": 6,
+      "kind": "class",
+      "name": "WeChatServiceLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/services/WeiboServiceLJY.h",
+      "line": 6,
+      "kind": "class",
+      "name": "WeiboServiceLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/storage/ChatHistoryLJY.h",
+      "line": 8,
+      "kind": "struct",
+      "name": "StoredChatMessageLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/storage/ChatHistoryLJY.h",
+      "line": 15,
+      "kind": "class",
+      "name": "ChatHistoryLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/storage/GroupChatHistoryLJY.cpp",
+      "line": 8,
+      "kind": "struct",
+      "name": "GroupStatementLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/storage/GroupChatHistoryLJY.h",
+      "line": 6,
+      "kind": "class",
+      "name": "GroupChatHistoryLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/storage/GroupRoomStoreLJY.cpp",
+      "line": 9,
+      "kind": "struct",
+      "name": "RoomStatementLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/storage/GroupRoomStoreLJY.h",
+      "line": 7,
+      "kind": "class",
+      "name": "GroupRoomStoreLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/storage/SqliteStorageLJY.h",
+      "line": 9,
+      "kind": "class",
+      "name": "SqliteStorageLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    },
+    {
+      "file": "src/ui/ConsoleAppLJY.h",
+      "line": 10,
+      "kind": "class",
+      "name": "ConsoleAppLJY",
+      "LJY_suffix": true,
+      "own_named_file": true
+    }
+  ],
+  "missing_suffix": [],
+  "shared_file_types": [
+    {
+      "file": "src/domain/ChatMessageLJY.h",
+      "line": 8,
+      "kind": "class",
+      "name": "ChatIdentityLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/gui/GroupMessagesPageLJY.h",
+      "line": 62,
+      "kind": "struct",
+      "name": "PendingGroupHistoryLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/gui/ListPresentationLJY.h",
+      "line": 38,
+      "kind": "class",
+      "name": "ConversationItemLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/gui/ListPresentationLJY.h",
+      "line": 96,
+      "kind": "class",
+      "name": "GroupRowDelegateLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/gui/MessagesPageLJY.h",
+      "line": 59,
+      "kind": "struct",
+      "name": "PendingHistoryLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/gui/UiFeedbackLJY.h",
+      "line": 9,
+      "kind": "class",
+      "name": "FeedbackShakeEffectLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/network/ChatProtocolLJY.h",
+      "line": 8,
+      "kind": "struct",
+      "name": "ChatFrameLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/network/GroupChatHostLJY.h",
+      "line": 41,
+      "kind": "struct",
+      "name": "PeerLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/network/TcpPeerChatLJY.cpp",
+      "line": 34,
+      "kind": "struct",
+      "name": "ChatWriteLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/network/TcpPeerChatLJY.cpp",
+      "line": 40,
+      "kind": "struct",
+      "name": "ChatPendingLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/network/TcpPeerLJY.h",
+      "line": 20,
+      "kind": "struct",
+      "name": "ChatEventLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/storage/ChatHistoryLJY.h",
+      "line": 8,
+      "kind": "struct",
+      "name": "StoredChatMessageLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/storage/GroupChatHistoryLJY.cpp",
+      "line": 8,
+      "kind": "struct",
+      "name": "GroupStatementLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    },
+    {
+      "file": "src/storage/GroupRoomStoreLJY.cpp",
+      "line": 9,
+      "kind": "struct",
+      "name": "RoomStatementLJY",
+      "LJY_suffix": true,
+      "own_named_file": false
+    }
+  ],
+  "protected_files_checked": 123,
+  "protected_files_changed": [],
+  "local_link_targets_checked": 185,
+  "missing_local_targets": [],
+  "unbalanced_code_fences": [],
+  "functional_tests_rerun": false,
+  "network_or_firewall_changes": false
+}

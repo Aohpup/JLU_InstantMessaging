@@ -171,7 +171,7 @@ int main(int argc, char* argv[])
         click(window, "profileButton");
         check(!window.findChild<QLineEdit*>("profileName")->isVisible(), "successful profile save collapses");
         check(errorBar->styleSheet().contains("background: transparent"), "successful edit clears error bar styling");
-        check(window.findChild<QLabel*>("saveStatus")->text().contains("尚未保存"), "feedback beside account cards");
+        check(window.findChild<QLabel*>("saveStatus")->text().contains("已自动保存"), "feedback beside account cards");
         click(window, "nicknameButton");
         check(!window.findChild<QPushButton*>("profileButton")->isVisible(), "nickname editing hides profile entry");
         type(window, "profileNickname", "取消昵称");
@@ -254,8 +254,7 @@ int main(int argc, char* argv[])
         answer(QMessageBox::Yes);
         click(window, "switchService2");
         check(session.currentAccount().externalId() == "10001", "QQ and Weibo share number");
-        click(window, "saveButton");
-        check(saveCount == 1, "explicit save callback");
+        check(!window.findChild<QPushButton*>("saveButton") && saveCount > 1, "automatic save replaces manual save");
         window.grab().save(QString::fromStdWString((directory / "account-page.png").wstring()));
         window.resize(900, 600);
         QApplication::processEvents();
@@ -269,19 +268,22 @@ int main(int argc, char* argv[])
         check(!window.findChild<QPushButton*>("bindButton")->isEnabled(), "bound account button disabled after relogin");
         check(window.findChild<QLabel*>("bindingState")->text().contains("10001"), "binding number remains visible");
         failSave = true;
-        click(window, "saveButton");
+        click(window,"profileButton");
+        type(window,"profileLocation","吉林长春");
+        click(window,"profileButton");
         check(window.findChild<QLabel*>("saveStatus")->text().contains("保存失败"), "save failure shown");
         check(window.findChild<QLabel*>("saveStatus")->styleSheet().contains("#b42318"), "save failure is red");
         failSave = false;
-        click(window, "saveButton");
+        click(window, "retryAutoSave");
         check(window.findChild<QLabel*>("saveStatus")->styleSheet().contains("background: transparent"), "successful retry restores normal color");
         failSave = true;
+        click(window,"profileButton"); type(window,"profileLocation","吉林长春"); click(window,"profileButton");
         answer(QMessageBox::Cancel);
         window.close();
         check(window.isVisible(), "cancel failed close keeps window");
         failSave = false;
         window.close();
-        check(!window.isVisible() && saveCount == 3, "close saves successfully");
+        check(!window.isVisible() && saveCount > 3, "close saves successfully");
         session.logout();
         bool anonymousPasswordRejected = false, anonymousUnbindRejected = false;
         try { session.changePassword("Course456!", "Course789!"); } catch (...) { anonymousPasswordRejected = true; }
@@ -291,7 +293,7 @@ int main(int argc, char* argv[])
         session.logout();
         MainWindowLJY memoryWindow(session, {}, "");
         memoryWindow.show();
-        check(!memoryWindow.findChild<QPushButton*>("saveButton")->isEnabled(), "memory mode save disabled");
+        check(!memoryWindow.findChild<QPushButton*>("saveButton"), "memory mode save disabled");
         memoryWindow.close();
         std::cout << "PASS P4 widgets: registration, login, profile, three services, binding, SQLite save, close failure, memory mode\n";
         return 0;

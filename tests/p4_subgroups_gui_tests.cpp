@@ -101,7 +101,19 @@ int main(int argc, char** argv)
         owner->setCurrentIndex(owner->findData("10002"));
         check(member("10002")->checkState() == Qt::Checked && !(member("10002")->flags() & Qt::ItemIsEnabled), "chosen owner automatically joined");
         owner->setCurrentIndex(owner->findData("10001"));
-        member("10003")->setCheckState(Qt::Checked); member("10004")->setCheckState(Qt::Checked);
+        // 用鼠标验证选中、取消及群主锁定，保存三种状态的实际控件截图。
+        auto toggleMember = [&](const QString& number) {
+            auto* item=member(number); choices->scrollToItem(item); app.processEvents();
+            const auto rect=choices->visualItemRect(item);
+            QTest::mouseClick(choices->viewport(),Qt::LeftButton,Qt::NoModifier,QPoint(rect.left()+16,rect.center().y()));
+        };
+        toggleMember("10003"); check(member("10003")->checkState()==Qt::Checked,"mouse checks member");
+        toggleMember("10003"); check(member("10003")->checkState()==Qt::Unchecked,"mouse unchecks member");
+        toggleMember("10001"); check(member("10001")->checkState()==Qt::Checked,"owner stays checked");
+        toggleMember("10003"); toggleMember("10004");
+        choices->scrollToTop(); app.processEvents();
+        choices->grab().save(QString::fromStdWString((directory / "子群勾选框状态.png").wstring()));
+        shot("群_子群勾选框.png");
         input("subgroupNumber", "20x"); click(window, "saveSubgroupButton");
         check(status->styleSheet().contains("#fdeaea") && window.findChild<QLineEdit*>("subgroupName")->text() == "课程学习小组", "invalid input red and draft preserved");
         input("subgroupNumber", "2001");
@@ -127,7 +139,7 @@ int main(int argc, char** argv)
         check(!group(1001)->findMember(id("10003")) && !group(2001)->findMember(id("10003")), "parent removal cascades to child");
         SessionManagerLJY applicant(platform); applicant.login(ServiceTypeLJY::QQ, "10005", "DemoOnly123!");
         applicant.applyToGroup(2001);
-        click(window, "saveButton");
+        // 已通过 UI 自动保存。
         { PlatformLJY saved; SqliteStorageLJY reader(path.u8string()); reader.load(saved);
           check(saved.findGroup(ServiceTypeLJY::QQ,2001)->members().size() == 2, "child membership saved"); }
         tabs->setCurrentIndex(2); shot("群_子群与模式.png");
@@ -152,10 +164,10 @@ int main(int argc, char** argv)
         check(group(2002) && window.findChild<QLabel*>("groupSummary")->text().contains("2002"), "selected child survives parent mode switch");
         click(window,"parentGroupButton");
         mode->setCurrentIndex(0); answer(QMessageBox::Yes); click(window,"switchGroupModeButton");
-        click(window,"saveButton");
-        begin(2003); owner->setCurrentIndex(owner->findData("10002")); member("10004")->setCheckState(Qt::Checked); saveChild();
+        // 已通过 UI 自动保存。
         const char* block = "CREATE TRIGGER p4_fail BEFORE DELETE ON chat_groups BEGIN SELECT RAISE(ABORT,'P4 save failure'); END;";
-        execute(path, block); click(window,"saveButton");
+        execute(path, block);
+        begin(2003); owner->setCurrentIndex(owner->findData("10002")); member("10004")->setCheckState(Qt::Checked); saveChild();
         check(status->text().contains("保存失败") && status->styleSheet().contains("#fdeaea") && group(2003), "actual SQLite save failure preserves memory and red footer");
         { PlatformLJY saved; SqliteStorageLJY reader(path.u8string()); reader.load(saved); check(!saved.findGroup(ServiceTypeLJY::QQ,2003), "failed transaction leaves database unchanged"); }
         window.resize(900,600); app.processEvents(); shot("群_保存失败_小窗口.png");
@@ -167,7 +179,7 @@ int main(int argc, char** argv)
         });
         window.close(); check(!window.isVisible(), "retry success closes window");
         { PlatformLJY saved; SqliteStorageLJY reader(path.u8string()); reader.load(saved); check(saved.findGroup(ServiceTypeLJY::QQ,2003), "retry saves child"); }
-        window.show(); begin(2004); saveChild(); execute(path,block);
+        window.show(); execute(path,block); begin(2004); saveChild();
         answer(QMessageBox::Discard); window.close(); check(!window.isVisible(), "explicit discard closes window");
         execute(path,"DROP TRIGGER p4_fail;");
         { PlatformLJY saved; SqliteStorageLJY reader(path.u8string()); reader.load(saved); check(saved.findGroup(ServiceTypeLJY::QQ,2003) && !saved.findGroup(ServiceTypeLJY::QQ,2004), "discard preserves last successful database"); }

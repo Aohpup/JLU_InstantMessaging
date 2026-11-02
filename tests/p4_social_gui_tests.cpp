@@ -97,7 +97,7 @@ int main(int argc,char** argv)
         check(session.friendRequests().size()==1 && status->text().contains("申请已发送"),"duplicate pending request rejected");
         tabs->setCurrentIndex(2);choose(requests,"10005");answerDialogLJY(QMessageBox::Yes);click(window,"acceptFriendRequest");
         check(!friends("10001","10005") && status->text().contains("只有收到"),"sender cannot accept own request");
-        click(window,"saveButton");
+        /* 业务操作成功后自动保存。 */
         {PlatformLJY restored;SqliteStorageLJY reader(path.u8string());reader.load(restored);SessionManagerLJY receiver(restored);receiver.login(ServiceTypeLJY::QQ,"10005","DemoOnly123!");check(receiver.friendRequests().size()==1,"pending request saved before acceptance");}
         login("10005");tabs->setCurrentIndex(2);choose(requests,"10001");shot("收到好友申请.png");
         answerDialogLJY(QMessageBox::Yes);click(window,"rejectFriendRequest");check(!friends("10001","10005"),"rejection does not create relation");
@@ -112,7 +112,7 @@ int main(int argc,char** argv)
         click(window,"switchGroupModeButton");
         check(status->text().contains("当前已是") && status->styleSheet().contains("#fdeaea"),"same mode is red failure");
         QTest::qWait(350); check(status->minimumHeight()==42,"original compact warning minimum restored");
-        click(window,"saveButton");
+        /* 业务操作成功后自动保存。 */
         shot("侧栏与稳定提示.png");window.close();
         std::cout<<"PASS old database migration, city 3/1/repeat, request send/reject/accept, persistence, sidebar, icon, embedded dialog and stable feedback\n";
     }

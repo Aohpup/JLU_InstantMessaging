@@ -1,9 +1,8 @@
 #pragma once
 #include "network/GroupChatHostLJY.h"
-#include <QUdpSocket>
 #include <QTimer>
 
-// 异步群客户端：进入即发现房间；无房间时开房，普通成员也可临时主持。
+// 异步群客户端：本机自动连接持久服务，内存练习由本机窗口临时开房。
 class GroupChatClientLJY : public QObject
 {
     Q_OBJECT
@@ -12,11 +11,19 @@ class GroupChatClientLJY : public QObject
     ~GroupChatClientLJY() override;
     // 同一服务、群号在不同进程中得到相同默认端口。
     static int defaultPort(int service, int group);
-    // 自动入场；指定 IP 时只连接已有房间，不另开孤立房间。
-    void enter(const QString &room, const QString &account, const GroupChatMembersLJY &members, bool lan,
-               int port, const QString &fixedIp = {});
-    // 停止定时发现、客户端连接及本机主持端。
+    // 使用本机回环地址自动加入房间，所有窗口使用相同端口。
+    void enter(const QString &room, const QString &account, const GroupChatMembersLJY &members, int port);
+    // 停止客户端和临时主持端；独立持久服务不随页面退出。
     void leave();
+    // 本机模式自动启动独立持久房间；目录为空时仅用原有临时房间。
+    void setServerDirectory(const QString &directory) { serverDirectory_ = directory; }
+    // 持久模式不能把旧版临时房间误当成完整历史来源。
+    void requirePersistent(bool value) { requirePersistent_ = value; }
+    bool historyComplete() const { return historyComplete_; }
+    bool syncing() const { return syncing_; }
+    // 手动重试完整同步，用于本地记录保存失败后重新取回。
+    void syncHistory();
+    bool active() const { return active_; }
     bool ready() const
     {
         return ready_;
@@ -33,26 +40,31 @@ class GroupChatClientLJY : public QObject
     void status(const QString &text, bool failed = false);
     void message(const QJsonObject &frame);
     void online(int count);
+    // 完整名单由主持端返回，在线状态单独列出。
+    void rosterReceived(const QJsonObject& roster);
+    void historySynchronized();
     void connectionChanged(bool ready);
 
   private:
     GroupChatHostLJY host_;
     QTcpSocket socket_;
-    QUdpSocket discovery_;
     QTimer tick_;
     QByteArray buffer_;
     GroupChatMembersLJY members_;
-    QString room_, account_, token_, fixedIp_, connectedToken_;
-    bool active_ = false, ready_ = false, lan_ = false, rejected_ = false;
+    QString room_, account_, token_, serverDirectory_;
+    bool requirePersistent_ = false;
+    bool durable_ = false, syncing_ = false, historyComplete_ = false;
+    QVector<QJsonObject> liveDuringSync_;
+    long long nextLaunch_ = 0;
+    void launchServer();
+    void writeMembers();
+    bool active_ = false, ready_ = false, rejected_ = false;
     int port_ = 0;
-    long long nextAttempt_ = 0, connectStarted_ = 0, lastAnnouncement_ = 0;
-    // 无房间时尝试占用端口，成功则开房，失败则加入本机已有房间。
+    long long nextAttempt_ = 0, connectStarted_ = 0;
+    // 本机先连接，必要时启动独立服务；临时模式沿用原有开房流程。
     void attempt();
     void connectTo(const QString &ip, int port);
     void receive();
     void disconnected();
-    void announce(bool query);
-    // 按群标识过滤发现报文，同时开房时收敛到标识较小的主持端。
-    void discover();
     void tick();
 };

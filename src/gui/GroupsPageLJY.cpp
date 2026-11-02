@@ -1,3 +1,4 @@
+#include "gui/ListPresentationLJY.h"
 #include "gui/CardSurfaceLJY.h"
 #include "gui/GroupsPageLJY.h"
 #include <QComboBox>
@@ -22,8 +23,8 @@ GroupsPageLJY::GroupsPageLJY(SessionManagerLJY& session, QWidget* parent)
     setAttribute(Qt::WA_StyledBackground);
     auto* layout = new QVBoxLayout(this);
     // 页面边缘给阴影留白，避免滚动区域裁掉卡片投影。
-    layout->setContentsMargins(20, 4, 20, 24);
-    layout->setSpacing(20);
+    layout->setContentsMargins(12, 4, 12, 16);
+    layout->setSpacing(16);
     auto* title = new QLabel("群管理");
     title->setObjectName("pageTitle");
     layout->addWidget(title);
@@ -68,6 +69,9 @@ GroupsPageLJY::GroupsPageLJY(SessionManagerLJY& session, QWidget* parent)
         result->setEditTriggers(QAbstractItemView::NoEditTriggers);
         result->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
         result->verticalHeader()->hide();
+        result->verticalHeader()->setDefaultSectionSize(40);
+        result->setShowGrid(false);
+        result->setAlternatingRowColors(true);
         result->setMinimumHeight(115);
         result->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Ignored);
         return result;
@@ -83,18 +87,41 @@ GroupsPageLJY::GroupsPageLJY(SessionManagerLJY& session, QWidget* parent)
     searchRow->addWidget(number_, 1);
     searchRow->addWidget(find);
     searchRow->addWidget(reload);
-    auto* chat = button("进入群聊", "groupMessageButton"); searchRow->addWidget(chat);
+    auto* chat = button("进入群聊", "groupMessageButton");
+    chat->setProperty("primary", true);
     connect(chat, &QPushButton::clicked, this, [this] {
         try { std::vector<ServiceAccountLJY> members; session_.group(selectedNumber_, members); emit messageRequested(selectedNumber_); }
         catch (const std::exception& e) { emit feedback(QString::fromUtf8(e.what()), true); }
     });
+    auto* create = button("创建群聊", "createGroupButton");
+    searchRow->addWidget(create);
     searchCard->addLayout(searchRow);
+    auto* createForm = new QWidget; createForm->setObjectName("createGroupForm");
+    auto* createRow = new QHBoxLayout(createForm); createRow->setContentsMargins(0,0,0,0);
+    auto* groupName = new QLineEdit; groupName->setObjectName("newGroupName");
+    groupName->setPlaceholderText("输入群名称，群号自动分配；创建后可邀请好友");
+    auto* submit = button("确认创建", "confirmCreateGroup");
+    auto* cancel = button("取消", "cancelCreateGroup");
+    for (auto* b : {find, reload, create, submit, cancel}) b->setFixedSize(112,36);
+    createRow->addWidget(groupName,1); createRow->addWidget(submit); createRow->addWidget(cancel);
+    searchCard->addWidget(createForm); createForm->hide();
+    connect(create, &QPushButton::clicked, this, [=] { createForm->show(); groupName->setFocus(); });
+    connect(cancel, &QPushButton::clicked, this, [=] { createForm->hide(); groupName->clear(); });
+    connect(submit, &QPushButton::clicked, this, [=] {
+        try {
+            const int number = session_.createGroup(groupName->text().trimmed().toStdString());
+            createForm->hide(); groupName->clear();
+            emit changed(QString("群聊已创建，群号：%1。").arg(number));
+            refresh(); selectGroup(number);
+        } catch (const std::exception& e) { emit feedback(QString::fromUtf8(e.what()),true); }
+    });
     auto* columns = new QHBoxLayout;
-    columns->setSpacing(20);
+    columns->setSpacing(16);
     auto* listCard = card(columns, "群列表", 2);
     groups_ = new QListWidget;
     groups_->setObjectName("groupsList");
     groups_->setMinimumWidth(145);
+    addListFilterLJY(listCard, groups_, "搜索群名或群号");
     listCard->addWidget(groups_, 1);
     auto* listHint = new QLabel("已加入的群及本人待处理的入群记录");
     listHint->setWordWrap(true);
@@ -103,10 +130,13 @@ GroupsPageLJY::GroupsPageLJY(SessionManagerLJY& session, QWidget* parent)
     auto* detailCard = card(columns, "", 4);
     summary_ = label("groupSummary");
     auto* membership = new QHBoxLayout;
-    membership->addWidget(summary_, 1);
+    detailCard->addWidget(summary_);
     apply_ = button("申请入群", "applyGroupButton");
-    apply_->setProperty("primary", true);
+    apply_->setProperty("primary", false);
     leave_ = button("退出群", "leaveGroupButton");
+    leave_->setProperty("danger", true);
+    membership->addWidget(chat);
+    membership->addStretch();
     membership->addWidget(apply_);
     membership->addWidget(leave_);
     detailCard->addLayout(membership);
@@ -124,7 +154,7 @@ GroupsPageLJY::GroupsPageLJY(SessionManagerLJY& session, QWidget* parent)
     memberOperation_ = new QComboBox;
     memberOperation_->setObjectName("groupMemberOperation");
     memberOperation_->addItems({"移除成员", "设置管理员", "取消管理员", "转让群主"});
-    memberAction_ = button("确认操作", "groupMemberAction");
+    memberAction_ = button("移除成员", "groupMemberAction");
     memberAction_->setProperty("coral", true);
     memberActions->addWidget(memberOperation_, 1);
     memberActions->addWidget(memberAction_);
@@ -263,12 +293,15 @@ GroupsPageLJY::GroupsPageLJY(SessionManagerLJY& session, QWidget* parent)
     refresh();
 }
 
-void GroupsPageLJY::refresh()
+void GroupsPageLJY::refresh(bool preserveDraft)
 {
+    const int previousGroup = selectedNumber_, previousAccount = accountId_;
     const QSignalBlocker operationBlock(memberOperation_);
     const int next = session_.isLoggedIn() ? session_.currentAccount().accountId() : 0;
     if (next != accountId_)
     {
+        findChild<QWidget*>("createGroupForm")->hide();
+        findChild<QLineEdit*>("newGroupName")->clear();
         selectedNumber_ = 0;
         parentNumber_ = 0;
         number_->clear();
@@ -320,11 +353,13 @@ void GroupsPageLJY::refresh()
         }
     }
     else identity_->clear();
-    showGroup();
+    filterListLJY(groups_);
+    showGroup(preserveDraft && previousGroup == selectedNumber_ && previousAccount == accountId_);
 }
 
 void GroupsPageLJY::findGroup()
 {
+    findChild<QLineEdit*>("groupsListSearch")->clear();
     bool ok = false;
     const QString text = number_->text().trimmed();
     const int number = text.toInt(&ok);
@@ -364,7 +399,7 @@ void GroupsPageLJY::selectGroup(int number)
     }
 }
 
-void GroupsPageLJY::showGroup()
+void GroupsPageLJY::showGroup(bool preserveDraft)
 {
     const QString previousMember = selectedMember();
     const QSignalBlocker memberBlock(members_), requestBlock(requests_);
@@ -432,7 +467,7 @@ void GroupsPageLJY::showGroup()
     }
     updateMemberAction();
     updateRequestActions();
-    showManagement();
+    if (!preserveDraft || !selectedNumber_ || subgroupEditor_->isHidden()) showManagement();
 }
 
 QString GroupsPageLJY::selectedMember() const
@@ -454,6 +489,7 @@ GroupOperationLJY GroupsPageLJY::memberOperation() const
 void GroupsPageLJY::updateMemberAction(bool clearFeedback)
 {
     const QString target = selectedMember();
+    memberAction_->setText(memberOperation_->currentText());
     memberAction_->setEnabled(selectedNumber_ != 0);
     memberOperation_->setEnabled(selectedNumber_ != 0);
     memberHint_->setText(target.isEmpty() ? "请先在成员表中选择目标账号。" : "当前目标：" + target + "；操作：“" + memberOperation_->currentText() + "”。");

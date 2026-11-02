@@ -9,6 +9,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QTabWidget>
+#include <QTabBar>
 #include <QVBoxLayout>
 #include <QResizeEvent>
 #include <algorithm>
@@ -76,7 +77,8 @@ LoginPageLJY::LoginPageLJY(SessionManagerLJY& session, QWidget* parent)
     form->setContentsMargins(0, 22, 0, 0);
     form->setVerticalSpacing(14);
     form->setFormAlignment(Qt::AlignTop);
-    form->setRowWrapPolicy(QFormLayout::WrapAllRows);
+    form->setRowWrapPolicy(QFormLayout::DontWrapRows);
+    form->setHorizontalSpacing(12);
     loginService_ = new QComboBox;
     loginService_->setObjectName("loginService");
     loginService_->addItems({"QQ", "微信", "微博"});
@@ -138,6 +140,17 @@ LoginPageLJY::LoginPageLJY(SessionManagerLJY& session, QWidget* parent)
     registerButton->setProperty("primary", true);
     registration->addRow(registerButton);
     tabs_->addTab(registerPage, "注册");
+    // 非当前表单不撑大卡片，登录页无需为七项注册输入预留空白。
+    auto fitCurrentForm = [this, card] {
+        for (int i = 0; i < tabs_->count(); ++i)
+            tabs_->widget(i)->setSizePolicy(QSizePolicy::Expanding,
+                i == tabs_->currentIndex() ? QSizePolicy::Preferred : QSizePolicy::Ignored);
+        tabs_->setFixedHeight(tabs_->currentWidget()->sizeHint().height() + tabs_->tabBar()->sizeHint().height() + 12);
+        tabs_->updateGeometry();
+        card->updateGeometry();
+    };
+    connect(tabs_, &QTabWidget::currentChanged, this, fitCurrentForm);
+    fitCurrentForm();
     connect(loginButton, &QPushButton::clicked, this, &LoginPageLJY::login);
     connect(password_, &QLineEdit::returnPressed, this, &LoginPageLJY::login);
     connect(registerButton, &QPushButton::clicked, this, &LoginPageLJY::registerAccount);
@@ -160,7 +173,7 @@ void LoginPageLJY::resizeEvent(QResizeEvent* event)
         .arg(int(13 * scale)).arg(int(15 * scale)).arg(int(10 * scale)));
     auto* card = findChild<QFrame*>("loginCard");
     card->setMaximumWidth(int(490 * scale));
-    card->setMaximumHeight(int(560 * std::min(scale, 1.25)));
+    card->setMaximumHeight(QWIDGETSIZE_MAX);
     const int font = int(13 * std::min(scale, 1.3));
     card->setStyleSheet(QString("QFrame#loginCard QWidget { font-family: \"Microsoft YaHei\"; font-size: %1px; font-weight: 400; } QLabel#pageTitle { font-size: %2px; font-weight: bold; }")
         .arg(font).arg(int(24 * scale)));
@@ -169,6 +182,7 @@ void LoginPageLJY::resizeEvent(QResizeEvent* event)
     card->layout()->setContentsMargins(margin, margin, margin, margin);
     auto* outer = qobject_cast<QHBoxLayout*>(layout());
     outer->setSpacing(int(20 * scale));
+    tabs_->setFixedHeight(tabs_->currentWidget()->sizeHint().height() + tabs_->tabBar()->sizeHint().height() + 12);
 }
 
 void LoginPageLJY::login()

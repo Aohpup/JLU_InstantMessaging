@@ -65,6 +65,9 @@ int main(int argc,char** argv){QApplication app(argc,argv);QStandardPaths::setTe
     {
         PlatformLJY p;loadDemoDataLJY(p);SessionManagerLJY s(p);bool fail=true;
         MainWindowLJY w(s,[&]{if(fail)throw std::runtime_error("验收模拟平台保存失败");},{});w.show();QTest::qWait(20);login(w);listen(w,freePort());
+        // 自动保存只在资料发生变化时触发；先实际修改备注，再验证失败后的关闭选择。
+        click(w,"friendsNav");select(w,"friendsList","10002");click(w,"friendRemarkButton");
+        w.findChild<QLineEdit*>("friendRemark")->setText("待保存备注");click(w,"saveRemarkButton");
         answerDialogLJY(QMessageBox::Cancel);w.close();check(w.isVisible(),"platform save cancellation");
         QTimer::singleShot(0,[&]{fail=false;if(auto* panel=activeDialogLJY())dialogButtonLJY(panel,QMessageBox::Retry)->click();});w.close();check(!w.isVisible(),"platform retry close");
     }

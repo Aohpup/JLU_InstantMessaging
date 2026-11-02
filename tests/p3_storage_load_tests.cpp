@@ -21,7 +21,7 @@ std::filesystem::path fresh(const char* name)
     return path;
 }
 
-// 用独立只读连接核对已提交的九张表，比较保存和读取前后的完整数据。
+// 用独立只读连接核对已提交的十张业务表，比较保存和读取前后的完整数据。
 std::vector<std::string> query(const std::filesystem::path& path, const std::string& sql)
 {
     sqlite3* db = nullptr; sqlite3_stmt* statement = nullptr;
@@ -68,8 +68,11 @@ std::string snapshot(const std::filesystem::path& path)
 {
     std::string result;
     for (const char* table : {"persons","service_accounts","credentials","account_bindings","friendships",
-                             "chat_groups","group_members","group_requests","id_state"})
-        for (const auto& row : query(path, std::string("SELECT * FROM ")+table+" ORDER BY 1,2;"))
+                             "chat_groups","group_members","group_requests","friend_requests","id_state"})
+        // revision 是每次提交递增的同步元数据，不属于平台往返的业务内容。
+        for (const auto& row : query(path, std::string(table)=="id_state"
+            ? "SELECT singleton,last_person_id,last_account_id,last_shared_number,last_wechat_number,last_group_id,last_group_request_id FROM id_state;"
+            : std::string("SELECT * FROM ")+table+" ORDER BY 1,2;"))
             result += std::string(table)+":"+row+"\n";
     return result;
 }
@@ -214,7 +217,7 @@ int main()
         try { action(); std::cout << "PASS " << name << '\n'; }
         catch (const std::exception& error) { ++failed; std::cerr << "FAIL " << name << ": " << error.what() << '\n'; }
     };
-    test("nine-table round trip and continued business", testRoundTrip);
+    test("ten-table round trip and continued business", testRoundTrip);
     test("retained subgroup and continued counters", testRetainedSubgroup);
     test("failed load preserves target, repair retry and empty database", testLoadFailure);
     std::cout << (3 - failed) << "/3 storage load scenario groups passed.\n";

@@ -2,3 +2,18 @@
 /CMakeUserPresets.json
 
 /data/
+
+# 本地运行数据与备份，不提交聊天记录和账户数据库。
+/backups/
+/dist/**/data/
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.connection.ini
+*.unread.ini
+
+# 文档渲染中间件与编辑器临时文件，正文和引用的关系图仍提交。
+/docs/**/render*/
+**/__pycache__/
+~$*

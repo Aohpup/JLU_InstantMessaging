@@ -12,6 +12,8 @@
 #include <QPlainTextEdit>
 #include <QPushButton>
 #include <QSettings>
+#include <QScrollArea>
+#include <QScrollBar>
 #include <QSpinBox>
 #include <QTemporaryDir>
 #include <QTest>
@@ -49,11 +51,10 @@ void settings(QWidget& w)
 {
     if (!w.findChild<QWidget*>("chatConnectionPanel")->isVisible()) click(w, "chatSettings");
 }
-void config(QWidget& w, int mode, int port, const QString& ip = {})
+void config(QWidget& w, int port)
 {
-    settings(w); w.findChild<QComboBox*>("chatMode")->setCurrentIndex(mode);
+    settings(w);
     w.findChild<QSpinBox*>("chatPort")->setValue(port);
-    if (mode == 1) w.findChild<QLineEdit*>("chatAddress")->setText(ip);
     click(w, "chatSaveSettings");
 }
 bool ready(QWidget& w) { return w.findChild<QPushButton*>("chatSend")->isEnabled(); }
@@ -78,7 +79,7 @@ int main(int argc, char** argv)
         SessionManagerLJY aSession(pa), bSession(pb);
         MainWindowLJY a(aSession, [&] { sa.save(pa); }, aPath), b(bSession, [&] { sb.save(pb); }, bPath);
         a.show(); b.show(); QTest::qWait(80); login(a, "10001", "10002"); login(b, "10002", "10001");
-        const int port = freePort(); config(a, 0, port); config(b, 0, port);
+        const int port = freePort(); config(a, port); config(b, port);
         auto* editor = b.findChild<QPlainTextEdit*>("chatEditor");
         editor->setPlainText("草稿"); QTest::keyClick(editor, Qt::Key_Return);
         check(editor->toPlainText() == "草稿" && !ready(b), "offline Enter discarded draft");
@@ -94,42 +95,59 @@ int main(int argc, char** argv)
         QTest::keyClick(editor, Qt::Key_Return, Qt::ShiftModifier); editor->insertPlainText("第三行");
         check(editor->toPlainText() == "第一行\n第二行\n第三行", "modified Enter did not insert newline");
         check(!body(a, "第一行"), "newline sent message");
+        click(a,"accountNav");
         QTest::keyClick(editor, Qt::Key_Return);
         waitFor([&] { return body(a, "第一行\n第二行\n第三行"); }, "Enter did not send whole message");
         check(editor->toPlainText().isEmpty(), "successful send kept draft");
+        check(a.findChild<MessagesPageLJY*>()->unreadCount()==1,"private hidden message unread missing");
+        click(a,"messagesNav");
+        click(a,"chatLatest"); QTest::qWait(80);
+        check(a.findChild<MessagesPageLJY*>()->unreadCount()==0,"reading visible private message did not clear unread");
+        // 浏览 C 不断开 B；后台消息必须仍归到 B，草稿不能发错人。
+        select(a,"10003"); check(!ready(a) && ready(b),"browsing C disconnected B or enabled wrong recipient");
+        auto* draft=a.findChild<QPlainTextEdit*>("chatEditor"); draft->setPlainText("给 C 的草稿");
+        QTest::keyClick(draft,Qt::Key_Return); check(draft->toPlainText()=="给 C 的草稿","wrong recipient discarded draft");
+        editor->setPlainText("仍在 B 的连接中"); QTest::keyClick(editor,Qt::Key_Return);
+        waitFor([&]{return a.findChild<MessagesPageLJY*>()->unreadCount()==1;},"background B unread missing");
+        check(!body(a,"仍在 B 的连接中") && ready(b),"background B message leaked into C");
+        ChatHistoryLJY audit(aPath.toStdString());
+        check(audit.load("10001","10003").empty(),"B message saved under C");
+        select(a,"10002"); check(ready(a)&&body(a,"仍在 B 的连接中"),"return to B lost connection/message");
+        click(a,"chatLatest"); QTest::qWait(50);
         // 在线保存下一次使用的设置，不影响当前连接。
-        config(b, 0, port + (port == 65535 ? -1 : 1)); check(ready(a) && ready(b), "settings disconnected chat");
+        config(b, port + (port == 65535 ? -1 : 1)); check(ready(a) && ready(b), "settings disconnected chat");
         settings(b); check(b.findChild<QSpinBox*>("chatPort")->value() != port, "settings not saved");
         b.findChild<QSpinBox*>("chatPort")->setValue(port); click(b, "chatCancelSettings");
         settings(b); check(b.findChild<QSpinBox*>("chatPort")->value() != port, "cancel applied changes");
         click(b, "chatDisconnect"); waitFor([&] { return !ready(a) && !ready(b); }, "disconnect failed");
         check(b.findChild<QPushButton*>("chatStart")->text() == "重新连接", "reconnect label");
-        // 两机模式在本机以 127.0.0.1 验证相同连接路径，不冒充实体两机实测。
-        const int lanPort = freePort(); config(a, 1, lanPort); config(b, 1, lanPort, "invalid");
-        check(b.findChild<QLabel*>("saveStatus")->styleSheet().contains("#fdeaea"), "invalid IP not rejected");
-        check(b.findChild<QWidget*>("chatConnectionPanel")->isVisible(), "invalid settings closed editor");
-        b.findChild<QLineEdit*>("chatAddress")->setText("127.0.0.1"); click(b, "chatSaveSettings");
+        // 本机设置仍可修改端口；旧版双机入口已移除。
+        const int nextPort = freePort(); config(a, nextPort); config(b, nextPort);
+        check(!b.findChild<QComboBox*>("chatMode") && !b.findChild<QLineEdit*>("chatAddress"), "removed LAN controls remain");
         settings(b); b.resize(900, 600); QTest::qWait(60);
         check(b.size() == QSize(900, 600), "settings enlarge minimum size");
-        check(b.findChild<QLineEdit*>("chatAddress")->height() >= 30 && b.findChild<QPushButton*>("chatSaveSettings")->height() >= 30, "settings controls crushed");
+        check(b.findChild<QSpinBox*>("chatPort")->height() >= 30 && b.findChild<QPushButton*>("chatSaveSettings")->height() >= 30, "settings controls crushed");
         b.grab().save(evidence + "/settings-small.png"); click(b, "chatCancelSettings");
-        click(a, "chatStart"); click(b, "chatStart"); waitFor([&] { return ready(a) && ready(b); }, "LAN mode failed");
+        click(a, "chatStart"); click(b, "chatStart"); waitFor([&] { return ready(a) && ready(b); }, "local reconnect failed");
         a.grab().save(evidence + "/connected.png");
-        settings(b); click(b, "chatDisconnect"); waitFor([&] { return !ready(a); }, "peer disconnect");
-        // 取消和换好友都必须终止待重试任务。
+        select(a,"10003"); check(ready(b),"switch alone disconnected B");
+        click(a,"chatStart"); waitFor([&]{return !ready(b);},"manual C connection did not disconnect B");
+        check(!body(a,"仍在 B 的连接中"),"manual C connection leaked B history");
+        settings(a); click(a,"chatDisconnect");
+        // 取消会停止重试；只浏览其他好友仍保留原来的等待。
         click(b, "chatStart"); QTest::qWait(200); click(b, "chatStart");
         QTest::qWait(2800); check(!b.findChild<QPushButton*>("chatDisconnect")->isEnabled(), "cancel restarted connection");
         click(b, "chatStart"); QTest::qWait(200); select(b, "10003"); QTest::qWait(2800);
-        check(!b.findChild<QPushButton*>("chatDisconnect")->isEnabled(), "friend change restarted connection");
+        check(b.findChild<QPushButton*>("chatDisconnect")->isEnabled(), "browsing friend cancelled original wait");
+        settings(b); click(b,"chatDisconnect");
         a.close(); b.close();
+        { QSettings old(bPath+".connection.ini",QSettings::IniFormat); old.setValue("mode",1); old.setValue("lan/address","192.0.2.1"); old.setValue("lan/port",1); old.sync(); }
         SessionManagerLJY restoredSession(pb); MainWindowLJY restored(restoredSession, {}, bPath);
         restored.show(); QTest::qWait(30); login(restored, "10002", "10001"); settings(restored);
-        check(restored.findChild<QComboBox*>("chatMode")->currentIndex() == 1, "mode not restored");
-        check(restored.findChild<QSpinBox*>("chatPort")->value() == lanPort, "LAN port not restored");
-        check(restored.findChild<QLineEdit*>("chatAddress")->text() == "127.0.0.1", "IP not restored");
-        restored.findChild<QComboBox*>("chatMode")->setCurrentIndex(0);
-        check(restored.findChild<QSpinBox*>("chatPort")->value() != lanPort, "mode configs mixed");
+        check(restored.findChild<QSpinBox*>("chatPort")->value() == nextPort, "local port not restored");
+        QSettings cleaned(bPath+".connection.ini",QSettings::IniFormat);
+        check(!cleaned.contains("mode") && !cleaned.contains("lan/address"), "obsolete LAN settings remain");
         restored.close();
-        std::cout << "PASS auto roles, connector first/retry/cancel, LAN path, Enter/Shift/Ctrl, draft, settings validation/persistence/cancel, online settings, friend change, 900x600\n";
+        std::cout << "PASS auto roles, connector first/retry/cancel, local reconnect, Enter/Shift/Ctrl, draft, settings persistence/cancel, online settings, friend change, 900x600\n";
     } catch (const std::exception& e) { std::cerr << "FAIL " << e.what() << '\n'; return 1; }
 }

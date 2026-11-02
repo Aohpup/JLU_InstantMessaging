@@ -116,6 +116,8 @@ public:
     std::vector<const GroupLJY*> groups() const;
     // 选群时立即验证当前服务中群号存在；非成员也可选群以申请或接受邀请。
     const GroupLJY& selectedGroup(int number) const;
+    // 创建普通群并返回自动分配的群号，创建者自动成为群主。
+    int createGroup(const std::string& name);
     // 输入阶段检查群操作，不修改数据；目标号码为空时只检查执行者权限。
     void checkGroupOperation(int number, GroupOperationLJY operation, const std::string& targetNumber = "") const;
     // 输入请求编号后检查是否属于当前群，以及本人是否有处理权限。

@@ -121,8 +121,8 @@ int main(int argc, char **argv)
             firstBody->mapTo(historyScroll->viewport(), QPoint(1, 1))), "oldest body not visible");
         GroupChatMembersLJY members{{"10001", {"A", 0}}, {"10002", {"B", 1}}, {"10003", {"C", 2}}};
         GroupChatClientLJY b, c;
-        b.enter("0:1001", "10002", members, false, port);
-        c.enter("0:1001", "10003", members, false, port);
+        b.enter("0:1001", "10002", members, port);
+        c.enter("0:1001", "10003", members, port);
         waitFor([&] { return b.ready() && c.ready(); }, "remote members");
         QString longText;
         for (int i = 0; i < 12; ++i)
@@ -161,8 +161,8 @@ int main(int argc, char **argv)
         c.leave();
         page->openGroup(1001);
         waitFor([&] { return send->isEnabled(); }, "reopen after cancelled close");
-        b.enter("0:1001", "10002", members, false, port);
-        c.enter("0:1001", "10003", members, false, port);
+        b.enter("0:1001", "10002", members, port);
+        c.enter("0:1001", "10003", members, port);
         waitFor([&] { return b.ready() && c.ready(); }, "rejoin after close");
         session.kickGroupMember(1001, "10003");
         page->refresh();
@@ -175,10 +175,10 @@ int main(int argc, char **argv)
               "exactly 100 records incorrectly offers earlier page");
         select(w, 1002);
         check(w.findChildren<QLabel *>("groupChatBody").empty(), "other group saw old history");
-        check(!earlierButton->isEnabled() && earlierButton->text() == "暂无群聊天记录", "empty history unclear");
+        check(!earlierButton->isEnabled() && earlierButton->text().contains("本地记录已加载完"), "empty history unclear");
         select(w, 1001);
         check(w.findChildren<QLabel *>("groupChatBody").size() == 100, "return history latest page");
-        click(w, "saveButton");
+        /* 业务操作成功后自动保存。 */
         check(history.load(0, "10001", 1001, 0, 300).size() == 207, "platform save deleted group history");
         click(w, "logoutButton");
         check(!send->isEnabled(), "logout connection active");

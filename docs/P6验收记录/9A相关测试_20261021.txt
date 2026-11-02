@@ -1,0 +1,41 @@
+Test project D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
+      Start 30: p5_chat_gui
+ 1/18 Test #30: p5_chat_gui ......................   Passed    5.34 sec
+      Start 31: p5_history_gui
+ 2/18 Test #31: p5_history_gui ...................   Passed    5.49 sec
+      Start 32: p5_chat_gui_service_1
+ 3/18 Test #32: p5_chat_gui_service_1 ............   Passed    4.39 sec
+      Start 33: p5_chat_gui_service_2
+ 4/18 Test #33: p5_chat_gui_service_2 ............   Passed    4.06 sec
+      Start 34: p5_lifecycle_gui
+ 5/18 Test #34: p5_lifecycle_gui .................   Passed    4.46 sec
+      Start 36: p5_connection_ui
+ 6/18 Test #36: p5_connection_ui .................   Passed   13.56 sec
+      Start 37: p5_group_network
+ 7/18 Test #37: p5_group_network .................   Passed    4.22 sec
+      Start 38: p5_group_gui_0
+ 8/18 Test #38: p5_group_gui_0 ...................   Passed   10.28 sec
+      Start 39: p5_group_gui_1
+ 9/18 Test #39: p5_group_gui_1 ...................   Passed   10.03 sec
+      Start 40: p5_group_gui_2
+10/18 Test #40: p5_group_gui_2 ...................   Passed    9.55 sec
+      Start 41: p5_group_gui_subgroup
+11/18 Test #41: p5_group_gui_subgroup ............   Passed    9.66 sec
+      Start 42: p5_group_state
+12/18 Test #42: p5_group_state ...................   Passed   11.78 sec
+      Start 43: p5_ui_design
+13/18 Test #43: p5_ui_design .....................   Passed    6.29 sec
+      Start 44: p5_group_offline_0
+14/18 Test #44: p5_group_offline_0 ...............   Passed   14.31 sec
+      Start 45: p5_group_offline_1
+15/18 Test #45: p5_group_offline_1 ...............   Passed   13.87 sec
+      Start 46: p5_group_offline_2
+16/18 Test #46: p5_group_offline_2 ...............   Passed   13.64 sec
+      Start 47: p5_usability
+17/18 Test #47: p5_usability .....................   Passed    4.28 sec
+      Start 48: p5_reading_ui
+18/18 Test #48: p5_reading_ui ....................   Passed    8.10 sec
+
+100% tests passed, 0 tests failed out of 18
+
+Total Test time (real) = 153.36 sec

@@ -4,6 +4,7 @@
 #include "services/SessionManagerLJY.h"
 #include <QWidget>
 #include <QMap>
+#include <QDate>
 #include <map>
 #include <memory>
 #include <set>
@@ -18,7 +19,6 @@ class QPlainTextEdit;
 class QScrollArea;
 class QVBoxLayout;
 class QTimer;
-class QComboBox;
 
 // 三服务共用文字聊天页：主线程处理控件和会话，网络线程通过事件队列返回结果。
 class MessagesPageLJY : public QWidget
@@ -29,7 +29,11 @@ public:
     ~MessagesPageLJY() override;
     // 刷新好友及昵称；身份改变时停止旧连接、清空旧账号的内存聊天。
     void refresh();
-    // 好友资料页跳转后选择对应会话；换人时先停止当前连接。
+    // 当前服务已收到但尚未浏览的消息数。
+    int unreadCount();
+    // 供主窗口固定显示未落库的聊天记录数量。
+    int pendingHistoryCount() const { return static_cast<int>(pending_.size()); }
+    // 好友资料页跳转后选择对应会话；换人只切换显示，点击新好友的连接按钮才替换连接。
     void openConversation(const QString& number);
     // 主窗口确认关闭后调用；页面隐藏不停止收发。
     void stopConnection();
@@ -58,7 +62,9 @@ private:
     bool loadingHistory_ = false;
     // 当前身份中已展开的消息；切页和刷新保留，换账号或服务时清空。
     std::set<std::string> expanded_;
-    std::string owner_, selected_, connection_;
+    // 浏览对象和连接对象分开，后台消息始终归入实际连接的好友。
+    std::string owner_, selected_, connectedPeer_, connection_;
+    QString connectionState_ = "尚未连接";
     bool active_ = false;
     bool ready_ = false;
     bool supported_ = false;
@@ -70,12 +76,20 @@ private:
     int ownColor_ = 0, peerColor_ = 0;
     // 停留在末尾时跟随新消息；向上翻阅时保留当前位置。
     bool followLatest_ = true;
+    // 新操作使旧的延迟定位失效，避免未读定位被上一轮布局撤销。
+    int scrollRevision_ = 0;
+    QDate lastDate_;
+    QPushButton* latest_ = nullptr;
+    // 最近摘要只缓存一条，历史正文仍按页读取。
+    QMap<QString, QPair<long long,QString>> previews_;
+    void updatePreview(const QString& number, const ChatMessageLJY& message);
+    void updateReading();
+    // 按未读数量找到第一条未读，必要时补读更早的一页。
+    void jumpToUnread();
     QListWidget* friends_;
     QLabel *listTitle_, *identity_, *title_, *state_, *avatar_, *empty_, *historyHint_;
     QWidget *panel_, *timeline_, *connectionBar_, *composer_;
-    QComboBox *mode_, *localIps_;
     QLabel *connectionHint_, *role_;
-    QLineEdit* address_;
     QSpinBox* port_;
     QPushButton *settings_, *start_, *stop_, *send_, *earlier_, *retry_;
     QPlainTextEdit* editor_;
@@ -86,11 +100,11 @@ private:
     bool autoWaiting_ = false, listening_ = false, handshaking_ = false, attempted_ = false;
     long long waitStarted_ = 0;
     QString attemptAddress_, settingsPath_;
-    int attemptPort_ = 27015, localPort_ = 27015, lanPort_ = 27015;
-    QString lanAddress_;
+    int attemptPort_ = 27015, localPort_ = 27015;
     // 当前显示缓存和草稿按好友分开；正常模式的记录同时逐条写库。
     std::map<std::string, std::vector<ChatMessageLJY>> conversations_;
     QMap<QString, QString> drafts_;
+    QMap<QString,int> unread_;
     QMap<QString, QLabel*> deliveryLabels_;
     // 按需打开历史库；失败可再次尝试，不阻断网络消息显示。
     ChatHistoryLJY& history();

@@ -1,4 +1,4 @@
-﻿# 生成可移动的 P5 发布目录，不复制项目数据库，也不删除已有 data。
+# 生成可移动的 P5 发布目录，不复制项目数据库，也不删除已有 data。
 param(
     [string]$QtRoot = 'D:/Qt/6.8.3/mingw_64',
     [string]$MinGWBin = 'D:/Qt/Tools/mingw1310_64/bin',
@@ -43,7 +43,7 @@ try {
     try {
         foreach ($file in Get-ChildItem -LiteralPath $destination -File -Recurse) {
             $relative = $file.FullName.Substring($destination.Length + 1).Replace('\', '/')
-            if ($relative.StartsWith('data/') -or $file.Name -like '*.db' -or $file.Name -like '*.db-*' -or $file.Name -like '*.connection.ini') { continue }
+            if ($relative.StartsWith('data/') -or $file.Name -like '*.db' -or $file.Name -like '*.db-*' -or $file.Name -like '*.connection.ini' -or $file.Name -like '*.unread.ini') { continue }
             [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($archive, $file.FullName, "JLU_InstantMessaging/$relative") | Out-Null
         }
     }

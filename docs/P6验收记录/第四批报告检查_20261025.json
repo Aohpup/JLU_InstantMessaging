@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-25",
+  "report": "docs\\P6课程设计报告_李佳烨.docx",
+  "pages_including_cover": 5,
+  "images": 2,
+  "all_text_in_docx": true,
+  "all_text_in_rendered_pdf": true,
+  "cover": {
+    "name": "李佳烨",
+    "student_id": "55250229",
+    "class": "2班",
+    "seat": "",
+    "term": "2026—2027学年第1学期"
+  },
+  "preserved_reference_parts": {
+    "word/fontTable.xml": true,
+    "word/numbering.xml": true,
+    "word/theme/theme1.xml": true,
+    "docProps/custom.xml": true,
+    "word/_rels/settings.xml.rels": true
+  },
+  "sha256": {
+    "docx": "81005f80052ae5cbea316774e58aeff1ad4db1f849f0b9e840353b9fe6fbedec",
+    "qa_pdf": "3f573e0611853438bee5a7c922fab0f2a366a962b24031f7b58c10bea07390d5",
+    "original_course_doc": "18bfcf747d276ef8dc4dfb5b6aca62a4f117441ac5ceefed5a455d8de3899e6e"
+  },
+  "visual_review": {
+    "pages": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "render_directory": "docs/P6报告制作/render-final3",
+    "result": "逐页检查，无空白页、裁切或文字溢出"
+  },
+  "renderer": "Microsoft Word PDF export + packaged render_docx.py rasterize; no LibreOffice on PATH",
+  "tests": "本轮仅检查文档；程序测试引用既有记录，未重跑",
+  "pending": "独立类文件差异及P6第五批"
+}

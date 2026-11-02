@@ -1,0 +1,20 @@
+{
+  "markdown": "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\docs\\源码阅读指南_面向对象_SQLite_Qt.md",
+  "docx": "D:\\C_code\\Cpp_test\\JLU_InstantMessaging\\docs\\源码阅读指南_面向对象_SQLite_Qt.docx",
+  "sections": 16,
+  "images": 3,
+  "tables": 14,
+  "links": 58,
+  "missing_links": [],
+  "note": "已同步2026-10-27业务版本和多窗口刷新改动，渲染与链接检查通过。",
+  "pages": 16,
+  "visual_review": "同步修复后复查第11、12、13、16页，其余页与上一版图像一致；无截断和空白页。",
+  "changed_pages_after_final_text_edit": [
+    11,
+    12,
+    13,
+    16
+  ],
+  "source_code_changed": true,
+  "docx_sha256": "1d521bb32eb433c0e612f24a3ad6f8ddb736b7be91ca72a8e896dffb505e441e"
+}

@@ -3,6 +3,7 @@
 #include "storage/SqliteStorageLJY.h"
 #include "storage/DefaultDatabasePathLJY.h"
 #include <QApplication>
+#include <QStandardPaths>
 #include "gui/InlineDialogLJY.h"
 #include <filesystem>
 #include <memory>
@@ -13,6 +14,9 @@ int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
     app.setStyle("Fusion");
+    // 同一 Windows 用户的多个客户端共用固定的本机群服务目录，避免换客户端丢失房间来源。
+    app.setProperty("groupServerDirectory", QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation)
+        + "/JLU_InstantMessaging/group-server");
     // 统一默认字体，表单、下拉列表和局部样式都沿用微软雅黑。
     QFont font("Microsoft YaHei"); font.setPixelSize(13); font.setWeight(QFont::Normal);
     app.setFont(font);
@@ -64,8 +68,13 @@ int main(int argc, char* argv[])
         }
         SessionManagerLJY session(platform);
         std::function<void()> saveAction;
-        if (storage) saveAction = [&] { storage->save(platform); };
-        MainWindowLJY window(session, saveAction, databasePath);
+        std::function<bool()> synchronizeAction;
+        if (storage)
+        {
+            saveAction = [&] { storage->save(platform); };
+            synchronizeAction = [&] { return storage->refreshIfChanged(platform); };
+        }
+        MainWindowLJY window(session, saveAction, databasePath, nullptr, synchronizeAction);
         window.show();
         return app.exec();
     }

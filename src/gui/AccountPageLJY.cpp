@@ -22,8 +22,8 @@ AccountPageLJY::AccountPageLJY(SessionManagerLJY& session, QWidget* parent)
     setAttribute(Qt::WA_StyledBackground);
     auto* layout = new QVBoxLayout(this);
     // 页面边缘给阴影留白，避免滚动区域裁掉卡片投影。
-    layout->setContentsMargins(20, 4, 20, 24);
-    layout->setSpacing(20);
+    layout->setContentsMargins(12, 4, 12, 16);
+    layout->setSpacing(16);
     auto* title = new QLabel("我的账号");
     title->setObjectName("pageTitle");
     layout->addWidget(title);
@@ -156,7 +156,7 @@ AccountPageLJY::AccountPageLJY(SessionManagerLJY& session, QWidget* parent)
     services_->horizontalHeader()->setMinimumSectionSize(70);
     services_->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     services_->horizontalHeader()->setSectionResizeMode(5, QHeaderView::Fixed);
-    services_->setColumnWidth(5, 160);
+    services_->setColumnWidth(5, 180);
     services_->verticalHeader()->hide();
     services_->verticalHeader()->setDefaultSectionSize(44);
     services_->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -193,12 +193,16 @@ AccountPageLJY::AccountPageLJY(SessionManagerLJY& session, QWidget* parent)
     confirmation->addWidget(warning, 1);
     auto* confirmUnbind = new QPushButton("确认解绑");
     confirmUnbind->setObjectName("confirmUnbind");
+    confirmUnbind->setProperty("danger", true);
     auto* cancelUnbind = new QPushButton("取消");
     cancelUnbind->setObjectName("cancelUnbind");
     confirmation->addWidget(confirmUnbind);
     confirmation->addWidget(cancelUnbind);
     association->addWidget(unbindConfirmation_);
-    auto* openRow = new QHBoxLayout;
+    auto* openPanel = new QWidget;
+    openPanel->setObjectName("openServicePanel");
+    auto* openRow = new QHBoxLayout(openPanel);
+    openRow->setContentsMargins(0, 0, 0, 0);
     openRow->addWidget(new QLabel("待开通服务"));
     newService_ = new QComboBox;
     newService_->setObjectName("openServiceType");
@@ -211,8 +215,9 @@ AccountPageLJY::AccountPageLJY(SessionManagerLJY& session, QWidget* parent)
     auto* openButton = new QPushButton("开通服务");
     openButton->setObjectName("openServiceButton");
     openRow->addWidget(openButton);
-    association->addLayout(openRow);
+    association->addWidget(openPanel);
     auto* hint = new QLabel("开通后，点击顶部服务按钮确认进入；首次绑定需确认 QQ 和微信，或曾分别用密码登录。");
+    hint->setObjectName("openServiceHint");
     hint->setWordWrap(true);
     hint->setProperty("muted", true);
     association->addWidget(hint);
@@ -291,7 +296,9 @@ void AccountPageLJY::refresh()
     avatar_->setText(nickname.left(first.toNextBoundary()));
     identity_->setText("当前账号：" + QString::fromStdString(current.externalId()) +
         "  |  注册年龄：" + QString::number(session_.registrationAge()) + " 年");
-    cancelEditing();
+    if (shownAccount_ != current.accountId() || (!editingProfile_ && !editingNickname_ && !editingPassword_)) cancelEditing();
+    else if (editingProfile_) previewAvatarColor(selectedColor_);
+    shownAccount_ = current.accountId();
     const QStringList names{"QQ", "微信", "微博"};
     newService_->clear();
     const auto accounts = session_.accounts();
@@ -316,6 +323,8 @@ void AccountPageLJY::refresh()
         }
     }
     const bool canOpen = newService_->count() > 0;
+    findChild<QWidget*>("openServicePanel")->setVisible(canOpen);
+    findChild<QLabel*>("openServiceHint")->setVisible(canOpen);
     newService_->setCurrentIndex(canOpen ? 0 : -1);
     findChild<QPushButton*>("openServiceButton")->setEnabled(canOpen);
     newService_->setEnabled(canOpen);
@@ -357,6 +366,7 @@ void AccountPageLJY::updateProfile()
     try {
         session_.updateProfile(name_->text().toUtf8().toStdString(), birth_->text().toUtf8().toStdString(),
             location_->text().toUtf8().toStdString(), selectedColor_);
+        cancelEditing();
         emit changed("个人资料已修改，尚未保存到数据库。");
     }
     catch (const std::exception& error) { emit feedback("修改失败：" + QString::fromUtf8(error.what()), true); }
@@ -367,6 +377,7 @@ void AccountPageLJY::updateNickname()
     if (!editingNickname_) { cancelEditing(); emit feedback(""); setNicknameEditing(true); nickname_->setFocus(); return; }
     try {
         session_.updateNickname(nickname_->text().toUtf8().toStdString());
+        cancelEditing();
         emit changed("当前服务昵称已修改，尚未保存到数据库。");
     }
     catch (const std::exception& error) { emit feedback("修改失败：" + QString::fromUtf8(error.what()), true); }
@@ -382,6 +393,7 @@ void AccountPageLJY::updatePassword()
     }
     try {
         session_.changePassword(oldPassword_->text().toUtf8().toStdString(), newPassword_->text().toUtf8().toStdString());
+        cancelEditing();
         emit changed("密码已修改，各服务下次登录使用新密码；尚未保存到数据库。");
     }
     catch (const std::exception& error) {

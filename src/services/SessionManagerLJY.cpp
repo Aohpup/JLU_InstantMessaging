@@ -371,3 +371,12 @@ ServiceAccountLJY SessionManagerLJY::contactAccount(int accountId) const
     if (!target || target->serviceType()!=current.serviceType()) throw std::invalid_argument("当前服务中不存在该账号。");
     return *target;
 }
+
+int SessionManagerLJY::createGroup(const std::string& name)
+{
+    const auto account = currentAccount();
+    int number = 1001;
+    while (platform_.findGroup(account.serviceType(), number)) ++number;
+    groupManager_.createGroup(currentPersonId_, currentAccountId_, number, name, {});
+    return number;
+}

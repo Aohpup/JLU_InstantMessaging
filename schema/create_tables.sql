@@ -86,9 +86,12 @@ CREATE TABLE IF NOT EXISTS id_state (
     last_shared_number INTEGER NOT NULL,
     last_wechat_number INTEGER NOT NULL,
     last_group_id INTEGER NOT NULL,
-    last_group_request_id INTEGER NOT NULL
+    last_group_request_id INTEGER NOT NULL,
+    revision INTEGER NOT NULL DEFAULT 0
 );
-INSERT OR IGNORE INTO id_state VALUES (1, 0, 0, 10000, 20000, 0, 0);
+-- 使用原字段列表，旧库可先执行建表脚本，再由存储类补 revision。
+INSERT OR IGNORE INTO id_state(singleton,last_person_id,last_account_id,last_shared_number,last_wechat_number,last_group_id,last_group_request_id)
+VALUES (1, 0, 0, 10000, 20000, 0, 0);
 
 -- 好友申请每对账号保留最近一条；同意前不写 friendships。
 CREATE TABLE IF NOT EXISTS friend_requests (

@@ -10,7 +10,7 @@ GroupChatHostLJY::GroupChatHostLJY(QObject *parent) : QObject(parent)
 {
     connect(&server_, &QTcpServer::newConnection, this, &GroupChatHostLJY::acceptPeers);
 }
-bool GroupChatHostLJY::start(const QString &room, int port, bool lan, const QString &token,
+bool GroupChatHostLJY::start(const QString &room, int port, const QString &token,
                              const GroupChatMembersLJY &members)
 {
     stop();
@@ -18,8 +18,9 @@ bool GroupChatHostLJY::start(const QString &room, int port, bool lan, const QStr
     token_ = token;
     members_ = members;
     sequence_ = 0;
-    const auto address = lan ? QHostAddress::AnyIPv4 : QHostAddress::LocalHost;
-    return server_.listen(address, port) || (lan && server_.listen(address, 0));
+    store_.reset();
+    if (!databasePath_.isEmpty()) store_ = std::make_unique<GroupRoomStoreLJY>(databasePath_, room);
+    return server_.listen(QHostAddress::LocalHost, port);
 }
 void GroupChatHostLJY::stop()
 {
@@ -53,7 +54,10 @@ void GroupChatHostLJY::roster()
     for (const auto &peer : peers_)
         if (!peer.account.isEmpty())
             accounts.append(peer.account);
-    broadcast({{"kind", "roster"}, {"accounts", accounts}});
+    QJsonArray members;
+    for (auto it=members_.begin();it!=members_.end();++it)
+        members.append(QJsonObject{{"account",it.key()},{"nickname",it.value().first},{"color",it.value().second}});
+    broadcast({{"kind", "roster"}, {"accounts", accounts}, {"members",members}});
 }
 void GroupChatHostLJY::reject(QTcpSocket *socket, const QString &why)
 {
@@ -62,6 +66,7 @@ void GroupChatHostLJY::reject(QTcpSocket *socket, const QString &why)
 }
 void GroupChatHostLJY::updateMembers(const GroupChatMembersLJY &members)
 {
+    if (members_ == members) return;
     members_ = members;
     for (auto *socket : peers_.keys())
     {
@@ -69,6 +74,7 @@ void GroupChatHostLJY::updateMembers(const GroupChatMembersLJY &members)
         if (!account.isEmpty() && !members_.contains(account))
             reject(socket, "你已不在主持端的群成员名单中。");
     }
+    roster();
 }
 void GroupChatHostLJY::acceptPeers()
 {
@@ -122,8 +128,28 @@ void GroupChatHostLJY::receive(QTcpSocket *socket)
                 peers_[socket].account = account;
                 peers_[socket].color =
                     std::clamp(frame.value("color").toInt(members_.value(account).second), 0, 5);
-                send(socket, {{"kind", "welcome"}, {"room", room_}, {"token", token_}});
+                peers_[socket].historyThrough = store_ ? store_->last() : 0;
+                send(socket, {{"kind", "welcome"}, {"room", room_}, {"token", token_},
+                    {"history", bool(store_)}, {"through", QString::number(peers_[socket].historyThrough)}});
                 roster();
+            }
+            else if (kind == "history" && store_)
+            {
+                if (!members_.contains(peers_[socket].account))
+                { reject(socket, "你已不在该群中。"); return; }
+                const auto after = frame.value("after").toString().toLongLong();
+                if (after == 0) peers_[socket].historyThrough = store_->last();
+                const auto through = peers_[socket].historyThrough;
+                auto rows = store_->page(std::max(0LL, after), through);
+                long long cursor = after;
+                for (auto row : rows)
+                {
+                    cursor = row.value("seq").toString().toLongLong();
+                    row["history"] = true;
+                    send(socket, row);
+                }
+                send(socket, {{"kind", "history_end"}, {"after", QString::number(cursor)},
+                    {"more", !rows.isEmpty() && cursor < through}});
             }
             else if (kind == "text")
             {
@@ -142,7 +168,7 @@ void GroupChatHostLJY::receive(QTcpSocket *socket)
                     return;
                 }
                 const auto info = members_.value(account);
-                broadcast({{"kind", "message"},
+                QJsonObject message{{"kind", "message"},
                            {"room", room_},
                            {"id", token_ + ":" + QString::number(++sequence_)},
                            {"sender", account},
@@ -150,7 +176,9 @@ void GroupChatHostLJY::receive(QTcpSocket *socket)
                            {"color", peers_[socket].color},
                            {"body", body},
                            {"request", request},
-                           {"time", QString::number(QDateTime::currentMSecsSinceEpoch())}});
+                           {"time", QString::number(QDateTime::currentMSecsSinceEpoch())}};
+                if (store_) message = store_->append(message);
+                broadcast(message);
             }
             else
             {

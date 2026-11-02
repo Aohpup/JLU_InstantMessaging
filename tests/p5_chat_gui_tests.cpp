@@ -110,12 +110,12 @@ int main(int argc, char** argv)
             for (auto* body : window.findChildren<QLabel*>("chatBody"))
                 check(body->height() >= body->heightForWidth(body->width()), "Restored message text clipped");
             window.grab().save(folder + "/" + role + "-reopened.png");
-            click(window, "saveButton"); window.close();
+            /* 业务操作成功后自动保存。 */ window.close();
             std::cout << "PASS reopened GUI " << role.toStdString() << ": six messages restored without connecting" << std::endl;
             return 0;
         }
         sqlite3* lock = nullptr;
-        click(window, "chatSettings"); if (qEnvironmentVariable("JLU_TEST_ADDRESS", "127.0.0.1") != "127.0.0.1") window.findChild<QComboBox*>("chatMode")->setCurrentIndex(1); input(window, "chatAddress", qEnvironmentVariable("JLU_TEST_ADDRESS", "127.0.0.1"));
+        click(window, "chatSettings");
         window.findChild<QSpinBox*>("chatPort")->setValue(args[3].toInt());
         click(window, "chatSaveSettings"); click(window, "chatStart");
         if (a)
@@ -185,7 +185,7 @@ int main(int argc, char** argv)
             sqlite3_exec(lock, "ROLLBACK", nullptr, nullptr, nullptr); sqlite3_close(lock); lock = nullptr;
             click(window, "chatRetryHistory");
             check(!window.findChild<QPushButton*>("chatRetryHistory")->isVisible(), "Retry did not flush pending records");
-            click(window, "saveButton");
+            /* 业务操作成功后自动保存。 */
         }
         // 两端保持现有历史，手动重新监听/连接，再互发一条。
         marker(folder + "/" + role + "-first-round.ready");

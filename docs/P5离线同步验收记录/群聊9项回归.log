@@ -1,0 +1,195 @@
+Start testing: Oct 15 15:53 中国标准时间
+----------------------------------------------------------
+37/46 Testing: p5_group_network
+37/46 Test: p5_group_network
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_group_network_tests.exe"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_group_network" start time: Oct 15 15:53 中国标准时间
+Output:
+----------------------------------------------------------
+PASS frames, first ordinary member, three-way auto chat, service/member/duplicate checks, removal, takeover, LAN discovery/convergence, history paging/dedup/isolation/lock
+<end of output>
+Test time =   6.27 sec
+----------------------------------------------------------
+Test Passed.
+"p5_group_network" end time: Oct 15 15:53 中国标准时间
+"p5_group_network" time elapsed: 00:00:06
+----------------------------------------------------------
+
+38/46 Testing: p5_group_gui_0
+38/46 Test: p5_group_gui_0
+Command: "C:/Users/27918/AppData/Local/Python/pythoncore-3.14-64/python.exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/tests/p5_group_gui_acceptance.py" "--exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_group_gui_tests.exe" "--service" "0" "--output-dir" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/p5_group/service_0"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_group_gui_0" start time: Oct 15 15:53 中国标准时间
+Output:
+----------------------------------------------------------
+PASS three independent Qt processes, service 0 group 1001 evidence D:\C_code\Cpp_test\JLU_InstantMessaging\build\gui-debug\p5_group\service_0\three_wlgw0791
+A.log PASS GUI A automatic enter, three peers, takeover, history, shortcuts and 900x600
+
+B.log PASS GUI B automatic enter, three peers, takeover, history, shortcuts and 900x600
+
+C.log PASS ordinary member host C, close for takeover
+
+reloadA.log PASS reload A
+
+reloadB.log PASS reload B
+
+reloadC.log PASS reload C
+
+<end of output>
+Test time =  10.95 sec
+----------------------------------------------------------
+Test Passed.
+"p5_group_gui_0" end time: Oct 15 15:53 中国标准时间
+"p5_group_gui_0" time elapsed: 00:00:10
+----------------------------------------------------------
+
+39/46 Testing: p5_group_gui_1
+39/46 Test: p5_group_gui_1
+Command: "C:/Users/27918/AppData/Local/Python/pythoncore-3.14-64/python.exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/tests/p5_group_gui_acceptance.py" "--exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_group_gui_tests.exe" "--service" "1" "--output-dir" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/p5_group/service_1"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_group_gui_1" start time: Oct 15 15:53 中国标准时间
+Output:
+----------------------------------------------------------
+PASS three independent Qt processes, service 1 group 1001 evidence D:\C_code\Cpp_test\JLU_InstantMessaging\build\gui-debug\p5_group\service_1\three_7sp6oq_9
+A.log PASS GUI A automatic enter, three peers, takeover, history, shortcuts and 900x600
+
+B.log PASS GUI B automatic enter, three peers, takeover, history, shortcuts and 900x600
+
+C.log PASS ordinary member host C, close for takeover
+
+reloadA.log PASS reload A
+
+reloadB.log PASS reload B
+
+reloadC.log PASS reload C
+
+<end of output>
+Test time =   9.51 sec
+----------------------------------------------------------
+Test Passed.
+"p5_group_gui_1" end time: Oct 15 15:53 中国标准时间
+"p5_group_gui_1" time elapsed: 00:00:09
+----------------------------------------------------------
+
+40/46 Testing: p5_group_gui_2
+40/46 Test: p5_group_gui_2
+Command: "C:/Users/27918/AppData/Local/Python/pythoncore-3.14-64/python.exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/tests/p5_group_gui_acceptance.py" "--exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_group_gui_tests.exe" "--service" "2" "--output-dir" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/p5_group/service_2"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_group_gui_2" start time: Oct 15 15:53 中国标准时间
+Output:
+----------------------------------------------------------
+PASS three independent Qt processes, service 2 group 1001 evidence D:\C_code\Cpp_test\JLU_InstantMessaging\build\gui-debug\p5_group\service_2\three_w119lui2
+A.log PASS GUI A automatic enter, three peers, takeover, history, shortcuts and 900x600
+
+B.log PASS GUI B automatic enter, three peers, takeover, history, shortcuts and 900x600
+
+C.log PASS ordinary member host C, close for takeover
+
+reloadA.log PASS reload A
+
+reloadB.log PASS reload B
+
+reloadC.log PASS reload C
+
+<end of output>
+Test time =   9.52 sec
+----------------------------------------------------------
+Test Passed.
+"p5_group_gui_2" end time: Oct 15 15:53 中国标准时间
+"p5_group_gui_2" time elapsed: 00:00:09
+----------------------------------------------------------
+
+41/46 Testing: p5_group_gui_subgroup
+41/46 Test: p5_group_gui_subgroup
+Command: "C:/Users/27918/AppData/Local/Python/pythoncore-3.14-64/python.exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/tests/p5_group_gui_acceptance.py" "--exe" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_group_gui_tests.exe" "--group" "2001" "--output-dir" "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/p5_group/subgroup"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_group_gui_subgroup" start time: Oct 15 15:53 中国标准时间
+Output:
+----------------------------------------------------------
+PASS three independent Qt processes, service 0 group 2001 evidence D:\C_code\Cpp_test\JLU_InstantMessaging\build\gui-debug\p5_group\subgroup\three_9k_ofg94
+A.log PASS GUI A automatic enter, three peers, takeover, history, shortcuts and 900x600
+
+B.log PASS GUI B automatic enter, three peers, takeover, history, shortcuts and 900x600
+
+C.log PASS ordinary member host C, close for takeover
+
+reloadA.log PASS reload A
+
+reloadB.log PASS reload B
+
+reloadC.log PASS reload C
+
+<end of output>
+Test time =   9.74 sec
+----------------------------------------------------------
+Test Passed.
+"p5_group_gui_subgroup" end time: Oct 15 15:53 中国标准时间
+"p5_group_gui_subgroup" time elapsed: 00:00:09
+----------------------------------------------------------
+
+42/46 Testing: p5_group_state
+42/46 Test: p5_group_state
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_group_state_tests.exe" "-platform" "offscreen"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_group_state" start time: Oct 15 15:53 中国标准时间
+Output:
+----------------------------------------------------------
+PASS GUI history paging/fold, hidden receive, write failure retry and cancel close, membership removal, mode preservation, group isolation, logout
+<end of output>
+Test time =  17.37 sec
+----------------------------------------------------------
+Test Passed.
+"p5_group_state" end time: Oct 15 15:54 中国标准时间
+"p5_group_state" time elapsed: 00:00:17
+----------------------------------------------------------
+
+44/46 Testing: p5_group_offline_0
+44/46 Test: p5_group_offline_0
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_group_offline_tests.exe" "0"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_group_offline_0" start time: Oct 15 15:54 中国标准时间
+Output:
+----------------------------------------------------------
+PASS service 0: 205 offline messages, 3 ordered pages, cached newer row, group switch, concurrent live sync, hard restart, fresh client recovery and dedup
+<end of output>
+Test time =  21.03 sec
+----------------------------------------------------------
+Test Passed.
+"p5_group_offline_0" end time: Oct 15 15:54 中国标准时间
+"p5_group_offline_0" time elapsed: 00:00:21
+----------------------------------------------------------
+
+45/46 Testing: p5_group_offline_1
+45/46 Test: p5_group_offline_1
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_group_offline_tests.exe" "1"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_group_offline_1" start time: Oct 15 15:54 中国标准时间
+Output:
+----------------------------------------------------------
+PASS service 1: 205 offline messages, 3 ordered pages, cached newer row, group switch, concurrent live sync, hard restart, fresh client recovery and dedup
+<end of output>
+Test time =  21.54 sec
+----------------------------------------------------------
+Test Passed.
+"p5_group_offline_1" end time: Oct 15 15:54 中国标准时间
+"p5_group_offline_1" time elapsed: 00:00:21
+----------------------------------------------------------
+
+46/46 Testing: p5_group_offline_2
+46/46 Test: p5_group_offline_2
+Command: "D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/bin/p5_group_offline_tests.exe" "2"
+Directory: D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug/src/gui
+"p5_group_offline_2" start time: Oct 15 15:54 中国标准时间
+Output:
+----------------------------------------------------------
+PASS service 2: 205 offline messages, 3 ordered pages, cached newer row, group switch, concurrent live sync, hard restart, fresh client recovery and dedup
+<end of output>
+Test time =  21.32 sec
+----------------------------------------------------------
+Test Passed.
+"p5_group_offline_2" end time: Oct 15 15:55 中国标准时间
+"p5_group_offline_2" time elapsed: 00:00:21
+----------------------------------------------------------
+
+End testing: Oct 15 15:55 中国标准时间

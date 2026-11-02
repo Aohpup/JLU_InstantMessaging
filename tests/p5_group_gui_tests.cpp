@@ -137,7 +137,7 @@ int main(int argc, char **argv)
         }
         waitFor([&] { return send->isEnabled(); }, "automatic enter not ready");
         marker(folder + "/" + letter + ".joined");
-        waitFor([&] { return window.findChild<QLabel *>("groupChatOnline")->text() == "3 人在线"; },
+        waitFor([&] { return window.findChild<QLabel *>("groupChatOnline")->text().startsWith("3 人在线"); },
                 "three peers not online");
         const auto text = letter + "：三人即时群消息\n第二行🙂";
         editor->setPlainText(letter + "：三人即时群消息");
@@ -169,7 +169,7 @@ int main(int argc, char **argv)
         waitFor(
             [&] {
                 return send->isEnabled() &&
-                       window.findChild<QLabel *>("groupChatOnline")->text() == "2 人在线";
+                       window.findChild<QLabel *>("groupChatOnline")->text().startsWith("2 人在线");
             },
             "GUI host takeover");
         editor->setPlainText(letter + "：自动接管后继续");
@@ -181,7 +181,7 @@ int main(int argc, char **argv)
         QTest::qWait(60);
         click(window, "messagesNav");
         check(page->isVisible(), "group tab lost on navigation");
-        click(window, "saveButton");
+        /* 业务操作成功后自动保存。 */
         window.resize(1100, 820);
         QTest::qWait(80);
         window.grab().save(folder + "/" + letter + "-chat.png");

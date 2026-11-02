@@ -17,7 +17,8 @@ class GroupsPageLJY : public QWidget
 public:
     explicit GroupsPageLJY(SessionManagerLJY& session, QWidget* parent = nullptr);
     // 提交后保留当前群；注销或切换服务时清空群及目标选择。
-    void refresh();
+    // 后台同步时保留同一群的子群创建草稿；提交时仍检查最新成员和权限。
+    void refresh(bool preserveDraft = false);
 signals:
     // 由主窗口打开所选群的实时聊天。
     void messageRequested(int number);
@@ -53,7 +54,7 @@ private:
     // 查找失败立即清空旧群，不能在无效群上继续选人操作。
     void findGroup();
     void selectGroup(int number);
-    void showGroup();
+    void showGroup(bool preserveDraft = false);
     GroupOperationLJY memberOperation() const;
     QString selectedMember() const;
     // 换选目标只清除旧反馈；点击操作后检查权限，内部刷新保留成功提示。

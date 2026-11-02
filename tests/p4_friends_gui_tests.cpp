@@ -205,11 +205,13 @@ int main(int argc, char* argv[])
         check(list->count() == 1, "cancel recommendation");
         answer(QMessageBox::Yes);
         click(window, "addRecommendationButton");
-        check(list->count()==1 && results->count()==0,"recommendation sends pending request");
+        check(list->count()==1 && results->count()==1 && results->item(0)->text().contains("已申请"),"recommendation retains pending result");
         { SessionManagerLJY recipient(platform); recipient.login(ServiceTypeLJY::WeChat,"wx_20002","DemoOnly123!"); recipient.handleFriendRequest("wx_20001",true); }
         window.findChild<FriendsPageLJY*>()->refresh();
         check(list->count()==2,"approved recommendation updates list");
-        click(window, "saveButton");
+        // 此处接收方直接调用业务建立夹具，未经过其窗口，显式保存该夹具。
+        storage.save(platform);
+        /* 业务操作成功后自动保存。 */
         click(window, "logoutButton");
         check(list->count() == 0 && results->count() == 0, "logout clears previous account data");
         input(window, "loginNumber", "10003");

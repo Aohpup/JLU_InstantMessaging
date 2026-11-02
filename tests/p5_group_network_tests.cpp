@@ -62,11 +62,11 @@ int main(int argc, char **argv)
         QObject::connect(&c, &GroupChatClientLJY::message, [&](const QJsonObject &) { ++nc; });
         QObject::connect(&a, &GroupChatClientLJY::online, [&](int n) { online = n; });
         const int port = freePort();
-        c.enter("0:1001", "10003", members, false, port);
+        c.enter("0:1001", "10003", members, port);
         waitFor([&] { return c.ready(); }, "ordinary first member host");
         check(c.hosting(), "ordinary not host");
-        a.enter("0:1001", "10001", members, false, port);
-        b.enter("0:1001", "10002", members, false, port);
+        a.enter("0:1001", "10001", members, port);
+        b.enter("0:1001", "10002", members, port);
         waitFor([&] { return a.ready() && b.ready() && online == 3; }, "three members auto join");
         b.sendText("三人群消息\n中文🙂");
         waitFor([&] { return na == 1 && nb == 1 && nc == 1; }, "fanout including sender");
@@ -75,16 +75,16 @@ int main(int argc, char **argv)
         bool rejected = false;
         QObject::connect(&wrong, &GroupChatClientLJY::status,
                          [&](const QString &, bool failed) { rejected |= failed; });
-        wrong.enter("1:1001", "10001", members, false, port);
+        wrong.enter("1:1001", "10001", members, port);
         waitFor([&] { return rejected; }, "wrong service accepted");
         check(!wrong.ready(), "wrong room ready");
         wrong.leave();
         rejected = false;
-        wrong.enter("0:1001", "99999", members, false, port);
+        wrong.enter("0:1001", "99999", members, port);
         waitFor([&] { return rejected; }, "nonmember accepted");
         wrong.leave();
         rejected = false;
-        wrong.enter("0:1001", "10001", members, false, port);
+        wrong.enter("0:1001", "10001", members, port);
         waitFor([&] { return rejected; }, "duplicate account accepted");
         wrong.leave();
         auto reduced = members;
@@ -92,7 +92,7 @@ int main(int argc, char **argv)
         c.updateMembers(reduced);
         waitFor([&] { return !b.ready() && online == 2; }, "removed member still connected");
         c.updateMembers(members);
-        b.enter("0:1001", "10002", members, false, port);
+        b.enter("0:1001", "10002", members, port);
         waitFor([&] { return b.ready(); }, "restored member cannot join");
         c.leave();
         waitFor([&] { return a.ready() && b.ready() && (a.hosting() != b.hosting()); }, "host takeover");
@@ -101,19 +101,6 @@ int main(int argc, char **argv)
         check(id != prior, "room restart reused message ID");
         a.leave();
         b.leave();
-        // 局域网模式在本机测试组播发现和同时开房的收敛。
-        const int lanPort = freePort();
-        a.enter("2:1001", "10001", members, true, lanPort);
-        b.enter("2:1001", "10002", members, true, lanPort);
-        c.enter("2:1001", "10003", members, true, lanPort);
-        waitFor([&] { return a.ready() && b.ready() && c.ready() && online == 3; },
-                "LAN discovery convergence", 12000);
-        check(static_cast<int>(a.hosting()) + b.hosting() + c.hosting() == 1, "multiple LAN hosts");
-        b.sendText("局域网发现消息");
-        waitFor([&] { return na == 3 && nb == 3 && nc == 2; }, "LAN fanout");
-        a.leave();
-        b.leave();
-        c.leave();
         QTemporaryDir folder;
         const auto path = folder.path() + "/history.db";
         sqlite3 *create = nullptr;
@@ -154,7 +141,7 @@ int main(int argc, char **argv)
         sqlite3_close(lock);
         std::cout
             << "PASS frames, first ordinary member, three-way auto chat, service/member/duplicate checks, "
-               "removal, takeover, LAN discovery/convergence, history paging/dedup/isolation/lock\n";
+               "removal, takeover, history paging/dedup/isolation/lock\n";
     }
     catch (const std::exception &e)
     {

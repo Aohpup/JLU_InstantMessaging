@@ -19,15 +19,21 @@ public:
     SqliteStorageLJY(const SqliteStorageLJY&) = delete;
     SqliteStorageLJY& operator=(const SqliteStorageLJY&) = delete;
 
-    // 用一次事务替换本项目九张表的数据；失败回滚，平台内存保持原样。
+    // 用一次事务替换本项目十张业务表的数据；失败回滚，平台内存保持原样。
     // 只传入本次准备保存的完整平台，不把未加载的空平台当作已有数据保存。
     void save(const PlatformLJY& platform);
 
-    // 启动时、创建会话前读取；成功替换完整平台并使旧查询指针失效，失败保留原平台。
-    // 恢复数据和发号状态，不恢复登录状态；不要在已登录的会话中调用。
-    void load(PlatformLJY& platform);
+    // 成功替换完整平台并使旧查询指针失效，失败保留原平台；默认不保留本次运行的登录历史。
+    void load(PlatformLJY& platform, bool preserveLoginHistory = false);
+
+    // 其他窗口提交后重读业务数据，保留当前运行的密码登录历史；只在界面空闲时调用。
+    // 会话保存的人员和账号编号不变；返回 true 时界面须重新查询列表，不能继续使用旧指针。
+    bool refreshIfChanged(PlatformLJY& platform);
 
 private:
+    // 上次读取或提交的业务版本；聊天记录写入不改变它。
+    int revision_ = 0;
+    int readRevision();
     sqlite3* db_ = nullptr;// SQLite 数据库连接
     
     sqlite3_stmt* statement_ = nullptr;

@@ -53,7 +53,7 @@ int main(int argc, char** argv)
         check(!window.findChild<QPushButton*>("chatLoadEarlier")->isVisible(),"End of history button not hidden");
         bool unknown=false;for(auto* l:window.findChildren<QLabel*>("chatDelivery"))unknown|=l->text().contains("结果未知");
         check(unknown,"Interrupted sending must show unknown");
-        click("saveButton");check(history.load("10001","10002",0,300).size()==205,"Platform save lost history");
+        storage.save(platform);check(history.load("10001","10002",0,300).size()==205,"Platform save lost history");
         click("logoutButton");login("10002");window.findChild<QListWidget*>("chatFriends")->setCurrentRow(0);app.processEvents();
         check(window.findChildren<QLabel*>("chatBody").size()==1 && window.findChild<QLabel*>("chatBody")->text()=="本人B独立记录","Owner history mixed");
         window.close();

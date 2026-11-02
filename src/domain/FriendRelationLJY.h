@@ -28,5 +28,5 @@ private:
     std::string firstRemark_;
     std::string secondRemark_;
     // 仅由好友业务在检查权限和文本后修改本人的备注。
-    void setRemark(int ownerAccountId, const std::string& remark);
+    void setRemark(int ownerAccountId, const std::string& remark); //双方关系对象.setRemark(账号编号(发出者), 备注文本(给对方的备注))
 };

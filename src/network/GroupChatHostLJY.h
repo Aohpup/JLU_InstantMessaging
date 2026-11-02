@@ -5,6 +5,8 @@
 #include <QMap>
 #include <QHash>
 #include <QJsonObject>
+#include "storage/GroupRoomStoreLJY.h"
+#include <memory>
 // 成员资料来自主持端现有群：账号映射到昵称和预设头像颜色。
 using GroupChatMembersLJY = QMap<QString, QPair<QString, int>>;
 
@@ -17,14 +19,17 @@ class GroupChatHostLJY : public QObject
     {
         stop();
     }
-    // 首选群默认端口，局域网可退回系统分配的空闲端口。
-    bool start(const QString &room, int port, bool lan, const QString &token,
+    // 只监听本机回环地址，端口占用时交由客户端连接已有房间。
+    bool start(const QString &room, int port, const QString &token,
                const GroupChatMembersLJY &members);
     void stop();
+    // 启用独立房间日志；必须在启动前设置，空路径保留临时演示行为。
+    void setDatabase(const QString &path) { databasePath_ = path; }
     bool running() const
     {
         return server_.isListening();
     }
+    int connectedCount() const { return peers_.size(); }
     int port() const
     {
         return server_.serverPort();
@@ -37,12 +42,14 @@ class GroupChatHostLJY : public QObject
     {
         QByteArray buffer;
         QString account;
+        long long historyThrough = 0;
         int color = 0;
     };
     QTcpServer server_;
     QHash<QTcpSocket *, PeerLJY> peers_;
     GroupChatMembersLJY members_;
-    QString room_, token_;
+    QString room_, token_, databasePath_;
+    std::unique_ptr<GroupRoomStoreLJY> store_;
     long long sequence_ = 0;
     void acceptPeers();
     void receive(QTcpSocket *socket);
