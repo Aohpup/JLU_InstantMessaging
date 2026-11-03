@@ -1,7 +1,0 @@
-{
-  "CMakeLists.txt": "c1cf4c33b54409f8ed840fb922f72a1744446cf01353b6016e8bb0d536e45447",
-  "CMakePresets.json": "862fa323b952cc7e7c7efcddec6b9cc25606a4052df593a66bef769d2cff62d4",
-  "schema/create_tables.sql": "169e5bc8420dbbe1a33e0518630416b92f8227bd0627baf82bcea30f063f74b8",
-  "tests/p3_sqlite_smoke.cpp": "701427d5e7e1e249719084e22f8d42036859fc9a4c80453c766bdff86fa60d8f",
-  "build/debug/bin/p3_sqlite_smoke.exe": "912dc1dd094ab2a367af184af4b91e200cf055bfe6c5c1d26736ddebcd79aa54"
-}

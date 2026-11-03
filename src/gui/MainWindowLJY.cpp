@@ -449,6 +449,6 @@ void MainWindowLJY::updatePersistence()
     if (pending) text=(dirty_ ? text : QString("业务资料已保存"))+QString(" · %1 条聊天记录待保存").arg(pending);
     if (session_.isLoggedIn() && account_->hasDraft()) text+=" · 账号表单待提交";
     persistence_->setText(text);
-    persistence_->setStyleSheet(unsaved ? "color:#b42318; background:transparent;" : "color:#60786e; background:transparent;");
+    persistence_->setStyleSheet(unsaved ? "color:#b42318; background:transparent;" : "color:#606A78; background:transparent;");
     retrySave_->setVisible(unsaved);
 }

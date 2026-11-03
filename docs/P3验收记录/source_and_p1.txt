@@ -1,5 +1,0 @@
-PASS 01_qq_wechat_independent_login
-PASS 02_wechat_first_return_and_bind
-PASS 03_rejections_and_current_session_binding
-PASS 04_restart_is_empty
-PASS source structure: 23 independent classes, 7 enum classes, LJY suffixes, explicit CMake sources.

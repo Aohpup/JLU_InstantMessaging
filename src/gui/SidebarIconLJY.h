@@ -12,7 +12,7 @@ inline QIcon sidebarIconLJY(int kind)
         QPixmap image(size, size); image.fill(Qt::transparent);
         QPainter painter(&image); painter.setRenderHint(QPainter::Antialiasing);
         painter.scale(size / 32.0, size / 32.0);
-        const QColor dark("#155b47"), accent("#36a784");
+        const QColor dark("#254E87"), accent("#3675D3");
         painter.setPen(Qt::NoPen); painter.setBrush(dark);
         if (kind == 0) {
             QPainterPath bubble;

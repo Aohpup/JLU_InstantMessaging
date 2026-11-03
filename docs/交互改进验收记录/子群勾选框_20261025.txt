@@ -1,9 +1,0 @@
-Test project D:/C_code/Cpp_test/JLU_InstantMessaging/build/gui-debug
-    Start 24: p4_subgroups_gui
-1/2 Test #24: p4_subgroups_gui .................   Passed    2.40 sec
-    Start 25: p4_subgroups_reload
-2/2 Test #25: p4_subgroups_reload ..............   Passed    0.93 sec
-
-100% tests passed, 0 tests failed out of 2
-
-Total Test time (real) =   3.34 sec

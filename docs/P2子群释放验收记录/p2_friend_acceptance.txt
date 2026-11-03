@@ -1,1 +1,0 @@
-PASS actual friend menu: registration, confirmation/cancel, bilateral visibility, independent remarks, profile query, reverse re-add, bilateral deletion and remark cleanup.

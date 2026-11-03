@@ -76,8 +76,8 @@ inline void styleUnreadBannerLJY(QPushButton* button)
     button->setFixedHeight(32);
     button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     button->setCursor(Qt::PointingHandCursor);
-    button->setStyleSheet("QPushButton { background:#e4f0eb; color:#245e4d; border:1px solid #c9dfd4; border-radius:6px; padding:3px 8px; }"
-        "QPushButton:hover { background:#d5e9de; }");
+    button->setStyleSheet("QPushButton { background:#E4E9F0; color:#243B5E; border:1px solid #C9D2DF; border-radius:6px; padding:3px 8px; }"
+        "QPushButton:hover { background:#D5DDE9; }");
     button->hide();
 }
 // 把第一条未读的气泡顶部放入视野；长消息也从开头读起。

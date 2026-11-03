@@ -13,7 +13,23 @@
 *.connection.ini
 *.unread.ini
 
-# 文档渲染中间件与编辑器临时文件，正文和引用的关系图仍提交。
-/docs/**/render*/
+# 编辑器临时文件与 Python 缓存。
 **/__pycache__/
 ~$*
+
+# 项目文档仅保留 README；本地文档不删除。
+/docs/
+*.md
+!README.md
+*.doc
+*.docx
+*.pdf
+*.ppt
+*.pptx
+*.xls
+*.xlsx
+*.rtf
+*.odt
+
+# 发布包附带的第三方法律声明必须保留。
+!/dist/JLU_InstantMessaging/licenses/SQLite.md

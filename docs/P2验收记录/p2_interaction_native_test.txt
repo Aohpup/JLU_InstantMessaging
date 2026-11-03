@@ -1,3 +1,0 @@
-PASS native console: invalid group, early self/admin rejection, member listing, cancel demotion, Ctrl+C, pause/return, subgroup creation and mode restoration.
-
-

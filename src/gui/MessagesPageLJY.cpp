@@ -231,7 +231,7 @@ void MessagesPageLJY::refresh()
             // 直接绘制三个圆点，避免字体缺少省略号字形时显示方框。
             QPixmap dots(36, 36); dots.setDevicePixelRatio(2); dots.fill(Qt::transparent);
             QPainter painter(&dots); painter.setRenderHint(QPainter::Antialiasing);
-            painter.setPen(Qt::NoPen); painter.setBrush(QColor("#537565"));
+            painter.setPen(Qt::NoPen); painter.setBrush(QColor("#536175"));
             for (int x : {4, 9, 14}) painter.drawEllipse(QPointF(x, 9), 1.5, 1.5);
             painter.end(); more->setIcon(QIcon(dots)); more->setIconSize(QSize(18, 18)); more->setFixedSize(26, 30);
             more->setProperty("account", number); more->setCursor(Qt::PointingHandCursor);
@@ -567,7 +567,7 @@ void MessagesPageLJY::updateDeliveryLabel(QLabel* label, const ChatMessageLJY& m
     const bool outgoing = message.senderAccount == owner_;
     label->setText(time + (outgoing ? " · " + QString::fromUtf8(chatDeliveryTextLJY(message.delivery)) : " · 对方"));
     const bool failed = outgoing && (message.delivery == ChatDeliveryLJY::Failed || message.delivery == ChatDeliveryLJY::Unknown);
-    label->setStyleSheet(failed ? "color: #b42318; background: transparent;" : "color: #6a8279; background: transparent;");
+    label->setStyleSheet(failed ? "color: #b42318; background: transparent;" : "color: #6A7482; background: transparent;");
     label->setProperty("deliveryState", static_cast<int>(message.delivery));
 }
 

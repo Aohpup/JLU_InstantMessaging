@@ -1,9 +1,0 @@
-{
-  "build_dist_zip_identical": true,
-  "exe_sha256": "c7563e1f7d0327edcd503b21f25dfe3e8bb9ed97f243125c2907aa4c2f6abb80",
-  "formal_database_unchanged": true,
-  "tests_passed": [
-    "p5_group_state",
-    "p5_history_gui"
-  ]
-}

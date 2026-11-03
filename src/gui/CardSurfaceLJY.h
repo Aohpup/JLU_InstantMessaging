@@ -9,6 +9,6 @@ inline void applyCardSurfaceLJY(QWidget* card)
     auto* shadow = new QGraphicsDropShadowEffect(card);
     shadow->setBlurRadius(24);
     shadow->setOffset(0, 4);
-    shadow->setColor(QColor(28, 65, 48, 24));
+    shadow->setColor(QColor(38, 54, 74, 24));
     card->setGraphicsEffect(shadow);
 }

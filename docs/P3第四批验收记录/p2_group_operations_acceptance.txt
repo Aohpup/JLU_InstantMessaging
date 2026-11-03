@@ -1,1 +1,0 @@
-PASS actual QQ/WX group operations: approvals, invite invalidation, rejection/reinvite, role restrictions, admin changes, transfer, leave and cancellation.

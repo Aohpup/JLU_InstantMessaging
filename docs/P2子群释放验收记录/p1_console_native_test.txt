@@ -1,3 +1,0 @@
-PASS native actual executable: Ctrl+C at menu, name, birthday, password, repeat, login password, pause; Chinese input; normal logout/exit; no secret echo.
-
-

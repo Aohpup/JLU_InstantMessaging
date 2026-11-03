@@ -17,8 +17,8 @@ protected:
         const double edge = outgoing_ ? body.right() : body.left();
         QPainterPath tail; tail.moveTo(edge, 12);
         tail.lineTo(edge + (outgoing_ ? 7 : -7), 18); tail.lineTo(edge, 24); tail.closeSubpath();
-        painter.setPen(QColor(outgoing_ ? "#bfdcca" : "#dce7df"));
-        painter.setBrush(QColor(outgoing_ ? "#d8eee2" : "#ffffff"));
+        painter.setPen(QColor(outgoing_ ? "#BFCBDC" : "#DCE0E7"));
+        painter.setBrush(QColor(outgoing_ ? "#DFEBFC" : "#FCFDFF"));
         painter.drawPath(rounded.united(tail));
     }
 private:

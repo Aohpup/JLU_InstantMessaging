@@ -22,13 +22,13 @@ int main(int argc, char* argv[])
     app.setFont(font);
     // 固定浅色系统调色板，避免系统深色模式与本阶段浅色样式混用。
     QPalette palette;
-    palette.setColor(QPalette::Window, QColor("#f5f8f8"));
-    palette.setColor(QPalette::WindowText, QColor("#233c42"));
+    palette.setColor(QPalette::Window, QColor("#F2F6FC"));
+    palette.setColor(QPalette::WindowText, QColor("#26364A"));
     palette.setColor(QPalette::Base, Qt::white);
-    palette.setColor(QPalette::Text, QColor("#233c42"));
+    palette.setColor(QPalette::Text, QColor("#26364A"));
     palette.setColor(QPalette::Button, Qt::white);
-    palette.setColor(QPalette::ButtonText, QColor("#233c42"));
-    palette.setColor(QPalette::Highlight, QColor("#247d6b"));
+    palette.setColor(QPalette::ButtonText, QColor("#26364A"));
+    palette.setColor(QPalette::Highlight, QColor("#3675D3"));
     palette.setColor(QPalette::HighlightedText, Qt::white);
     app.setPalette(palette);
     try

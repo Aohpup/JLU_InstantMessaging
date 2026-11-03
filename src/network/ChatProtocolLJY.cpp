@@ -59,6 +59,12 @@ std::string ChatProtocolLJY::encode(const ChatFrameLJY& frame)
     if (length > maxFrame) throw std::invalid_argument("消息帧过长。");
     std::string output;
     for (int shift : {24, 16, 8, 0}) output.push_back(static_cast<char>((length >> shift) & 255));
+    /*
+        output.push_back(static_cast<char>((length >> 24) & 255)); // 第1字节
+        output.push_back(static_cast<char>((length >> 16) & 255)); // 第2字节
+        output.push_back(static_cast<char>((length >>  8) & 255)); // 第3字节
+        output.push_back(static_cast<char>( length        & 255)); // 第4字节
+    */
     return output + payload;
 }
 

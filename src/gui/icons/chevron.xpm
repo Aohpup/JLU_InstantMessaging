@@ -2,7 +2,7 @@
 static const char *chevron[] = {
 "9 5 2 1",
 ". c None",
-"x c #526F70",
+"x c #525E70",
 "xxxxxxxxx",
 ".xxxxxxx.",
 "..xxxxx..",

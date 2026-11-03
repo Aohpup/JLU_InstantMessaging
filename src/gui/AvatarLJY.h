@@ -4,12 +4,12 @@
 // 六组预设色供头像和选择器共用；人员对象保存索引，不允许自定义颜色。
 inline const char* avatarBackgroundLJY(int color)
 {
-    const char* values[] = {"#d2e8d9", "#dce8f5", "#f4dfda", "#e7def2", "#f4e8c9", "#d4e9e9"};
+    const char* values[] = {"#dce8f5", "#d2e8d9", "#f4dfda", "#e7def2", "#f4e8c9", "#d4e9e9"};
     return values[color];
 }
 inline const char* avatarForegroundLJY(int color)
 {
-    const char* values[] = {"#226247", "#355d86", "#934c45", "#69518a", "#80642b", "#336e70"};
+    const char* values[] = {"#355d86", "#226247", "#934c45", "#69518a", "#80642b", "#336e70"};
     return values[color];
 }
 // 默认按人员编号循环；传入已保存或预览的索引时使用所选颜色。
